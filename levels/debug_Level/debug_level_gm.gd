@@ -1,7 +1,9 @@
 extends Node2D
 
 
-
+func _process(delta):
+	if Input.is_action_just_pressed("cast_action"):
+		print("LMAO")
 
 func _on_area_2d_body_entered(body):
 	$StaticBody2D.set_collision_layer_value(1, false)

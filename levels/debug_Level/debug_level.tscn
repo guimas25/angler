@@ -70,15 +70,28 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_3qxng")
 
-[node name="Area2D2" type="Area2D" parent="."]
+[node name="Trampolin" type="Area2D" parent="."]
 position = Vector2(-128, 240)
 scale = Vector2(2.566, 2.566)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trampolin"]
 shape = SubResource("RectangleShape2D_3qxng")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D2"]
+[node name="Sprite2D" type="Sprite2D" parent="Trampolin"]
+position = Vector2(1.52588e-05, 0)
+scale = Vector2(0.207716, 0.207716)
+texture = ExtResource("1_tv8gr")
+
+[node name="Trampolin2" type="Area2D" parent="."]
+position = Vector2(-128, 440)
+scale = Vector2(2.566, 2.566)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trampolin2"]
+shape = SubResource("RectangleShape2D_3qxng")
+
+[node name="Sprite2D" type="Sprite2D" parent="Trampolin2"]
 position = Vector2(1.52588e-05, 0)
 scale = Vector2(0.207716, 0.207716)
 texture = ExtResource("1_tv8gr")
@@ -93,6 +106,7 @@ shape = SubResource("RectangleShape2D_s4yrr")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_entered" from="Trampolin" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_entered" from="Trampolin2" to="." method="_on_area_2d_2_body_entered"]
 [connection signal="body_entered" from="Area2D3" to="." method="_on_area_2d_3_area_entered"]
 [connection signal="body_exited" from="Area2D3" to="." method="_on_area_2d_3_area_exited"]
