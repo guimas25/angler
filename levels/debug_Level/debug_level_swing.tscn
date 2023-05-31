@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://ctxd1mafispxx"]
+
+[node name="debug_level_swing" type="Node2D"]
