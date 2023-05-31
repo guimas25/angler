@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 @export var SPEED = 350.0
+@export var SPEED_WATER = 150.0
 @export var JUMP_VELOCITY = -800.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -12,7 +13,35 @@ var jump_time = 0.0
 
 var O2_timer = 10.0
 
+var hp = 5 
+
+@export var on_water = false
+
 func _physics_process(delta):
+	if not on_water:
+		_on_land(delta)
+	else:
+		_on_water(delta)
+	
+func _on_water(delta):
+	var direction_h = Input.get_axis("ui_left", "ui_right")
+	var direction_v = Input.get_axis("ui_up", "ui_down")
+	
+	if direction_h == 1:
+		$Sprite2D.flip_h = false
+	elif direction_h == -1:
+		$Sprite2D.flip_h = true
+	
+	if not is_on_floor() and direction_v == 0:
+		velocity.y = gravity/2 * delta
+		direction_v = velocity.y
+	
+	velocity.x = move_toward(velocity.x, direction_h * SPEED, 30)
+	velocity.y = move_toward(velocity.y, direction_v * SPEED, 30)
+	
+	move_and_slide()
+	
+func _on_land(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		coyote_time = coyote_time - delta
@@ -45,7 +74,6 @@ func _physics_process(delta):
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
-		#$SpriteSTUPID/AnimationPlayer.play("walk")
 	else:
 		velocity.x = move_toward(velocity.x, 0, 50)
 	move_and_slide()
