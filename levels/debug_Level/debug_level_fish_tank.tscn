@@ -1,3 +1,47 @@
-[gd_scene format=3 uid="uid://ccvclcub4437k"]
+[gd_scene load_steps=4 format=3 uid="uid://ccvclcub4437k"]
+
+[ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="1_vypdt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tofs0"]
+size = Vector2(29, 658)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngs7l"]
+size = Vector2(1184, 10)
 
 [node name="debug_level_fish_tank" type="Node2D"]
+
+[node name="fish_entity" parent="." instance=ExtResource("1_vypdt")]
+position = Vector2(576, 312)
+
+[node name="fish_entity2" parent="." instance=ExtResource("1_vypdt")]
+position = Vector2(968, 472)
+
+[node name="fish_entity3" parent="." instance=ExtResource("1_vypdt")]
+position = Vector2(248, 88)
+
+[node name="fish_entity4" parent="." instance=ExtResource("1_vypdt")]
+position = Vector2(944, 112)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-5, 319)
+shape = SubResource("RectangleShape2D_tofs0")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(1152, 328)
+shape = SubResource("RectangleShape2D_tofs0")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(576, -5)
+shape = SubResource("RectangleShape2D_ngs7l")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(576, 648)
+shape = SubResource("RectangleShape2D_ngs7l")
