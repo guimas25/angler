@@ -1,3 +1,28 @@
-[gd_scene format=3 uid="uid://cc7cirpqmwa7b"]
+[gd_scene load_steps=4 format=3 uid="uid://cc7cirpqmwa7b"]
+
+[ext_resource type="Script" path="res://presets/fish/fish_entity.gd" id="1_2jg2f"]
+[ext_resource type="Texture2D" uid="uid://13x8oduqtonp" path="res://assets/sprites/fish/pixelfish-red_bellied_piranha.png" id="1_vm3im"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5h2db"]
+size = Vector2(64, 42.6372)
 
 [node name="fish_entity" type="CharacterBody2D"]
+scale = Vector2(1.717, 1.717)
+script = ExtResource("1_2jg2f")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.68142)
+shape = SubResource("RectangleShape2D_5h2db")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(-1.90735e-06, 3)
+scale = Vector2(1.28, 1.16667)
+texture = ExtResource("1_vm3im")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.009
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
