@@ -61,6 +61,7 @@ texture = ExtResource("1_tv8gr")
 [node name="Player" parent="." instance=ExtResource("2_k6hc3")]
 position = Vector2(24, 0)
 scale = Vector2(0.2, 0.2)
+on_water = true
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(240, 88)
