@@ -111,8 +111,8 @@ shape = SubResource("RectangleShape2D_s4yrr")
 layer_0/tile_data = PackedInt32Array(3, 0, 0)
 
 [node name="water_body" parent="." instance=ExtResource("5_g85jh")]
-position = Vector2(-125, 93)
-scale = Vector2(6.112, 6.112)
+position = Vector2(-261, -79)
+scale = Vector2(15.006, 15.006)
 
 [node name="fish_entity" parent="." instance=ExtResource("6_aklfs")]
 position = Vector2(-116, 82)
