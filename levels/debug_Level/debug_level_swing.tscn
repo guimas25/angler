@@ -1,3 +1,65 @@
-[gd_scene format=3 uid="uid://ctxd1mafispxx"]
+[gd_scene load_steps=8 format=3 uid="uid://ctxd1mafispxx"]
+
+[ext_resource type="Script" path="res://levels/debug_Level/debug_level_swing.gd" id="1_5nr2g"]
+[ext_resource type="Texture2D" uid="uid://bbmal8qxa2416" path="res://assets/sprites/rock.png" id="1_mkcer"]
+[ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_e0l63"]
+[ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="4_gr7u7"]
+[ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="5_s1qwe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgmg4"]
+size = Vector2(31.8, 31.9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g56eq"]
+size = Vector2(881, 3)
 
 [node name="debug_level_swing" type="Node2D"]
+script = ExtResource("1_5nr2g")
+
+[node name="Player" parent="." instance=ExtResource("2_e0l63")]
+position = Vector2(40, -40)
+scale = Vector2(0.25, 0.25)
+
+[node name="hook" parent="." instance=ExtResource("4_gr7u7")]
+position = Vector2(63, -27)
+rotation = 0.785398
+scale = Vector2(1.75, 1.75)
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(550, -160)
+scale = Vector2(10, 10)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+position = Vector2(0, -0.0500021)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_pgmg4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform"]
+texture = ExtResource("1_mkcer")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(160, 32)
+scale = Vector2(50, 2)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_pgmg4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+texture = ExtResource("1_mkcer")
+
+[node name="Stop" type="Area2D" parent="."]
+position = Vector2(561, -473)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stop"]
+position = Vector2(15.5, -33.5)
+shape = SubResource("RectangleShape2D_g56eq")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="TileMap" parent="." instance=ExtResource("5_s1qwe")]
+layer_0/tile_data = PackedInt32Array(-327679, 0, 0, -327678, 0, 0, -327677, 0, 0, -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 0, 0)
+
+[connection signal="body_entered" from="Stop" to="." method="_on_stop_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
