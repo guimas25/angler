@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbv174nktptcn"]
+[gd_scene load_steps=9 format=3 uid="uid://bbv174nktptcn"]
 
 [ext_resource type="Script" path="res://levels/debug_Level/debug_level_gm.gd" id="1_nv7r1"]
 [ext_resource type="Texture2D" uid="uid://b1xe50r2jy3n2" path="res://icon.svg" id="1_tv8gr"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_k6hc3"]
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="4_fcokr"]
+[ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="5_g85jh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_utmvj"]
 size = Vector2(288, 32)
@@ -106,6 +107,11 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_s4yrr")
 
 [node name="TileMap" parent="." instance=ExtResource("4_fcokr")]
+layer_0/tile_data = PackedInt32Array(3, 0, 0)
+
+[node name="water_body" parent="." instance=ExtResource("5_g85jh")]
+position = Vector2(-125, 93)
+scale = Vector2(6.112, 6.112)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,3 +1,23 @@
-[gd_scene format=3 uid="uid://cpgtb75vj1p6m"]
+[gd_scene load_steps=3 format=3 uid="uid://cpgtb75vj1p6m"]
+
+[ext_resource type="Script" path="res://presets/water body/water_body.gd" id="1_fsa3i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ww072"]
+size = Vector2(32, 32)
 
 [node name="water_body" type="Area2D"]
+script = ExtResource("1_fsa3i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ww072")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.372549)
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.352941, 0.427451, 0.87451, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

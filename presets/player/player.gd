@@ -86,6 +86,15 @@ func _on_land(delta):
 		velocity.x = move_toward(velocity.x, 0, 50)
 	move_and_slide()
 
+func get_on_water():
+	on_water = true
+	if velocity.y > 0:
+		velocity.y = 400.0
+
+func get_off_water():
+	on_water = false
+	if Input.is_action_pressed("ui_up"):
+		velocity.y = -800.0
 
 func _on_timer_attack_timeout():
 	$hitbox.visible = false
