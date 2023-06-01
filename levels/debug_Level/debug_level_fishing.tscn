@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://n4cwa68qb1l5"]
+[gd_scene load_steps=8 format=3 uid="uid://n4cwa68qb1l5"]
 
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="1_8ei46"]
+[ext_resource type="Script" path="res://levels/debug_Level/debug_level_fishing.gd" id="1_d0p8u"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_8smxj"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="3_0gil6"]
+[ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="3_2joen"]
 [ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="3_wm23k"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwogq"]
+size = Vector2(742, 20)
+
 [node name="debug_level_fishing" type="Node2D"]
+script = ExtResource("1_d0p8u")
 
 [node name="TileMap" parent="." instance=ExtResource("1_8ei46")]
 layer_0/tile_data = PackedInt32Array(65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 262143, 0, 0, 327679, 0, 0, 393215, 0, 0, 196608, 0, 0, 196609, 0, 0, 131074, 0, 0, 131073, 0, 0, 131072, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 327681, 0, 0, 327680, 0, 0, 262144, 0, 0, 262145, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 262153, 0, 0, 196617, 0, 0, 131081, 0, 0, 65545, 0, 0, 9, 0, 0, -65527, 0, 0, -65528, 0, 0, -65529, 0, 0, -65530, 0, 0, -65531, 0, 0, -65532, 0, 0, -65533, 0, 0, -65534, 0, 0, -65535, 0, 0, -65536, 0, 0, -1, 0, 0)
@@ -13,6 +19,20 @@ layer_0/tile_data = PackedInt32Array(65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 26
 [node name="Player" parent="." instance=ExtResource("2_8smxj")]
 position = Vector2(124, 209)
 scale = Vector2(0.2, 0.2)
+
+[node name="hook" parent="." instance=ExtResource("3_2joen")]
+position = Vector2(155, 212)
+scale = Vector2(2.0166, 2.0166)
+
+[node name="Area2D" type="Area2D" parent="hook"]
+position = Vector2(0.991768, -0.495888)
+scale = Vector2(0.017, 0.406)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hook/Area2D"]
+position = Vector2(28, 0)
+shape = SubResource("RectangleShape2D_kwogq")
 
 [node name="fish_entity" parent="." instance=ExtResource("3_wm23k")]
 position = Vector2(577, 395)
@@ -45,3 +65,5 @@ scale = Vector2(1.156, 1.156)
 [node name="water_body" parent="." instance=ExtResource("3_0gil6")]
 position = Vector2(767, 455)
 scale = Vector2(23.43, 10.849)
+
+[connection signal="body_entered" from="hook/Area2D" to="." method="_on_area_2d_body_entered"]

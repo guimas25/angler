@@ -16,3 +16,4 @@ func hook_up():
 	
 func hooked():
 	velocity.y = 0
+	velocity.x = 0
