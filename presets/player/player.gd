@@ -22,6 +22,11 @@ func _physics_process(delta):
 		_on_land(delta)
 	else:
 		_on_water(delta)
+	if Input.is_action_just_pressed("cast_action") and not $hitbox.visible:
+		$hitbox.visible = true
+		$hitbox.set_collision_mask_value(2, true)
+		$Timers/Timer_attack.start()
+	
 	
 func _on_water(delta):
 	var direction_h = Input.get_axis("ui_left", "ui_right")
@@ -66,14 +71,26 @@ func _on_land(delta):
 	var direction = 0
 	direction = Input.get_axis("ui_left", "ui_right")
 	
-	
 	if direction == 1:
 		$Sprite2D.flip_h = false
+		$hitbox.position.x = 176
+		$hitbox/AnimatedSprite2D.flip_h = false
 	elif direction == -1:
 		$Sprite2D.flip_h = true
+		$hitbox.position.x = -176
+		$hitbox/AnimatedSprite2D.flip_h = true
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
 	else:
 		velocity.x = move_toward(velocity.x, 0, 50)
 	move_and_slide()
+
+
+func _on_timer_attack_timeout():
+	$hitbox.visible = false
+	$hitbox.set_collision_mask_value(2, false)
+
+
+func _on_hitbox_body_entered(body):
+	body.get_hurt()
