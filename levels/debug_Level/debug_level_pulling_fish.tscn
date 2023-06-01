@@ -1,3 +1,59 @@
-[gd_scene format=3 uid="uid://bluoptjg33yky"]
+[gd_scene load_steps=6 format=3 uid="uid://bluoptjg33yky"]
+
+[ext_resource type="Texture2D" uid="uid://0vuntuip28y4" path="res://assets/sprites/pullingfish.png" id="1_2imq1"]
+[ext_resource type="Script" path="res://levels/debug_Level/PullFishPrototype.gd" id="1_q7vbt"]
+[ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="2_1jpjj"]
+[ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="4_tky3h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx10s"]
+size = Vector2(96, 37)
 
 [node name="debug_level_pulling_fish" type="Node2D"]
+
+[node name="PullFishPrototype" type="CharacterBody2D" parent="."]
+position = Vector2(688, 344)
+script = ExtResource("1_q7vbt")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PullFishPrototype"]
+texture_filter = 1
+scale = Vector2(2.073, 2.073)
+texture = ExtResource("1_2imq1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PullFishPrototype"]
+position = Vector2(-2, 2.5)
+scale = Vector2(2.073, 2.073)
+shape = SubResource("RectangleShape2D_cx10s")
+
+[node name="Camera2D" type="Camera2D" parent="PullFishPrototype"]
+zoom = Vector2(0.634, 0.634)
+
+[node name="TileMap" parent="." instance=ExtResource("2_1jpjj")]
+layer_0/tile_data = PackedInt32Array(720891, 0, 0, 720892, 0, 0, 720893, 0, 0, 720894, 0, 0, 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 524299, 0, 0, 524300, 0, 0, 458764, 0, 0, 458765, 0, 0, 393229, 0, 0, 327693, 0, 0, 327694, 0, 0, -196594, 0, 0, -196595, 0, 0, -262131, 0, 0, -327667, 0, 0, -327668, 0, 0, -393204, 0, 0, -393205, 0, 0, -458742, 0, 0, -458743, 0, 0, 720890, 0, 0, -65538, 0, 0, 262158, 0, 0, 196622, 0, 0, 131086, 0, 0, 65550, 0, 0, 14, 0, 0, -65522, 0, 0, -131058, 0, 0, -524279, 0, 0, -589816, 0, 0, -655353, 0, 0, -720889, 0, 0, -786425, 0, 0, -786426, 0, 0, -851962, 0, 0, -917499, 0, 0, -917500, 0, 0, -983036, 0, 0, -983037, 0, 0, -1507341, 0, 0, -1572878, 0, 0, -1638414, 0, 0, -1638415, 0, 0, -1703951, 0, 0, -1703952, 0, 0, -1769488, 0, 0, -1769489, 0, 0, -1769490, 0, 0, -1835026, 0, 0, -1835027, 0, 0, -1835028, 0, 0, -1900564, 0, 0, -1900565, 0, 0, -1900566, 0, 0, -1900567, 0, 0, -1900568, 0, 0, -1900569, 0, 0, -1900570, 0, 0, -1900571, 0, 0, -1835035, 0, 0, -1835036, 0, 0, -1769501, 0, 0, -1703966, 0, 0, -1638430, 0, 0, -1638431, 0, 0, -1572895, 0, 0, -1507359, 0, 0, -1441823, 0, 0, -1376287, 0, 0, -1310750, 0, 0, -1245214, 0, 0, -1179678, 0, 0, -1179677, 0, 0, -1114141, 0, 0, -1114140, 0, 0, -1048604, 0, 0, -983067, 0, 0, -917531, 0, 0, -917530, 0, 0, -851994, 0, 0, -851993, 0, 0, -786457, 0, 0, -720921, 0, 0, -655385, 0, 0, -589849, 0, 0, -524313, 0, 0, -458777, 0, 0, -393240, 0, 0, -327704, 0, 0, -262168, 0, 0, -196632, 0, 0, -131096, 0, 0, -65560, 0, 0, -65561, 0, 0, -25, 0, 0, 65511, 0, 0, 131046, 0, 0, 196582, 0, 0, 196581, 0, 0, 262117, 0, 0, 327652, 0, 0, 393188, 0, 0, 458723, 0, 0, 524259, 0, 0, 589795, 0, 0, 655331, 0, 0, 720867, 0, 0, 720868, 0, 0, 786404, 0, 0, 786405, 0, 0, 786406, 0, 0, 786407, 0, 0, 786408, 0, 0, 786409, 0, 0, 786410, 0, 0, 786411, 0, 0, 786412, 0, 0, 720877, 0, 0, 655342, 0, 0, 655343, 0, 0, 589808, 0, 0, -131074, 0, 0, -131075, 0, 0, -196611, 0, 0, -262148, 0, 0, -262149, 0, 0, -327685, 0, 0, -393222, 0, 0, -458758, 0, 0, -458759, 0, 0, -524295, 0, 0, -524296, 0, 0, -589832, 0, 0, -589833, 0, 0, -655370, 0, 0, -655371, 0, 0, -655372, 0, 0, -720909, 0, 0, -786445, 0, 0, -786446, 0, 0, -851982, 0, 0, -851983, 0, 0, -917519, 0, 0, -917520, 0, 0, -917521, 0, 0, -851985, 0, 0, -786449, 0, 0, -720912, 0, 0, -655376, 0, 0, -655375, 0, 0, -589839, 0, 0, -524303, 0, 0, -458767, 0, 0, -393230, 0, 0, -327694, 0, 0, -327693, 0, 0, -262157, 0, 0, -262156, 0, 0, -196620, 0, 0, -131084, 0, 0, -65548, 0, 0, -11, 0, 0, 65525, 0, 0, 65526, 0, 0, 131063, 0, 0, 131064, 0, 0, 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 131070, 0, 0, 131071, 0, 0, 65535, 0, 0, -1, 0, 0, -2, 0, 0, -1048574, 0, 0, -1114111, 0, 0, -1179648, 0, 0, -1114113, 0, 0, -1179650, 0, 0, -1179651, 0, 0, -1245188, 0, 0, -1245189, 0, 0, -1310726, 0, 0, -1310727, 0, 0, -1310728, 0, 0, -1376264, 0, 0, -1376265, 0, 0, -1376266, 0, 0, -1441803, 0, 0, -1441804, 0, 0, -1572877, 0, 0, -1507340, 0, 0, 720889, 0, 0, 720888, 0, 0, 655351, 0, 0, 655350, 0, 0, 655349, 0, 0, 655348, 0, 0, 655347, 0, 0, 655346, 0, 0, 655345, 0, 0, 720887, 0, 0, 655367, 0, 0, -393241, 0, 0, -1310751, 0, 0, -720908, 0, 0, -655369, 0, 0, -327686, 0, 0, 65534, 0, 0, -65547, 0, 0, -393231, 0, 0, -720913, 0, 0, 131062, 0, 0)
+
+[node name="fish_entity" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(-2632, -2928)
+
+[node name="fish_entity2" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(-2840, -2264)
+
+[node name="fish_entity3" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(-2552, -1048)
+
+[node name="fish_entity4" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(-2984, 968)
+
+[node name="fish_entity5" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(-2344, -120)
+
+[node name="fish_entity6" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(-2440, 496)
+
+[node name="fish_entity7" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(-672, 944)
+
+[node name="fish_entity8" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(-704, -1784)
+
+[node name="fish_entity9" parent="." instance=ExtResource("4_tky3h")]
+position = Vector2(72, -1168)
