@@ -48,3 +48,7 @@ func _on_area_2d_2_right_body_exited(body):
 	print("body exited")
 	PUSHED = false
 	velocity.x = 0
+
+
+func _on_button_button_down():
+	get_tree().change_scene_to_file("res://levels/debug_Level/startmenu.tscn")

@@ -57,3 +57,15 @@ position = Vector2(-704, -1784)
 
 [node name="fish_entity9" parent="." instance=ExtResource("4_tky3h")]
 position = Vector2(72, -1168)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 892.0
+offset_top = 514.0
+offset_right = 900.0
+offset_bottom = 522.0
+scale = Vector2(2.54959, 2.95235)
+text = "next Proto"
+
+[connection signal="button_down" from="CanvasLayer/Button" to="PullFishPrototype" method="_on_button_button_down"]

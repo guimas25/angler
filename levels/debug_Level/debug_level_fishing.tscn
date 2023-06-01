@@ -123,7 +123,18 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 892.0
+offset_top = 514.0
+offset_right = 900.0
+offset_bottom = 522.0
+scale = Vector2(2.54959, 2.95235)
+text = "next Proto"
+
 [connection signal="body_entered" from="hook/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="hook/Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_button_button_down"]

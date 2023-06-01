@@ -27,3 +27,7 @@ func _physics_process(delta):
 	
 	velocity = velocity.normalized() * SPEED
 	move_and_slide()
+
+
+func _on_button_button_down():
+	get_tree().change_scene_to_file("res://levels/debug_Level/debug_level_swing.tscn")

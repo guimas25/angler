@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb6qyucp170ob"]
+
+[ext_resource type="Script" path="res://levels/debug_Level/startmenu.gd" id="1_u41mo"]
+[ext_resource type="Texture2D" uid="uid://q1uxja0o8wln" path="res://assets/UI/logo.png" id="2_3dfvj"]
+
+[node name="startmenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u41mo")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 482.0
+offset_right = 633.0
+offset_bottom = 544.0
+text = "START"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 41.0
+offset_right = 1018.0
+offset_bottom = 474.0
+texture = ExtResource("2_3dfvj")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

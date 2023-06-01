@@ -29,3 +29,15 @@ texture = ExtResource("3_t7ep5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-15.5, 44.5)
 shape = SubResource("RectangleShape2D_4fmcp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 892.0
+offset_top = 514.0
+offset_right = 900.0
+offset_bottom = 522.0
+scale = Vector2(2.54959, 2.95235)
+text = "next Proto"
+
+[connection signal="button_down" from="CanvasLayer/Button" to="box" method="_on_button_button_down"]
