@@ -1,3 +1,17 @@
-[gd_scene format=3 uid="uid://cl0jml8e1fk21"]
+[gd_scene load_steps=3 format=3 uid="uid://cl0jml8e1fk21"]
+
+[ext_resource type="Texture2D" uid="uid://mdan4nnm5muo" path="res://assets/sprites/hook.png" id="1_f38m5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2y7b3"]
+size = Vector2(3, 3)
 
 [node name="hook" type="CharacterBody2D"]
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_f38m5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.5, -0.5)
+shape = SubResource("RectangleShape2D_2y7b3")
