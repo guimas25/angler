@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://dgtyk7xuyr4df"]
+[gd_scene load_steps=5 format=3 uid="uid://dgtyk7xuyr4df"]
+
+[ext_resource type="Texture2D" uid="uid://bbmal8qxa2416" path="res://assets/sprites/rock.png" id="1_svvrf"]
+[ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_gunr8"]
+[ext_resource type="PackedScene" uid="uid://cf0smkdnkwg0m" path="res://presets/enemy/enemy.tscn" id="3_rm7js"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ir44"]
+size = Vector2(32, 32)
 
 [node name="debug_level_fight" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(160, 32)
+scale = Vector2(50, 2)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_5ir44")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+texture = ExtResource("1_svvrf")
+
+[node name="Player" parent="." instance=ExtResource("2_gunr8")]
+position = Vector2(40, -40)
+scale = Vector2(0.25, 0.25)
+
+[node name="enemy" parent="." instance=ExtResource("3_rm7js")]
+position = Vector2(577, -27)
+scale = Vector2(4, 4)
