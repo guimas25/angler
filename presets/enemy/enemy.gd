@@ -6,10 +6,15 @@ const JUMP_VELOCITY = -400.0
 
 var random_direction = 0
 
-var HP = 5
+var HP = 3
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func _process(delta):
+	$Label.text = str(HP)
+	if(HP <= 0):
+		queue_free()
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -46,4 +51,5 @@ func _on_hit_box_damage_area_entered(area):
 	pass # Replace with function body.
 
 func get_hurt():
-	HP = 0
+	HP = HP-1
+	print("OUCH!")
