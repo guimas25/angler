@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbv174nktptcn"]
+[gd_scene load_steps=8 format=3 uid="uid://bbv174nktptcn"]
 
 [ext_resource type="Script" path="res://levels/debug_Level/debug_level_gm.gd" id="1_nv7r1"]
 [ext_resource type="Texture2D" uid="uid://b1xe50r2jy3n2" path="res://icon.svg" id="1_tv8gr"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_k6hc3"]
+[ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="4_fcokr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_utmvj"]
 size = Vector2(288, 32)
@@ -103,6 +104,8 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
 shape = SubResource("RectangleShape2D_s4yrr")
+
+[node name="TileMap" parent="." instance=ExtResource("4_fcokr")]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
