@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgtyk7xuyr4df"]
+[gd_scene load_steps=6 format=3 uid="uid://dgtyk7xuyr4df"]
 
+[ext_resource type="Script" path="res://levels/debug_Level/debug_level_fight.gd" id="1_218ir"]
 [ext_resource type="Texture2D" uid="uid://bbmal8qxa2416" path="res://assets/sprites/rock.png" id="1_svvrf"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_gunr8"]
 [ext_resource type="PackedScene" uid="uid://cf0smkdnkwg0m" path="res://presets/enemy/enemy.tscn" id="3_rm7js"]
@@ -8,6 +9,7 @@
 size = Vector2(32, 32)
 
 [node name="debug_level_fight" type="Node2D"]
+script = ExtResource("1_218ir")
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(160, 32)
@@ -27,3 +29,15 @@ scale = Vector2(0.25, 0.25)
 [node name="enemy" parent="." instance=ExtResource("3_rm7js")]
 position = Vector2(577, -27)
 scale = Vector2(4, 4)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 892.0
+offset_top = 514.0
+offset_right = 900.0
+offset_bottom = 522.0
+scale = Vector2(2.54959, 2.95235)
+text = "next Proto"
+
+[connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_button_button_down"]

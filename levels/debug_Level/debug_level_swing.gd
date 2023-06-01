@@ -29,3 +29,7 @@ func _on_stop_body_entered(body):
 
 func _on_timer_timeout():
 	hooked = false
+
+
+func _on_button_button_down():
+	get_tree().change_scene_to_file("res://levels/debug_Level/debug_level_fight.tscn")

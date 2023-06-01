@@ -23,24 +23,32 @@ position = Vector2(248, 88)
 position = Vector2(944, 112)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-5, 319)
 shape = SubResource("RectangleShape2D_tofs0")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(1152, 328)
 shape = SubResource("RectangleShape2D_tofs0")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2(576, -5)
 shape = SubResource("RectangleShape2D_ngs7l")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 position = Vector2(576, 648)

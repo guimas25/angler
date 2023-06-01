@@ -83,3 +83,7 @@ func _on_area_2d_body_exited(body):
 func _on_timer_2_timeout():
 	$Player/nice.visible = false
 	$Player/nice2.visible = false
+
+
+func _on_button_button_down():
+	get_tree().change_scene_to_file("res://levels/debug_Level/debug_level_pulling_fish.tscn")
