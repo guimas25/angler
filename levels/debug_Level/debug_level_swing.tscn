@@ -31,7 +31,6 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
 position = Vector2(0, -0.0500021)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_pgmg4")
 
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]

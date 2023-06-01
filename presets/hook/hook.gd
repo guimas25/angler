@@ -16,3 +16,10 @@ func hook_up():
 	
 func hooked():
 	velocity.y = 0
+	velocity.x = 0
+	
+func get_on_water():
+	pass
+
+func get_off_water():
+	pass

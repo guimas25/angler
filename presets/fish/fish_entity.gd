@@ -27,6 +27,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 
+func IMHOOKHELP():
+	$Timer.stop()
+	velocity.x = 0
+	velocity.y = 0
+	
+func go_timer():
+	$Timer.start()
 
 func _on_timer_timeout():
 	$Timer.wait_time = randf_range(1, 4)
