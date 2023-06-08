@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var SPEED_WATER = 150.0
 @export var JUMP_VELOCITY = -800.0
 
+signal throw_signal(pos, vel)
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.6
 
@@ -81,7 +83,7 @@ func _on_land(delta):
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
 	if Input.is_action_just_pressed("hook_action"):
-		#throw_hook()
+		throw_hook(Vector2(100,-100))
 		start_fishing()
 	
 	if direction:
@@ -110,8 +112,8 @@ func _on_timer_attack_timeout():
 func start_fishing():
 	pass
 	
-func throw_hook():
-	$Hook.hook_throw()
+func throw_hook(x):
+	emit_signal("throw_signal", self.position, x)
 
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
