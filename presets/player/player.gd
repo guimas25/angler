@@ -22,15 +22,15 @@ func _physics_process(delta):
 		_on_land(delta)
 	else:
 		_on_water(delta)
-	if Input.is_action_just_pressed("cast_action") and not $hitbox.visible:
+	if Input.is_action_just_pressed("melee_action") and not $hitbox.visible:
 		$hitbox.visible = true
 		$hitbox.set_collision_mask_value(2, true)
 		$Timers/Timer_attack.start()
 	
 	
 func _on_water(delta):
-	var direction_h = Input.get_axis("ui_left", "ui_right")
-	var direction_v = Input.get_axis("ui_up", "ui_down")
+	var direction_h = Input.get_axis("move_left", "move_right")
+	var direction_v = Input.get_axis("move_up", "move_down")
 	
 	if direction_h == 1:
 		$Sprite2D.flip_h = false
@@ -56,20 +56,20 @@ func _on_land(delta):
 		
 	# Handle Jump.
 	jump_time = jump_time - delta
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("move_jump"):
 		jump_time = 0.2
 	
 	if jump_time > 0 and coyote_time > 0:
 		coyote_time = 0.0
 		velocity.y = JUMP_VELOCITY
 	
-	if Input.is_action_just_released("ui_accept") and velocity.y < 0:
+	if Input.is_action_just_released("move_jump") and velocity.y < 0:
 		velocity.y = velocity.y/2
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = 0
-	direction = Input.get_axis("ui_left", "ui_right")
+	direction = Input.get_axis("move_left", "move_right")
 	
 	if direction == 1:
 		$Sprite2D.flip_h = false
@@ -80,7 +80,7 @@ func _on_land(delta):
 		$hitbox.position.x = -176
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
-	if Input.is_action_just_pressed("cast_action"):
+	if Input.is_action_just_pressed("hook_action"):
 		throw_hook()
 	
 	if direction:
@@ -99,7 +99,7 @@ func get_on_water():
 
 func get_off_water():
 	on_water = false
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("move_up"):
 		velocity.y = -800.0
 
 func _on_timer_attack_timeout():
