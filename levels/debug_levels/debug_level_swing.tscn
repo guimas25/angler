@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ctxd1mafispxx"]
 
-[ext_resource type="Script" path="res://levels/debug_Level/debug_level_swing.gd" id="1_5nr2g"]
+[ext_resource type="Script" path="res://levels/debug_levels/debug_level_swing.gd" id="1_5nr2g"]
 [ext_resource type="Texture2D" uid="uid://bbmal8qxa2416" path="res://assets/sprites/rock.png" id="1_mkcer"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_e0l63"]
 [ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="4_gr7u7"]

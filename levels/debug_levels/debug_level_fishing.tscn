@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://n4cwa68qb1l5"]
 
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="1_8ei46"]
-[ext_resource type="Script" path="res://levels/debug_Level/debug_level_fishing.gd" id="1_d0p8u"]
+[ext_resource type="Script" path="res://levels/debug_levels/debug_level_fishing.gd" id="1_d0p8u"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_8smxj"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="3_0gil6"]
 [ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="3_2joen"]

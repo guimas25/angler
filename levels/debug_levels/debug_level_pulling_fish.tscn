@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bluoptjg33yky"]
 
 [ext_resource type="Texture2D" uid="uid://0vuntuip28y4" path="res://assets/sprites/pullingfish.png" id="1_2imq1"]
-[ext_resource type="Script" path="res://levels/debug_Level/PullFishPrototype.gd" id="1_q7vbt"]
+[ext_resource type="Script" path="res://levels/debug_levels/PullFishPrototype.gd" id="1_q7vbt"]
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="2_1jpjj"]
 [ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="4_tky3h"]
 
