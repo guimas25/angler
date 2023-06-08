@@ -122,4 +122,3 @@ func check_box_collision(vel: Vector2) -> void:
 	if box:
 		print("ola")
 		box.push(vel)
-	

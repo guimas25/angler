@@ -7,6 +7,10 @@
 
 [node name="Player" parent="." instance=ExtResource("1_i3hkr")]
 position = Vector2(16, -37)
+SPEED = null
+SPEED_WATER = null
+JUMP_VELOCITY = null
+on_water = null
 
 [node name="TileMap" parent="." instance=ExtResource("2_anym7")]
 layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 65535, 0, 0, 65534, 0, 0, 65533, 0, 0, 65532, 0, 0)
