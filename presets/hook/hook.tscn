@@ -1,21 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl0jml8e1fk21"]
+[gd_scene load_steps=5 format=3 uid="uid://cl0jml8e1fk21"]
 
-[ext_resource type="Texture2D" uid="uid://mdan4nnm5muo" path="res://assets/sprites/hook.png" id="1_f38m5"]
 [ext_resource type="Script" path="res://presets/hook/hook.gd" id="1_y1jqx"]
+[ext_resource type="Texture2D" uid="uid://bkpiqv0qx1flt" path="res://assets/sprites/player/hook.png" id="2_btgss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2y7b3"]
-size = Vector2(3, 3)
+size = Vector2(2, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8toq6"]
+size = Vector2(6, 8)
 
 [node name="hook" type="CharacterBody2D"]
-collision_layer = 9
-collision_mask = 9
 script = ExtResource("1_y1jqx")
-metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_f38m5")
+texture = ExtResource("2_btgss")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5.5, -0.5)
 shape = SubResource("RectangleShape2D_2y7b3")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8toq6")

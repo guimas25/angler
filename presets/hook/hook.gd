@@ -23,3 +23,7 @@ func get_on_water():
 
 func get_off_water():
 	pass
+
+
+# On area2d entered for water, area_entered, for fish, body_entered
+# When area_entered happen, call get_parent().start_fishing()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=8 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
 [ext_resource type="Texture2D" uid="uid://d0ymd2dt72adr" path="res://assets/sprites/player/slash.png" id="3_2wreg"]
+[ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="4_cj7ny"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
@@ -56,6 +57,9 @@ shape = SubResource("RectangleShape2D_4spii")
 [node name="Timer_attack" type="Timer" parent="Timers"]
 wait_time = 0.2
 one_shot = true
+
+[node name="hook" parent="." instance=ExtResource("4_cj7ny")]
+position = Vector2(24, 0)
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]
