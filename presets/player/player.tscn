@@ -65,8 +65,6 @@ one_shot = true
 
 [node name="Hook" parent="." instance=ExtResource("4_cj7ny")]
 position = Vector2(24, 0)
-collision_layer = 0
-collision_mask = 0
 
 [node name="fish_meter" type="ColorRect" parent="."]
 offset_left = -13.0

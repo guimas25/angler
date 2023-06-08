@@ -81,7 +81,8 @@ func _on_land(delta):
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
 	if Input.is_action_just_pressed("hook_action"):
-		throw_hook()
+		#throw_hook()
+		start_fishing()
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
