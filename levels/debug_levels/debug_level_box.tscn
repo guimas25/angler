@@ -11,6 +11,7 @@ size = Vector2(129, 9)
 
 [node name="box" parent="." instance=ExtResource("1_ouctd")]
 position = Vector2(512, 296)
+scale = Vector2(1.502, 1.502)
 
 [node name="Player" parent="." instance=ExtResource("2_a8nfl")]
 position = Vector2(104, 216)

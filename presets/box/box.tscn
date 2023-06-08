@@ -1,23 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://c08w3501ssenq"]
+[gd_scene load_steps=4 format=3 uid="uid://c08w3501ssenq"]
 
 [ext_resource type="Texture2D" uid="uid://da8evjpwhgoe1" path="res://assets/sprites/box/Sprite-0001.png" id="1_mgvc6"]
 [ext_resource type="Script" path="res://presets/box/box.gd" id="1_v72iw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg6at"]
-size = Vector2(26.37, 32.4813)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6o2x"]
-size = Vector2(3.29625, 29.6663)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxgck"]
-size = Vector2(3.29625, 29.7775)
+size = Vector2(29.6663, 29.6663)
 
 [node name="box" type="CharacterBody2D"]
 scale = Vector2(4.854, 4.854)
 script = ExtResource("1_v72iw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.240627)
+position = Vector2(5.75073e-07, 1.96472e-07)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_yg6at")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -25,20 +20,3 @@ texture_filter = 1
 position = Vector2(-0.240625, 0)
 scale = Vector2(1.01504, 1)
 texture = ExtResource("1_mgvc6")
-
-[node name="Area2DLeft" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DLeft"]
-position = Vector2(-16.4813, -8.38935e-08)
-shape = SubResource("RectangleShape2D_u6o2x")
-
-[node name="Area2D2Right" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2Right"]
-position = Vector2(16.4813, 0.0556235)
-shape = SubResource("RectangleShape2D_bxgck")
-
-[connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
-[connection signal="body_exited" from="Area2DLeft" to="." method="_on_area_2d_left_body_exited"]
-[connection signal="body_entered" from="Area2D2Right" to="." method="_on_area_2d_2_right_body_entered"]
-[connection signal="body_exited" from="Area2D2Right" to="." method="_on_area_2d_2_right_body_exited"]
