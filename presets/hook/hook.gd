@@ -10,6 +10,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
 	move_and_slide()
+	
+func hook_throw():
+	velocity.x = 100
+	velocity.y = -100
 
 func hook_up():
 	velocity.y = -500
@@ -23,7 +27,6 @@ func get_on_water():
 
 func get_off_water():
 	pass
-
 
 # On area2d entered for water, area_entered, for fish, body_entered
 # When area_entered happen, call get_parent().start_fishing()

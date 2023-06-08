@@ -63,7 +63,7 @@ shape = SubResource("RectangleShape2D_4spii")
 wait_time = 0.2
 one_shot = true
 
-[node name="hook" parent="." instance=ExtResource("4_cj7ny")]
+[node name="Hook" parent="." instance=ExtResource("4_cj7ny")]
 position = Vector2(24, 0)
 
 [node name="fish_meter" type="ColorRect" parent="."]
