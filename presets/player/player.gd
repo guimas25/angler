@@ -79,6 +79,9 @@ func _on_land(delta):
 		$Sprite2D.flip_h = true
 		$hitbox.position.x = -176
 		$hitbox/AnimatedSprite2D.flip_h = true
+		
+	if Input.is_action_just_pressed("cast_action"):
+		throw_hook()
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
