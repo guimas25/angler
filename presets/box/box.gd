@@ -6,7 +6,6 @@ const JUMP_VELOCITY = -400.0
 var PUSHED = false
 var direction = 0
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
@@ -18,8 +17,7 @@ func _physics_process(delta):
 
 func _on_button_button_down():
 	get_tree().change_scene_to_file("res://levels/debug_Level/startmenu.tscn")
-	
+
 func push(vel: Vector2) -> void:
 	velocity.x = vel.x
 	move_and_slide()
-
