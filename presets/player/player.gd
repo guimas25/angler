@@ -17,6 +17,8 @@ var O2_timer = 10.0
 
 var hp = 5 
 
+var minigame_fishing = false
+
 @export var on_water = false
 
 func _physics_process(delta):
@@ -28,6 +30,11 @@ func _physics_process(delta):
 		$hitbox.visible = true
 		$hitbox.set_collision_mask_value(2, true)
 		$Timers/Timer_attack.start()
+		
+	if minigame_fishing:
+		if $fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -2 and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x + 2:
+			print("HIT")
+		$fish_meter/pointer.move_and_slide()
 	
 	
 func _on_water(delta):
@@ -84,7 +91,8 @@ func _on_land(delta):
 		
 	if Input.is_action_just_pressed("hook_action"):
 		throw_hook(Vector2(100,-100))
-		start_fishing()
+		if not minigame_fishing:
+			start_fishing()
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
@@ -110,7 +118,17 @@ func _on_timer_attack_timeout():
 	$hitbox.set_collision_mask_value(2, false)
 
 func start_fishing():
-	pass
+	$fish_meter.visible = true
+	$fish_meter/pointer.velocity.x = 20
+	$fish_meter/pointer.position.x = 0
+	minigame_fishing = true
+	
+func stop_fishing():
+	$fish_meter.visible = false
+	$fish_meter/pointer.velocity.x = 0
+	$fish_meter/pointer.position.x = 0
+	minigame_fishing = false
+	
 	
 func throw_hook(x):
 	emit_signal("throw_signal", self.position, x)
