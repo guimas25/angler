@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=10 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
 [ext_resource type="Texture2D" uid="uid://d0ymd2dt72adr" path="res://assets/sprites/player/slash.png" id="3_2wreg"]
-[ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="4_cj7ny"]
 [ext_resource type="Texture2D" uid="uid://dtd883vsmdweu" path="res://assets/sprites/player/fish_meter.png" id="5_73gb1"]
 [ext_resource type="Texture2D" uid="uid://dwqesmkw3qpa" path="res://assets/sprites/player/fish_meter_pointer.png" id="6_k8pdq"]
 
@@ -62,11 +61,6 @@ shape = SubResource("RectangleShape2D_4spii")
 [node name="Timer_attack" type="Timer" parent="Timers"]
 wait_time = 0.2
 one_shot = true
-
-[node name="Hook" parent="." instance=ExtResource("4_cj7ny")]
-position = Vector2(24, 0)
-collision_layer = 0
-collision_mask = 0
 
 [node name="fish_meter" type="ColorRect" parent="."]
 offset_left = -13.0

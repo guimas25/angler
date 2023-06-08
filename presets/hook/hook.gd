@@ -12,9 +12,10 @@ func _physics_process(delta):
 	velocity.y += (gravity/2) * delta
 	move_and_slide()
 	
-func hook_throw():
+func hook_throw(pos, vel):
 	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-	velocity.x = 100
+	self.position = pos
+	velocity.x = 100 # change for vel value
 	velocity.y = -300
 
 func hook_up():
