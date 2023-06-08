@@ -88,6 +88,9 @@ func _on_land(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, 50)
 	move_and_slide()
+	
+	if get_slide_collision_count() > 0:
+		check_box_collision(velocity)
 
 func get_on_water():
 	on_water = true
@@ -112,3 +115,12 @@ func throw_hook():
 
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
+
+func check_box_collision(velocity: Vector2) -> void:
+	if velocity.x != 0 and velocity.y != 0:
+		return
+	var box : = get_last_slide_collision().get_collider() as Box
+	if box:
+		print("ola")
+		box.push(velocity)
+	
