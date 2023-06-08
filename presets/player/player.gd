@@ -100,6 +100,11 @@ func _on_timer_attack_timeout():
 	$hitbox.visible = false
 	$hitbox.set_collision_mask_value(2, false)
 
+func start_fishing():
+	pass
+	
+func throw_hook():
+	$hook.hook_throw()
 
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
