@@ -115,11 +115,11 @@ func throw_hook():
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
 
-func check_box_collision(velocity: Vector2) -> void:
-	if velocity.x != 0 and velocity.y != 0:
+func check_box_collision(vel: Vector2) -> void:
+	if vel.x != 0 and vel.y != 0:
 		return
 	var box : = get_last_slide_collision().get_collider() as Box
 	if box:
 		print("ola")
-		box.push(velocity)
+		box.push(vel)
 	
