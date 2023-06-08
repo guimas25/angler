@@ -32,14 +32,6 @@ func _physics_process(delta):
 		velocity.x = 100
 	else:
 		velocity.x = -100
-	
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	# var direction = 1
-	#if direction:
-	#	velocity.x = direction * SPEED
-	#else:
-	#	velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
 
