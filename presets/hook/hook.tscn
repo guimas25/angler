@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cl0jml8e1fk21"]
+[gd_scene load_steps=6 format=3 uid="uid://cl0jml8e1fk21"]
 
 [ext_resource type="Script" path="res://presets/hook/hook.gd" id="1_y1jqx"]
 [ext_resource type="Texture2D" uid="uid://bkpiqv0qx1flt" path="res://assets/sprites/player/hook.png" id="2_btgss"]
@@ -8,6 +8,9 @@ size = Vector2(2, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8toq6"]
 size = Vector2(6, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkeus"]
+radius = 100.0
 
 [node name="Hook" type="CharacterBody2D"]
 collision_layer = 0
@@ -22,8 +25,16 @@ texture = ExtResource("2_btgss")
 shape = SubResource("RectangleShape2D_2y7b3")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_8toq6")
+
+[node name="FishDetector" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishDetector"]
+shape = SubResource("CircleShape2D_bkeus")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="FishDetector" to="." method="_on_fish_detector_body_entered"]

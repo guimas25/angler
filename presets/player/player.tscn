@@ -1,9 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://cak20tkrlh6dg"]
+
+[gd_scene load_steps=12 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
 [ext_resource type="Texture2D" uid="uid://d0ymd2dt72adr" path="res://assets/sprites/player/slash.png" id="3_2wreg"]
+
 [ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="4_cj7ny"]
+
+[ext_resource type="Texture2D" uid="uid://dtd883vsmdweu" path="res://assets/sprites/player/fish_meter.png" id="5_73gb1"]
+[ext_resource type="Texture2D" uid="uid://cylbb3fsqrna5" path="res://assets/sprites/player/hit_marker.png" id="5_qp4h8"]
+[ext_resource type="Texture2D" uid="uid://dwqesmkw3qpa" path="res://assets/sprites/player/fish_meter_pointer.png" id="6_k8pdq"]
+[ext_resource type="FontFile" uid="uid://drnd7vxhi7vpk" path="res://assets/text_fonts/press-start/prstart.ttf" id="7_ev1ag"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
@@ -22,6 +29,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4spii"]
 size = Vector2(128, 208)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_syxvw"]
+size = Vector2(4, 4.01414)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_73ldj")
 
@@ -36,6 +46,7 @@ texture_filter = 1
 texture = ExtResource("2_kcb4d")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 
 [node name="hitbox" type="Area2D" parent="."]
 visible = false
@@ -45,8 +56,7 @@ collision_mask = 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="hitbox"]
 texture_filter = 1
-position = Vector2(24, 8)
-scale = Vector2(7.604, 7.604)
+position = Vector2(-144, 0)
 sprite_frames = SubResource("SpriteFrames_s8ywg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
@@ -61,5 +71,55 @@ one_shot = true
 [node name="hook" parent="." instance=ExtResource("4_cj7ny")]
 position = Vector2(24, 0)
 
+[node name="Timer_fishing" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="fish_meter" type="ColorRect" parent="."]
+visible = false
+offset_left = -13.0
+offset_top = -26.0
+offset_right = 13.0
+offset_bottom = -22.0
+scale = Vector2(1, 0.99648)
+
+[node name="fish_meter" type="Sprite2D" parent="fish_meter"]
+texture_filter = 1
+position = Vector2(13, 2.00706)
+scale = Vector2(1, 1.00353)
+texture = ExtResource("5_73gb1")
+
+[node name="fish_hit_marker" type="Sprite2D" parent="fish_meter"]
+position = Vector2(17, 2.00706)
+texture = ExtResource("5_qp4h8")
+
+[node name="pointer" type="CharacterBody2D" parent="fish_meter"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="pointer_sprite" type="Sprite2D" parent="fish_meter/pointer"]
+texture_filter = 1
+position = Vector2(2, 2.00706)
+scale = Vector2(1, 1.00353)
+texture = ExtResource("6_k8pdq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fish_meter/pointer"]
+position = Vector2(2, 2.00706)
+shape = SubResource("RectangleShape2D_syxvw")
+
+[node name="fish_label" type="Label" parent="fish_meter"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -83.0
+offset_top = -27.0954
+offset_right = 109.0
+offset_bottom = -4.09538
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "hello"
+horizontal_alignment = 1
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]
+[connection signal="timeout" from="Timers/Timer_fishing" to="." method="_on_timer_fishing_timeout"]
