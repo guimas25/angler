@@ -1,12 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://cre1ol7g0dib7"]
+[gd_scene load_steps=6 format=3 uid="uid://cre1ol7g0dib7"]
 
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="1_i3hkr"]
+[ext_resource type="Script" path="res://levels/debug_levels/debug_level_hook.gd" id="1_y5ea4"]
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="2_anym7"]
+[ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="4_iyp7t"]
+[ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="5_mb8lr"]
 
 [node name="debug_level_hook" type="Node2D"]
+script = ExtResource("1_y5ea4")
 
 [node name="Player" parent="." instance=ExtResource("1_i3hkr")]
-position = Vector2(16, -37)
+position = Vector2(-345, -36)
+
+[node name="water_body" parent="." instance=ExtResource("4_iyp7t")]
+position = Vector2(320, -128)
+scale = Vector2(11.9, 7.933)
 
 [node name="TileMap" parent="." instance=ExtResource("2_anym7")]
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 65535, 0, 0, 65534, 0, 0, 65533, 0, 0, 65532, 0, 0)
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 65535, 0, 0, 65534, 0, 0, 65533, 0, 0, 65532, 0, 0, -65536, 0, 0, -65532, 0, 0, -131072, 0, 0, -1, 0, 0, -131068, 0, 0)
+
+[node name="Hook" parent="." instance=ExtResource("5_mb8lr")]
+position = Vector2(-302, -66)
+
+[connection signal="throw_signal" from="Player" to="." method="_on_player_throw_signal"]
