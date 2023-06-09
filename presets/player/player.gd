@@ -32,12 +32,20 @@ func _physics_process(delta):
 		$Timers/Timer_attack.start()
 		
 	if minigame_fishing:
-		if $fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -2 and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x + 2:
-			print("HIT")
+		if $fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -6 and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x + 6:
+			if Input.is_action_just_pressed("hook_action"):
+				$fish_meter/fish_label.visible = true
+				$fish_meter/fish_label.text = "NICE CATCH!"
+				stop_fishing()
 		elif $fish_meter/pointer.position.x >= 22:
+			$fish_meter/fish_label.visible = true
+			$fish_meter/fish_label.text = "YIKES"
+			stop_fishing()
+		elif Input.is_action_just_pressed("hook_action") and $fish_meter/pointer.position.x > 5:
+			$fish_meter/fish_label.visible = true
+			$fish_meter/fish_label.text = "YIKES"
 			stop_fishing()
 		$fish_meter/pointer.move_and_slide()
-	
 	
 func _on_water(delta):
 	var direction_h = Input.get_axis("move_left", "move_right")
@@ -91,7 +99,7 @@ func _on_land(delta):
 		$hitbox.position.x = -176
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
-	if Input.is_action_just_pressed("hook_action"):
+	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0:
 		throw_hook(Vector2(100,-100))
 		if not minigame_fishing:
 			start_fishing()
@@ -121,14 +129,14 @@ func _on_timer_attack_timeout():
 
 func start_fishing():
 	$fish_meter.visible = true
+	$fish_meter/fish_label.visible = false
 	$fish_meter/pointer.velocity.x = 20
 	$fish_meter/pointer.position.x = 0
 	minigame_fishing = true
 	
 func stop_fishing():
-	$fish_meter.visible = false
+	$Timers/Timer_fishing.start()
 	$fish_meter/pointer.velocity.x = 0
-	$fish_meter/pointer.position.x = 0
 	minigame_fishing = false
 	
 	
@@ -145,3 +153,7 @@ func check_box_collision(vel: Vector2) -> void:
 	if box:
 		print("ola")
 		box.push(vel)
+
+func _on_timer_fishing_timeout():
+	$fish_meter.visible = false
+	$fish_meter/pointer.position.x = 0
