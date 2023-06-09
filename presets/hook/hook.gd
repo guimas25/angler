@@ -39,8 +39,14 @@ func get_off_water():
 # When area_entered happen, call get_parent().start_fishing()
 
 func _on_area_2d_area_entered(area):
-	if "water_body" in area.name:
+	if "water_body" in area.name: # TODO might fuck up in future, need change
 		hook_height = self.position.y
 		on_water = true
+		
 		#get_parent().start_fishing()
 	
+
+
+func _on_fish_detector_body_entered(body):
+	# Make minigame start here, use custom signal do connect with game manager
+	pass
