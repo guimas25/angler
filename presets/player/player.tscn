@@ -78,7 +78,6 @@ texture = ExtResource("5_73gb1")
 
 [node name="fish_hit_marker" type="Sprite2D" parent="fish_meter"]
 position = Vector2(17, 2.00706)
-scale = Vector2(1, 1)
 texture = ExtResource("5_qp4h8")
 
 [node name="pointer" type="CharacterBody2D" parent="fish_meter"]

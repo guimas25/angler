@@ -34,6 +34,8 @@ func _physics_process(delta):
 	if minigame_fishing:
 		if $fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -2 and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x + 2:
 			print("HIT")
+		elif $fish_meter/pointer.position.x >= 22:
+			stop_fishing()
 		$fish_meter/pointer.move_and_slide()
 	
 	
