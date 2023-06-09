@@ -1,24 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://gla3slksyjic"]
+[gd_scene load_steps=6 format=3 uid="uid://gla3slksyjic"]
 
-[ext_resource type="PackedScene" uid="uid://c08w3501ssenq" path="res://presets/box/box.tscn" id="1_ouctd"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_a8nfl"]
 [ext_resource type="Texture2D" uid="uid://c1b53r1ra76f0" path="res://assets/sprites/Sprite-0002.png" id="3_t7ep5"]
+[ext_resource type="PackedScene" uid="uid://ka1s58dopajr" path="res://presets/box/character_box_2d.tscn" id="4_s1jl0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4fmcp"]
 size = Vector2(129, 9)
 
-[node name="debug_level_box" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnq4r"]
+size = Vector2(32.6487, 7.24309)
 
-[node name="box" parent="." instance=ExtResource("1_ouctd")]
-position = Vector2(512, 296)
-scale = Vector2(1.502, 1.502)
+[node name="debug_level_box" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_a8nfl")]
 position = Vector2(104, 216)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(480, 296)
-scale = Vector2(8.449, 3.75)
+scale = Vector2(15.025, 3.75)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
@@ -41,4 +40,28 @@ offset_bottom = 522.0
 scale = Vector2(2.54959, 2.95235)
 text = "next Proto"
 
-[connection signal="button_down" from="CanvasLayer/Button" to="box" method="_on_button_button_down"]
+[node name="Box2D" parent="." instance=ExtResource("4_s1jl0")]
+position = Vector2(-16, 408)
+
+[node name="Box2D2" parent="." instance=ExtResource("4_s1jl0")]
+position = Vector2(-128, 408)
+
+[node name="Box2D3" parent="." instance=ExtResource("4_s1jl0")]
+position = Vector2(-16, 344)
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(-704, 176)
+rotation = 0.785398
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
+position = Vector2(36.1447, 35.5721)
+rotation = 0.785398
+scale = Vector2(13.935, 6.627)
+texture = ExtResource("3_t7ep5")
+offset = Vector2(-0.311594, -12.9786)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(31.888, 33.7902)
+rotation = 0.785398
+scale = Vector2(13.935, 6.627)
+shape = SubResource("RectangleShape2D_pnq4r")

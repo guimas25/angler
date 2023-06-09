@@ -3,6 +3,9 @@
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
 [ext_resource type="Texture2D" uid="uid://d0ymd2dt72adr" path="res://assets/sprites/player/slash.png" id="3_2wreg"]
+
+[ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="4_cj7ny"]
+
 [ext_resource type="Texture2D" uid="uid://dtd883vsmdweu" path="res://assets/sprites/player/fish_meter.png" id="5_73gb1"]
 [ext_resource type="Texture2D" uid="uid://dwqesmkw3qpa" path="res://assets/sprites/player/fish_meter_pointer.png" id="6_k8pdq"]
 
@@ -23,9 +26,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4spii"]
 size = Vector2(128, 208)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_syxvw"]
-size = Vector2(4, 4.01414)
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_73ldj")
 
@@ -40,7 +40,6 @@ texture_filter = 1
 texture = ExtResource("2_kcb4d")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
 
 [node name="hitbox" type="Area2D" parent="."]
 visible = false
@@ -50,7 +49,8 @@ collision_mask = 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="hitbox"]
 texture_filter = 1
-position = Vector2(-144, 0)
+position = Vector2(24, 8)
+scale = Vector2(7.604, 7.604)
 sprite_frames = SubResource("SpriteFrames_s8ywg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
@@ -61,6 +61,10 @@ shape = SubResource("RectangleShape2D_4spii")
 [node name="Timer_attack" type="Timer" parent="Timers"]
 wait_time = 0.2
 one_shot = true
+
+
+[node name="hook" parent="." instance=ExtResource("4_cj7ny")]
+position = Vector2(24, 0)
 
 [node name="fish_meter" type="ColorRect" parent="."]
 offset_left = -13.0
