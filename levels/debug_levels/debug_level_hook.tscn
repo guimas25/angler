@@ -10,7 +10,7 @@
 script = ExtResource("1_y5ea4")
 
 [node name="Player" parent="." instance=ExtResource("1_i3hkr")]
-position = Vector2(-345, -36)
+position = Vector2(-352, -48)
 
 [node name="water_body" parent="." instance=ExtResource("4_iyp7t")]
 position = Vector2(320, -128)
@@ -20,6 +20,6 @@ scale = Vector2(11.9, 7.933)
 layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 65535, 0, 0, 65534, 0, 0, 65533, 0, 0, 65532, 0, 0, -65536, 0, 0, -65532, 0, 0, -131072, 0, 0, -1, 0, 0, -131068, 0, 0)
 
 [node name="Hook" parent="." instance=ExtResource("5_mb8lr")]
-position = Vector2(-302, -66)
+position = Vector2(-320, -48)
 
 [connection signal="throw_signal" from="Player" to="." method="_on_player_throw_signal"]
