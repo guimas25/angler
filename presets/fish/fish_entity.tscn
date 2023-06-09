@@ -1,10 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc7cirpqmwa7b"]
+[gd_scene load_steps=7 format=3 uid="uid://cc7cirpqmwa7b"]
 
 [ext_resource type="Script" path="res://presets/fish/fish_entity.gd" id="1_2jg2f"]
-[ext_resource type="Texture2D" uid="uid://13x8oduqtonp" path="res://assets/sprites/fish/pixelfish-red_bellied_piranha.png" id="1_vm3im"]
+[ext_resource type="Texture2D" uid="uid://cbnx6aru8ifeg" path="res://assets/sprites/fish/fish1.png" id="2_jpq73"]
+[ext_resource type="Texture2D" uid="uid://ph7bicy6dj6o" path="res://assets/sprites/fish/fish2.png" id="3_deilo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5h2db"]
-size = Vector2(64, 42.6372)
+size = Vector2(16.3075, 16.3075)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2oac0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jpq73")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_deilo")
+}],
+"loop": true,
+"name": &"o-o",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vymnr"]
+radius = 151.03
 
 [node name="fish_entity" type="CharacterBody2D"]
 scale = Vector2(1.717, 1.717)
@@ -14,17 +37,31 @@ script = ExtResource("1_2jg2f")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.68142)
+position = Vector2(-1.38858e-07, -0.582412)
 shape = SubResource("RectangleShape2D_5h2db")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 3
-position = Vector2(-1.90735e-06, 3)
-scale = Vector2(1.28, 1.16667)
-texture = ExtResource("1_vm3im")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -0.582411)
+sprite_frames = SubResource("SpriteFrames_2oac0")
+animation = &"o-o"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.054
 autostart = true
 
+[node name="Timer_start_approach" type="Timer" parent="."]
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vymnr")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer_start_approach" to="." method="_on_timer_start_approach_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

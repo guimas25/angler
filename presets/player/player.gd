@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var JUMP_VELOCITY = -800.0
 
 signal throw_signal(pos, vel)
+signal got_fish
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.6
@@ -42,12 +43,14 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "OK!"
+				emit_signal("got_fish")
 				stop_fishing()
 		elif ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -4 \
 		and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "NICE CATCH!"
+				emit_signal("got_fish")
 				stop_fishing()
 		elif $fish_meter/pointer.position.x >= 22:
 			$fish_meter/fish_label.visible = true
@@ -102,16 +105,16 @@ func _on_land(delta):
 	var direction = 0
 	direction = Input.get_axis("move_left", "move_right")
 	
-	if direction == 1:
+	if direction >= 0:
 		$Sprite2D.flip_h = false
 		$hitbox.position.x = 176
 		$hitbox/AnimatedSprite2D.flip_h = false
-	elif direction == -1:
+	elif direction <= 0:
 		$Sprite2D.flip_h = true
 		$hitbox.position.x = -176
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
-	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0:
+	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
 		throw_hook(Vector2(100,-100))
 	
 	if direction:
