@@ -17,46 +17,19 @@ layer_0/tile_data = PackedInt32Array(65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 26
 position = Vector2(124, 209)
 
 [node name="Hook" parent="." instance=ExtResource("4_fkhlt")]
+position = Vector2(66, 108)
 
 [node name="fish_entity" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(577, 395)
+position = Vector2(939, 469)
 scale = Vector2(1.156, 1.156)
 
 [node name="fish_entity2" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(915, 388)
-scale = Vector2(1.156, 1.156)
-
-[node name="fish_entity3" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(782, 500)
-scale = Vector2(1.156, 1.156)
-
-[node name="fish_entity4" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(961, 521)
-scale = Vector2(1.156, 1.156)
-
-[node name="fish_entity5" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(579, 532)
-scale = Vector2(1.156, 1.156)
-
-[node name="fish_entity6" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(743, 365)
-scale = Vector2(1.156, 1.156)
-
-[node name="fish_entity7" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(1050, 404)
+position = Vector2(577, 395)
 scale = Vector2(1.156, 1.156)
 
 [node name="water_body" parent="." instance=ExtResource("3_0gil6")]
 position = Vector2(767, 455)
 scale = Vector2(23.43, 10.849)
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="Timer2" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -68,7 +41,7 @@ offset_bottom = 522.0
 scale = Vector2(2.54959, 2.95235)
 text = "next Proto"
 
+[connection signal="got_fish" from="Player" to="." method="_on_player_got_fish"]
 [connection signal="throw_signal" from="Player" to="." method="_on_player_throw_signal"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="start_minigame" from="Hook" to="." method="_on_hook_start_minigame"]
 [connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_button_button_down"]

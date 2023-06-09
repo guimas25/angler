@@ -79,6 +79,13 @@ move_jump={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="enemy"
+2d_physics/layer_3="fish"
+2d_physics/layer_4="hook_minigame"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

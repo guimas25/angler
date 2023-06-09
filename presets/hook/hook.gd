@@ -12,6 +12,8 @@ var on_water = false
 
 var hook_height = 0
 
+signal start_minigame(body)
+
 func _physics_process(delta):
 	if !on_water:
 		if velocity.y <= MAX_VELOCITY_Y:
@@ -28,6 +30,11 @@ func hook_throw(pos, vel):
 	self.position = pos
 	velocity.x = 100
 	velocity.y = -300
+	
+func hook_reel():
+	on_water = false
+	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+	velocity.y = -500
 
 func get_on_water():
 	pass
@@ -44,9 +51,9 @@ func _on_area_2d_area_entered(area):
 		on_water = true
 		
 		#get_parent().start_fishing()
-	
 
 
-func _on_fish_detector_body_entered(body):
-	# Make minigame start here, use custom signal do connect with game manager
-	pass
+func _on_area_2d_fishing_body_entered(body):
+	if(velocity == Vector2(0,0)):
+		body.hooked()
+		emit_signal("start_minigame", body)
