@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-
+@export var SPEED_PUSH = 250
 @export var SPEED = 350.0
 @export var SPEED_WATER = 150.0
 @export var JUMP_VELOCITY = -800.0
@@ -18,8 +18,11 @@ var O2_timer = 10.0
 var hp = 5 
 
 var minigame_fishing = false
+var pushing_box = false
 
 @export var on_water = false
+
+
 
 func _physics_process(delta):
 	if not on_water:
@@ -106,13 +109,31 @@ func _on_land(delta):
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
+		start_fishing()
+
+	if !pushing_box:
+		print("Entrei")
+		if direction:
+			velocity.x = move_toward(velocity.x, direction * SPEED, 30)
+		else:
+			velocity.x = move_toward(velocity.x, 0, 50)
 	else:
-		velocity.x = move_toward(velocity.x, 0, 50)
+		velocity.x = direction * SPEED_PUSH
+		
+	if direction == 0:
+		pushing_box = false
+		
 	move_and_slide()
 	
 	if get_slide_collision_count() > 0:
-		check_box_collision(velocity)
-
+		var collision = get_last_slide_collision()
+		if collision.get_collider() is Box2D:
+			pushing_box = true
+			print("collidion")
+			collision.get_collider().slide(-collision.get_normal() * (SPEED_PUSH))
+		check_box_collision(velocity, direction)
+	
+	
 func get_on_water():
 	on_water = true
 	if velocity.y > 0:
@@ -146,11 +167,17 @@ func throw_hook(x):
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
 
-func check_box_collision(vel: Vector2) -> void:
-	if vel.x != 0 and vel.y != 0:
+func check_box_collision(vel: Vector2, direction: int) -> void:
+	if vel.y != 0:
 		return
 	var box : = get_last_slide_collision().get_collider() as Box
+	var box_collision = get_last_slide_collision()
 	if box:
+		#pushing_box = true
+		#velocity.x = -box_collision.get_normal().x * 200
+		box.apply_impulse(-box_collision.get_normal() * (SPEED/2))
+		print(velocity.x)
+		print("collide")
 		print("ola")
 		box.push(vel)
 

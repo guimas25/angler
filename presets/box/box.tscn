@@ -6,8 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg6at"]
 size = Vector2(29.6663, 29.6663)
 
-[node name="box" type="CharacterBody2D"]
-scale = Vector2(4.854, 4.854)
+[node name="box" type="RigidBody2D"]
 script = ExtResource("1_v72iw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
