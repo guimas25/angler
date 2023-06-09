@@ -35,7 +35,16 @@ func _physics_process(delta):
 		$Timers/Timer_attack.start()
 		
 	if minigame_fishing:
-		if $fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -6 and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x + 6:
+		if ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -8 \
+		and $fish_meter/pointer.position.x < $fish_meter/fish_hit_marker.position.x - 4) or \
+		($fish_meter/pointer.position.x > $fish_meter/fish_hit_marker.position.x \
+		and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x + 5):
+			if Input.is_action_just_pressed("hook_action"):
+				$fish_meter/fish_label.visible = true
+				$fish_meter/fish_label.text = "OK!"
+				stop_fishing()
+		elif ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -4 \
+		and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "NICE CATCH!"
@@ -109,10 +118,8 @@ func _on_land(delta):
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
-		start_fishing()
 
 	if !pushing_box:
-		print("Entrei")
 		if direction:
 			velocity.x = move_toward(velocity.x, direction * SPEED, 30)
 		else:
