@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://n4cwa68qb1l5"]
+[gd_scene load_steps=7 format=3 uid="uid://n4cwa68qb1l5"]
 
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="1_8ei46"]
 [ext_resource type="Script" path="res://levels/debug_levels/debug_level_fishing.gd" id="1_d0p8u"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_8smxj"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="3_0gil6"]
 [ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="3_wm23k"]
+[ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="4_fkhlt"]
 
 [node name="debug_level_fishing" type="Node2D"]
 script = ExtResource("1_d0p8u")
@@ -15,24 +16,7 @@ layer_0/tile_data = PackedInt32Array(65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 26
 [node name="Player" parent="." instance=ExtResource("2_8smxj")]
 position = Vector2(124, 209)
 
-[node name="nice" type="Label" parent="Player"]
-visible = false
-offset_left = -310.0
-offset_top = -315.0
-offset_right = 343.0
-offset_bottom = -164.0
-theme_override_font_sizes/font_size = 108
-text = "NICE CATCH!"
-
-[node name="nice2" type="Label" parent="Player"]
-visible = false
-modulate = Color(1, 0, 0, 1)
-offset_left = -150.0
-offset_top = -315.0
-offset_right = 503.0
-offset_bottom = -164.0
-theme_override_font_sizes/font_size = 108
-text = "YIKES!"
+[node name="Hook" parent="." instance=ExtResource("4_fkhlt")]
 
 [node name="fish_entity" parent="." instance=ExtResource("3_wm23k")]
 position = Vector2(577, 395)
@@ -84,6 +68,7 @@ offset_bottom = 522.0
 scale = Vector2(2.54959, 2.95235)
 text = "next Proto"
 
+[connection signal="throw_signal" from="Player" to="." method="_on_player_throw_signal"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
 [connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_button_button_down"]

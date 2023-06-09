@@ -113,8 +113,6 @@ func _on_land(delta):
 		
 	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0:
 		throw_hook(Vector2(100,-100))
-		if not minigame_fishing:
-			start_fishing()
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
@@ -156,11 +154,12 @@ func _on_timer_attack_timeout():
 	$hitbox.set_collision_mask_value(2, false)
 
 func start_fishing():
-	$fish_meter.visible = true
-	$fish_meter/fish_label.visible = false
-	$fish_meter/pointer.velocity.x = 20
-	$fish_meter/pointer.position.x = 0
-	minigame_fishing = true
+	if not minigame_fishing:
+		$fish_meter.visible = true
+		$fish_meter/fish_label.visible = false
+		$fish_meter/pointer.velocity.x = 20
+		$fish_meter/pointer.position.x = 0
+		minigame_fishing = true
 	
 func stop_fishing():
 	$Timers/Timer_fishing.start()
