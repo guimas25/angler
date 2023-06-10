@@ -1,34 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://gla3slksyjic"]
+[gd_scene load_steps=4 format=3 uid="uid://gla3slksyjic"]
 
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_a8nfl"]
-[ext_resource type="Texture2D" uid="uid://c1b53r1ra76f0" path="res://assets/sprites/Sprite-0002.png" id="3_t7ep5"]
+[ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="3_f8lep"]
 [ext_resource type="PackedScene" uid="uid://ka1s58dopajr" path="res://presets/box/character_box_2d.tscn" id="4_s1jl0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fmcp"]
-size = Vector2(129, 9)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnq4r"]
-size = Vector2(32.6487, 7.24309)
 
 [node name="debug_level_box" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_a8nfl")]
 position = Vector2(104, 216)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(480, 296)
-scale = Vector2(15.025, 3.75)
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-texture_filter = 1
-position = Vector2(-16, 26)
-scale = Vector2(4, 1.375)
-texture = ExtResource("3_t7ep5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-15.5, 44.5)
-shape = SubResource("RectangleShape2D_4fmcp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -49,19 +28,5 @@ position = Vector2(-128, 408)
 [node name="Box2D3" parent="." instance=ExtResource("4_s1jl0")]
 position = Vector2(-16, 344)
 
-[node name="Wall" type="StaticBody2D" parent="."]
-position = Vector2(-704, 176)
-rotation = 0.785398
-
-[node name="Sprite2D" type="Sprite2D" parent="Wall"]
-position = Vector2(36.1447, 35.5721)
-rotation = 0.785398
-scale = Vector2(13.935, 6.627)
-texture = ExtResource("3_t7ep5")
-offset = Vector2(-0.311594, -12.9786)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2(31.888, 33.7902)
-rotation = 0.785398
-scale = Vector2(13.935, 6.627)
-shape = SubResource("RectangleShape2D_pnq4r")
+[node name="TileMap" parent="." instance=ExtResource("3_f8lep")]
+layer_0/tile_data = PackedInt32Array(327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 327675, 0, 0, 262139, 0, 0, 196603, 0, 0, 131067, 0, 0, 65531, 0, 0)

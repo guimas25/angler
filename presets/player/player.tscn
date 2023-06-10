@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=13 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
 [ext_resource type="Texture2D" uid="uid://d0ymd2dt72adr" path="res://assets/sprites/player/slash.png" id="3_2wreg"]
+[ext_resource type="Script" path="res://presets/player/Camera2D.gd" id="3_t1j6b"]
 [ext_resource type="Texture2D" uid="uid://dtd883vsmdweu" path="res://assets/sprites/player/fish_meter.png" id="5_73gb1"]
 [ext_resource type="Texture2D" uid="uid://cylbb3fsqrna5" path="res://assets/sprites/player/hit_marker.png" id="5_qp4h8"]
 [ext_resource type="Texture2D" uid="uid://dwqesmkw3qpa" path="res://assets/sprites/player/fish_meter_pointer.png" id="6_k8pdq"]
@@ -43,6 +44,7 @@ texture = ExtResource("2_kcb4d")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+script = ExtResource("3_t1j6b")
 
 [node name="hitbox" type="Area2D" parent="."]
 visible = false
