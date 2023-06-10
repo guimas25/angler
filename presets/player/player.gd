@@ -133,13 +133,13 @@ func _on_land(delta):
 		
 	move_and_slide()
 	
-	if get_slide_collision_count() > 0:
-		var collision = get_last_slide_collision()
-		if collision.get_collider() is Box2D:
+	for index in get_slide_collision_count():
+		var collision = get_slide_collision(index)
+		var collider = collision.get_collider()
+		if collider is Box2D:
 			pushing_box = true
 			print("collidion")
-			collision.get_collider().slide(-collision.get_normal() * (SPEED_PUSH))
-		check_box_collision(velocity, direction)
+			collider.slide(-collision.get_normal() * (SPEED_PUSH))
 	
 	
 func get_on_water():
@@ -175,20 +175,6 @@ func throw_hook(x):
 
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
-
-func check_box_collision(vel: Vector2, direction: int) -> void:
-	if vel.y != 0:
-		return
-	var box : = get_last_slide_collision().get_collider() as Box
-	var box_collision = get_last_slide_collision()
-	if box:
-		#pushing_box = true
-		#velocity.x = -box_collision.get_normal().x * 200
-		box.apply_impulse(-box_collision.get_normal() * (SPEED/2))
-		print(velocity.x)
-		print("collide")
-		print("ola")
-		box.push(vel)
 
 func _on_timer_fishing_timeout():
 	$fish_meter.visible = false
