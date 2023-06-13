@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3qc8wxqueqxj"]
+
+[ext_resource type="Script" path="res://FishingLine.gd" id="1_g57xq"]
+[ext_resource type="Texture2D" uid="uid://pyoykr6kh1xp" path="res://assets/sprites/Sprite-0001.png" id="2_y523d"]
+[ext_resource type="Texture2D" uid="uid://mdan4nnm5muo" path="res://assets/sprites/hook.png" id="3_ydnog"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l30nn"]
+radius = 1.0
+height = 10.0
+
+[node name="FishingLine" type="Node2D"]
+script = ExtResource("1_g57xq")
+
+[node name="Links" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 15)
+scale = Vector2(1, 3.28125)
+texture = ExtResource("2_y523d")
+region_rect = Rect2(0, 0, 10, 20)
+
+[node name="Tip" type="CharacterBody2D" parent="."]
+
+[node name="Hook" type="Sprite2D" parent="Tip"]
+texture_filter = 1
+rotation = 1.5708
+texture = ExtResource("3_ydnog")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tip"]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_l30nn")

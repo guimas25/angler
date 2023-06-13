@@ -5,6 +5,16 @@ extends CharacterBody2D
 @export var SPEED_WATER = 150.0
 @export var JUMP_VELOCITY = -800.0
 
+const CHAIN_PULL = 105
+var chain_velocity := Vector2(0,0)
+var hook_pos = Vector2()
+var hooked = false
+const rope_lenght = 500
+var current_rope_lenght
+
+signal throw_signal(pos, vel)
+signal got_fish
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.6
 
@@ -21,6 +31,8 @@ var pushing_box = false
 @export var on_water = false
 
 var hook_resource = preload("res://presets/hook/hook.tscn")
+func _ready():
+	current_rope_lenght = rope_lenght
 
 var hook_reference
 
@@ -70,6 +82,10 @@ func _physics_process(delta):
 		$fish_meter/pointer.move_and_slide()
 	
 func _on_water(delta):
+	if hooked:
+		queue_redraw()
+		hooked = false
+	
 	var direction_h = Input.get_axis("move_left", "move_right")
 	var direction_v = Input.get_axis("move_up", "move_down")
 	
@@ -89,6 +105,7 @@ func _on_water(delta):
 	
 func _on_land(delta):
 	# Add the gravity.
+	
 	if not is_on_floor():
 		coyote_time = coyote_time - delta
 		velocity.y += gravity * delta
@@ -106,6 +123,12 @@ func _on_land(delta):
 	
 	if Input.is_action_just_released("move_jump") and velocity.y < 0:
 		velocity.y = velocity.y/2
+	
+	hook()
+	queue_redraw()
+	if hooked:
+		swing(delta)
+		velocity *= 0.975 # swing speed
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -198,3 +221,45 @@ func _on_timer_fishing_timeout():
 func check_got_fish():
 	return $fish_meter/fish_label.visible and ($fish_meter/fish_label.text == "OK!" \
 			or  $fish_meter/fish_label.text == "NICE CATCH!")
+			
+func hook():
+	$GrapplingHook.look_at(get_global_mouse_position())
+	if Input.is_action_just_pressed("left_click"):
+		hook_pos = get_hook_pos()
+		if hook_pos:
+			hooked = true
+			current_rope_lenght = global_position.distance_to(hook_pos)
+	if Input.is_action_just_released("left_click") and hooked:
+		hooked = false
+
+func get_hook_pos():
+	for raycast in $GrapplingHook.get_children():
+		if raycast.is_colliding():
+			return raycast.get_collision_point()
+
+func swing(delta):
+	var radius = global_position - hook_pos
+	if velocity.length() < 0.01 or radius.length() < 10: return
+	var angle = acos(radius.dot(velocity) / (radius.length() * velocity.length()))
+	var rad_vel = cos(angle) * velocity.length()
+	velocity += radius.normalized() * -rad_vel
+	
+	if global_position.distance_to(hook_pos) > current_rope_lenght:
+		global_position = hook_pos + radius.normalized() * current_rope_lenght
+	
+	velocity += (hook_pos - global_position).normalized() * 15000 * delta
+
+
+func _draw():
+	var pos = global_position
+	
+	if hooked:
+		draw_line(Vector2(0,0), to_local(hook_pos), Color(1,1,1), 0.5, true)
+	else:
+		return
+		
+		var colliding = $GrapplingHook.is_colliding()
+		var collide_point = $GrapplingHook.get_collision_point()
+		
+		if colliding and pos.distance_to(collide_point) < rope_lenght:
+			draw_line(Vector2(0,0), to_local(collide_point), Color(0,0,0), 0.5, true)
