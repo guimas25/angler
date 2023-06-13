@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=15 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cylbb3fsqrna5" path="res://assets/sprites/player/hit_marker.png" id="5_qp4h8"]
 [ext_resource type="Texture2D" uid="uid://dwqesmkw3qpa" path="res://assets/sprites/player/fish_meter_pointer.png" id="6_k8pdq"]
 [ext_resource type="FontFile" uid="uid://drnd7vxhi7vpk" path="res://assets/text_fonts/press-start/prstart.ttf" id="7_ev1ag"]
+[ext_resource type="Texture2D" uid="uid://b1xe50r2jy3n2" path="res://icon.svg" id="10_6soqp"]
 [ext_resource type="PackedScene" uid="uid://b6n2okalb2wyd" path="res://presets/line/grappling_hook.tscn" id="10_tdidi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
@@ -117,6 +118,67 @@ text = "hello"
 horizontal_alignment = 1
 
 [node name="GrapplingHook" parent="." instance=ExtResource("10_tdidi")]
+
+[node name="Inventory" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Inventory"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -201.0
+offset_right = 320.0
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/ColorRect"]
+position = Vector2(111, 152)
+texture = ExtResource("10_6soqp")
+
+[node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -23.0
+offset_top = 91.0
+offset_right = 17.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D2" type="Sprite2D" parent="Inventory/ColorRect"]
+position = Vector2(323, 153)
+texture = ExtResource("10_6soqp")
+
+[node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D2"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -23.0
+offset_top = 91.0
+offset_right = 17.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D3" type="Sprite2D" parent="Inventory/ColorRect"]
+position = Vector2(531, 153)
+texture = ExtResource("10_6soqp")
+
+[node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D3"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -23.0
+offset_top = 91.0
+offset_right = 17.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]

@@ -12,6 +12,8 @@ var hooked = false
 const rope_lenght = 500
 var current_rope_lenght
 
+var caught_fish = [1, 4, 5]
+
 signal throw_signal(pos, vel)
 signal got_fish
 
@@ -70,6 +72,7 @@ func _physics_process(delta):
 			$fish_meter/fish_label.text = "YIKES"
 			stop_fishing()
 		$fish_meter/pointer.move_and_slide()
+		update_inventory()
 	
 func _on_water(delta):
 	var direction_h = Input.get_axis("move_left", "move_right")
@@ -130,9 +133,12 @@ func _on_land(delta):
 		$hitbox.position.x = -176
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
-	#if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
-	#	throw_hook(Vector2(100,-100))
+	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
+		throw_hook(Vector2(100,-100))
 	
+	if Input.is_action_just_pressed("inventory_open") and not minigame_fishing:
+		show_inventory()
+		
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
 
@@ -237,3 +243,11 @@ func _draw():
 		
 		if colliding and pos.distance_to(collide_point) < rope_lenght:
 			draw_line(Vector2(0,0), to_local(collide_point), Color(0,0,0), 0.5, true)
+
+func show_inventory():
+	$Inventory.visible = !$Inventory.visible
+
+func update_inventory():
+	$Inventory/ColorRect/Sprite2D/FishLabel.text = str(caught_fish[0])
+	$Inventory/ColorRect/Sprite2D2/FishLabel.text = str(caught_fish[1])
+	$Inventory/ColorRect/Sprite2D3/FishLabel.text = str(caught_fish[2])
