@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@export var SPEED_PUSH = 250
-@export var SPEED = 350.0
-@export var SPEED_WATER = 150.0
-@export var JUMP_VELOCITY = -800.0
+var SPEED_PUSH = 250
+var SPEED = 350.0
+var SPEED_WATER = 150.0
+var JUMP_VELOCITY = -800.0
 
 const CHAIN_PULL = 105
 var chain_velocity := Vector2(0,0)
@@ -11,10 +11,6 @@ var hook_pos = Vector2()
 var hooked = false
 const rope_lenght = 500
 var current_rope_lenght
-
-signal throw_signal(pos, vel)
-signal reel_signal(pos)
-signal got_fish
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.6
@@ -147,11 +143,7 @@ func _on_land(delta):
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
 	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing and not reelable:
-		throw_hook(Vector2(100,-100))
-		
-	if Input.is_action_just_pressed("hook_action") and reelable:
-		print("Player pressed reel")
-		reel_hook()
+		throw_hook()
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
@@ -207,13 +199,7 @@ func stop_fishing():
 	minigame_fishing = false
 	
 	
-func throw_hook(x):
-	emit_signal("throw_signal", self.position, x)
-	
-func reel_hook():
-	reelable = false
-	emit_signal("reel_signal", self.position)
-
+func throw_hook():
 	if not hook_on_scene:
 		var grabedInstance = hook_resource.instantiate()
 		get_tree().get_root().get_child(0).add_child(grabedInstance)

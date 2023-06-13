@@ -83,10 +83,14 @@ func _on_timer_start_approach_timeout():
 
 # Randomly chooses when to get baited
 func _on_timer_take_bait_timeout():
-	if randi_range(1,10) == 1 and bait_body is Hook_Simple and not bait_body.being_targeted:
-		if bait_body.velocity == Vector2(0,0):
-			bait_body.being_targeted = true
-			print("let's go")
-			baited()
+	if randi_range(1,10) == 1 and bait_body is Hook_Simple:
+		if not bait_body.being_targeted:
+			if bait_body.velocity == Vector2(0,0):
+				bait_body.being_targeted = true
+				print("let's go")
+				baited()
+				$Timer_take_bait.stop()           # Stop random timer
+				$Timer.stop()                     # Stop random behaviour
+		else:
+			bait_body = null
 			$Timer_take_bait.stop()           # Stop random timer
-			$Timer.stop()                     # Stop random behaviour
