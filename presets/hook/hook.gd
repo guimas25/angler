@@ -34,8 +34,8 @@ func _physics_process(delta):
 		position.y = move_toward(position.y, hook_height, 1.5)
 	elif reeling:
 		position.x = move_toward(position.x, origin.x, 4)
-		#position.y = move_toward(position.y, origin.y, 4)
-		if position.x == origin.x:
+		position.y = move_toward(position.y, origin.y, 4)
+		if position == origin:
 			reeling = false
 			thrown = false
 			self.visible = false

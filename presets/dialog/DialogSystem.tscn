@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://cau18r42y5ilm"]
+
+[ext_resource type="Script" path="res://presets/dialog/DialogBox.gd" id="1_ocajt"]
+[ext_resource type="Texture2D" uid="uid://dnd7tasg0k88l" path="res://assets/dialog/Jorge/Sad.png" id="2_5ss4c"]
+[ext_resource type="FontFile" uid="uid://sb6s3wamb622" path="res://assets/text_fonts/press-start/prstartk.ttf" id="2_lsrsj"]
+[ext_resource type="Texture2D" uid="uid://cmwffn5lwqpog" path="res://assets/dialog/indicator.png" id="2_u7a2g"]
+
+[sub_resource type="Animation" id="Animation_3kect"]
+resource_name = "indicator_animation"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(480, 132), Vector2(480, 138)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_16ioc"]
+_data = {
+"indicator_animation": SubResource("Animation_3kect")
+}
+
+[node name="DialogSystem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogBox" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.083
+anchor_top = 0.741
+anchor_right = 0.083
+anchor_bottom = 0.741
+offset_left = 0.384003
+offset_top = -0.16803
+offset_right = 960.384
+offset_bottom = 143.832
+color = Color(1, 0.65098, 0.301961, 1)
+script = ExtResource("1_ocajt")
+dialogPath = "res://assets/dialog/Dialog0.json"
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="RichTextLabel" parent="CanvasLayer/DialogBox"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00833333
+anchor_right = 0.00833333
+offset_top = 8.0
+offset_right = 800.0
+offset_bottom = 32.0
+theme_override_fonts/normal_font = ExtResource("2_lsrsj")
+text = "Name goes here"
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/DialogBox"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008
+anchor_top = 0.222
+anchor_right = 0.008
+anchor_bottom = 0.222
+offset_left = 0.32
+offset_top = 8.032
+offset_right = 808.32
+offset_bottom = 96.032
+theme_override_fonts/normal_font = ExtResource("2_lsrsj")
+text = "Text goes here"
+metadata/_edit_use_anchors_ = true
+
+[node name="Indicator" type="Sprite2D" parent="CanvasLayer/DialogBox"]
+position = Vector2(480, 135.523)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_u7a2g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/DialogBox/Indicator"]
+libraries = {
+"": SubResource("AnimationLibrary_16ioc")
+}
+
+[node name="Portrait" type="Sprite2D" parent="CanvasLayer/DialogBox"]
+position = Vector2(888, 72)
+scale = Vector2(2, 2)
+texture = ExtResource("2_5ss4c")
+
+[node name="Timer" type="Timer" parent="CanvasLayer/DialogBox"]
+one_shot = true
