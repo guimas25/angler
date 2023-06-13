@@ -12,3 +12,7 @@ func _process(delta):
 
 func _on_player_throw_signal(pos, vel):
 	$Hook.hook_throw(pos, vel)
+
+
+func _on_player_reel_signal(pos):
+	$Hook.hook_reel(pos)

@@ -24,11 +24,11 @@ texture = ExtResource("2_btgss")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2y7b3")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D_water" type="Area2D" parent="."]
 collision_layer = 9
 collision_mask = 9
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_water"]
 shape = SubResource("RectangleShape2D_8toq6")
 
 [node name="Area2D_fishing" type="Area2D" parent="."]
@@ -39,6 +39,7 @@ collision_mask = 16
 shape = SubResource("CircleShape2D_dle68")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
+[connection signal="area_entered" from="Area2D_water" to="." method="_on_area_2d_area_entered"]
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
