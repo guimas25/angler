@@ -12,29 +12,49 @@ var on_water = false
 
 var hook_height = 0
 
+var thrown = false
+
+var reeling = false
+var origin = null
+
 signal start_minigame(body)
+signal reelable
+
+func _process(delta):
+	if(velocity == Vector2(0,0) and thrown and on_water):
+		emit_signal("reelable")
 
 func _physics_process(delta):
-	if !on_water:
+	if !on_water and !reeling and thrown:
 		if velocity.y <= MAX_VELOCITY_Y:
 			velocity.y += (gravity/2) * delta
 	elif on_water:
 		velocity.x = move_toward(velocity.x, 0, 4)
 		velocity.y = move_toward(velocity.y, 0, 20)
 		position.y = move_toward(position.y, hook_height, 1.5)
+	elif reeling:
+		position.x = move_toward(position.x, origin.x, 4)
+		#position.y = move_toward(position.y, origin.y, 4)
+		if position.x == origin.x:
+			reeling = false
+			thrown = false
+			self.visible = false
 	move_and_slide()
 	
 func hook_throw(pos, vel):
-	on_water = false
-	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-	self.position = pos
-	velocity.x = 100
-	velocity.y = -300
+	self.visible = true
+	if not thrown:
+		thrown = true
+		on_water = false
+		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+		self.position = pos
+		velocity.x = 100
+		velocity.y = -300
 	
-func hook_reel():
+func hook_reel(pos):
 	on_water = false
-	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-	velocity.y = -500
+	origin = pos
+	reeling = true
 
 func get_on_water():
 	pass

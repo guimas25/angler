@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var JUMP_VELOCITY = -800.0
 
 signal throw_signal(pos, vel)
+signal reel_signal(pos)
 signal got_fish
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -19,6 +20,7 @@ var O2_timer = 10.0
 var hp = 5 
 
 var minigame_fishing = false
+var reelable = false
 var pushing_box = false
 
 @export var on_water = false
@@ -114,8 +116,12 @@ func _on_land(delta):
 		$hitbox.position.x = -176
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
-	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
+	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing and not reelable:
 		throw_hook(Vector2(100,-100))
+		
+	if Input.is_action_just_pressed("hook_action") and reelable:
+		print("Player pressed reel")
+		reel_hook()
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
@@ -172,6 +178,10 @@ func stop_fishing():
 	
 func throw_hook(x):
 	emit_signal("throw_signal", self.position, x)
+	
+func reel_hook():
+	reelable = false
+	emit_signal("reel_signal", self.position)
 
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
@@ -193,3 +203,6 @@ func check_box_collision(vel: Vector2, direction: int) -> void:
 func _on_timer_fishing_timeout():
 	$fish_meter.visible = false
 	$fish_meter/pointer.position.x = 0
+
+func _on_hook_reelable():
+	reelable = true

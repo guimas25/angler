@@ -22,4 +22,6 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0
 [node name="Hook" parent="." instance=ExtResource("5_mb8lr")]
 position = Vector2(-320, -48)
 
+[connection signal="reel_signal" from="Player" to="." method="_on_player_reel_signal"]
 [connection signal="throw_signal" from="Player" to="." method="_on_player_throw_signal"]
+[connection signal="reelable" from="Hook" to="Player" method="_on_hook_reelable"]
