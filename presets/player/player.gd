@@ -36,8 +36,31 @@ var hook_reference
 
 var hook_on_scene = false
 
+var pulled_by_fish = false
+var pulling_fish_ref
+var pulling_vel_cooldown = false
+
 func _physics_process(delta):
-	if not on_water:
+	if pulled_by_fish:
+		if pulling_fish_ref.dead:
+			stop_pulling()
+		else:
+			var speed_pull = pulling_fish_ref.SPEED
+			var pulling_velocity = Vector2(0.0,0.0)
+			pulling_velocity.x = pulling_fish_ref.position.x - position.x
+			pulling_velocity.y = pulling_fish_ref.position.y - position.y
+		
+			if pulling_velocity.length() < 100:
+				speed_pull = SPEED/2
+			else:
+				speed_pull = pulling_fish_ref.SPEED
+			
+			print(speed_pull)
+			velocity = pulling_velocity.normalized() * speed_pull
+			var pullDir = Vector2(velocity.x + position.x, velocity.y + position.y)
+			$Sprite2D.look_at(pullDir)
+		move_and_slide()
+	elif not on_water:
 		_on_land(delta)
 	else:
 		_on_water(delta)
@@ -55,8 +78,11 @@ func _physics_process(delta):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "OK!"
 				if hook_reference is Hook_Simple:
-					hook_reference.hook_reel()
 					hook_reference.fish_follow = true
+					if hook_reference.fish_caught is Fish_pulling:
+						hook_reference._on_timer_timeout()
+					else:
+						hook_reference.hook_reel()
 				stop_fishing()
 		elif ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -4 \
 		and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x):
@@ -64,8 +90,11 @@ func _physics_process(delta):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "NICE CATCH!"
 				if hook_reference is Hook_Simple:
-					hook_reference.hook_reel()
 					hook_reference.fish_follow = true
+					if hook_reference.fish_caught is Fish_pulling:
+						hook_reference._on_timer_timeout()
+					else:
+						hook_reference.hook_reel()
 				stop_fishing()
 		elif $fish_meter/pointer.position.x >= 22:
 			$fish_meter/fish_label.visible = true
@@ -263,3 +292,20 @@ func _draw():
 		
 		if colliding and pos.distance_to(collide_point) < rope_lenght:
 			draw_line(Vector2(0,0), to_local(collide_point), Color(0,0,0), 0.5, true)
+			
+func initiate_pulling(x):
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+	pulled_by_fish = true
+	pulling_fish_ref = x
+	
+func stop_pulling():
+	pulled_by_fish = false
+	pulling_fish_ref.queue_free()
+	$Sprite2D.rotation = 0.0
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
+
+
+func _on_timer_pull_cooldown_timeout():
+	pulling_vel_cooldown = false

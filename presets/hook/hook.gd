@@ -82,8 +82,13 @@ func _on_area_2d_fishing_body_entered(body):
 		player_ref.start_fishing()
 
 
-func hook_done():
-	if fish_follow and (fish_caught is Fish_simple or fish_caught is Fish_pulling):
-		fish_caught.queue_free()
+func _on_timer_timeout():
+	if fish_follow:
+		if (fish_caught is Fish_simple):
+			fish_caught.queue_free()
+		elif (fish_caught is Fish_pulling):
+			fish_caught.initiate_pull()
+			fish_follow = false
+			player_ref.initiate_pulling(fish_caught)
 	player_ref.hook_on_scene = false
 	self.queue_free()

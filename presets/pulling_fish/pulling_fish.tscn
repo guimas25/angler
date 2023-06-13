@@ -59,7 +59,7 @@ shape = SubResource("RectangleShape2D_wpx8m")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_08xtk")
-animation = &"o-o"
+animation = &"fell_for_it"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.054

@@ -34,30 +34,6 @@ layer_0/tile_data = PackedInt32Array(720891, 0, 0, 720892, 0, 0, 720893, 0, 0, 7
 [node name="fish_entity" parent="." instance=ExtResource("4_tky3h")]
 position = Vector2(-2632, -2928)
 
-[node name="fish_entity2" parent="." instance=ExtResource("4_tky3h")]
-position = Vector2(-2840, -2264)
-
-[node name="fish_entity3" parent="." instance=ExtResource("4_tky3h")]
-position = Vector2(-2552, -1048)
-
-[node name="fish_entity4" parent="." instance=ExtResource("4_tky3h")]
-position = Vector2(-2984, 968)
-
-[node name="fish_entity5" parent="." instance=ExtResource("4_tky3h")]
-position = Vector2(-2344, -120)
-
-[node name="fish_entity6" parent="." instance=ExtResource("4_tky3h")]
-position = Vector2(-2440, 496)
-
-[node name="fish_entity7" parent="." instance=ExtResource("4_tky3h")]
-position = Vector2(-672, 944)
-
-[node name="fish_entity8" parent="." instance=ExtResource("4_tky3h")]
-position = Vector2(-704, -1784)
-
-[node name="fish_entity9" parent="." instance=ExtResource("4_tky3h")]
-position = Vector2(72, -1168)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Button" type="Button" parent="CanvasLayer"]
