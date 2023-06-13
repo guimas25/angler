@@ -1,10 +1,11 @@
 extends CharacterBody2D
 class_name Fish_pulling
 
-@export var SPEED = 300.0
+@export var SPEED = 500.0
 const JUMP_VELOCITY = -400.0
 const X_VELOCITY = 40
 const Y_VELOCITY = 20
+const CONST_RATE = 1.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -16,6 +17,11 @@ var y_dir = 0
 var bait_body
 var get_bait = false
 
+var pulling = false
+var on_water = true
+
+var dead = false
+
 func _ready():
 	$AnimatedSprite2D.play("default")
 	randomize()
@@ -24,14 +30,46 @@ func _ready():
 
 func _physics_process(delta):
 	
-	if velocity.x > 0:
-		$AnimatedSprite2D.flip_h = true
-	else:
-		$AnimatedSprite2D.flip_h = false
+	if is_on_floor() and not on_water:
+		dead = true
 	
 	if get_bait and bait_body is Hook_Simple:
 		velocity = Vector2(bait_body.position.x - position.x, bait_body.position.y - position.y)
 		velocity = velocity.normalized() * randf_range(30,51)
+	
+	if pulling:
+		$AnimatedSprite2D.flip_h = true
+		if velocity.x > 0:
+			$AnimatedSprite2D.flip_v = false
+		else:
+			$AnimatedSprite2D.flip_v = true
+			
+		if on_water:
+			if Input.is_action_pressed("ui_right"):
+				velocity.x = lerp(velocity.x, SPEED, delta*CONST_RATE)
+				velocity.y = lerp(velocity.y, 0.0, delta*CONST_RATE)
+			if Input.is_action_pressed("ui_left"):
+				velocity.x = lerp(velocity.x, -SPEED, delta*CONST_RATE)
+				velocity.y = lerp(velocity.y, 0.0, delta*CONST_RATE)
+			if Input.is_action_pressed("ui_up"):
+				velocity.x = lerp(velocity.x, 0.0, delta*CONST_RATE)
+				velocity.y = lerp(velocity.y, -SPEED, delta*CONST_RATE)
+			if Input.is_action_pressed("ui_down"):
+				velocity.x = lerp(velocity.x, 0.0, delta*CONST_RATE)
+				velocity.y = lerp(velocity.y, SPEED, delta*CONST_RATE)
+			velocity = velocity.normalized() * SPEED
+			var pullDir = Vector2(velocity.x + position.x, velocity.y + position.y)
+			$AnimatedSprite2D.look_at(pullDir)
+		else:
+			var pullDir = Vector2(velocity.x + position.x, velocity.y + position.y)
+			$AnimatedSprite2D.look_at(pullDir)
+			velocity.y = velocity.y + gravity/2 * delta
+		
+	else:
+		if velocity.x > 0:
+			$AnimatedSprite2D.flip_h = true
+		else:
+			$AnimatedSprite2D.flip_h = false
 	
 	move_and_slide()
 
@@ -70,15 +108,15 @@ func _on_area_2d_body_entered(body):
 
 
 func _on_area_2d_body_exited(body):
-	print("goodbay")
-	get_bait = false
-	$AnimatedSprite2D.play("default")
-	$Timer_take_bait.stop()           # Stop random timer
-	$Timer.start()                    # Return to random behaviour
+	if not pulling:
+		print("goodbay")
+		get_bait = false
+		$AnimatedSprite2D.play("default")
+		$Timer_take_bait.stop()           # Stop random timer
+		$Timer.start()                    # Return to random behaviour
 
 
 func _on_timer_start_approach_timeout():
-	print("omw")
 	get_bait = true
 
 # Randomly chooses when to get baited
@@ -90,3 +128,22 @@ func _on_timer_take_bait_timeout():
 			baited()
 			$Timer_take_bait.stop()           # Stop random timer
 			$Timer.stop()                     # Stop random behaviour
+
+func initiate_pull():
+	set_collision_layer_value(3, false)
+	set_collision_layer_value(5, false)
+	set_collision_mask_value(3, false)
+	set_collision_mask_value(5, false)
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
+	pulling = true
+	$AnimatedSprite2D.play("fell_for_it")
+	$Timer.stop()
+	$Timer_start_approach.stop()
+	$Timer_take_bait.stop()
+	
+func get_on_water():
+	on_water = true
+	
+func get_off_water():
+	on_water = false

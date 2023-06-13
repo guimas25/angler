@@ -90,3 +90,5 @@ func _on_timer_take_bait_timeout():
 			baited()
 			$Timer_take_bait.stop()           # Stop random timer
 			$Timer.stop()                     # Stop random behaviour
+			
+
