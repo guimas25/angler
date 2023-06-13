@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_8smxj"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="3_0gil6"]
 [ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="3_wm23k"]
-[ext_resource type="PackedScene" uid="uid://cl0jml8e1fk21" path="res://presets/hook/hook.tscn" id="4_fkhlt"]
+[ext_resource type="PackedScene" uid="uid://cmrt562ex6vm7" path="res://presets/pulling_fish/pulling_fish.tscn" id="7_dlxj7"]
 
 [node name="debug_level_fishing" type="Node2D"]
 script = ExtResource("1_d0p8u")
@@ -16,32 +16,40 @@ layer_0/tile_data = PackedInt32Array(65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 26
 [node name="Player" parent="." instance=ExtResource("2_8smxj")]
 position = Vector2(124, 209)
 
-[node name="Hook" parent="." instance=ExtResource("4_fkhlt")]
-position = Vector2(66, 108)
-
 [node name="fish_entity" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(939, 469)
+position = Vector2(585, 325)
 scale = Vector2(1.156, 1.156)
 
 [node name="fish_entity2" parent="." instance=ExtResource("3_wm23k")]
-position = Vector2(577, 395)
+position = Vector2(835, 331)
+scale = Vector2(1.156, 1.156)
+
+[node name="fish_entity3" parent="." instance=ExtResource("3_wm23k")]
+position = Vector2(722, 328)
+scale = Vector2(1.156, 1.156)
+
+[node name="fish_entity4" parent="." instance=ExtResource("3_wm23k")]
+position = Vector2(779, 302)
+scale = Vector2(1.156, 1.156)
+
+[node name="fish_entity5" parent="." instance=ExtResource("3_wm23k")]
+position = Vector2(530, 312)
+scale = Vector2(1.156, 1.156)
+
+[node name="fish_entity6" parent="." instance=ExtResource("3_wm23k")]
+position = Vector2(484, 348)
+scale = Vector2(1.156, 1.156)
+
+[node name="fish_entity7" parent="." instance=ExtResource("3_wm23k")]
+position = Vector2(650, 309)
 scale = Vector2(1.156, 1.156)
 
 [node name="water_body" parent="." instance=ExtResource("3_0gil6")]
-position = Vector2(767, 455)
-scale = Vector2(23.43, 10.849)
+position = Vector2(767, 329)
+scale = Vector2(23.43, 4.425)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Pulling_fish" parent="." instance=ExtResource("7_dlxj7")]
+position = Vector2(1041, 334)
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 892.0
-offset_top = 514.0
-offset_right = 900.0
-offset_bottom = 522.0
-scale = Vector2(2.54959, 2.95235)
-text = "next Proto"
-
-[connection signal="got_fish" from="Player" to="." method="_on_player_got_fish"]
-[connection signal="throw_signal" from="Player" to="." method="_on_player_throw_signal"]
-[connection signal="start_minigame" from="Hook" to="." method="_on_hook_start_minigame"]
-[connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_button_button_down"]
+[node name="Pulling_fish2" parent="." instance=ExtResource("7_dlxj7")]
+position = Vector2(919, 320)
