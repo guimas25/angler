@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=14 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cylbb3fsqrna5" path="res://assets/sprites/player/hit_marker.png" id="5_qp4h8"]
 [ext_resource type="Texture2D" uid="uid://dwqesmkw3qpa" path="res://assets/sprites/player/fish_meter_pointer.png" id="6_k8pdq"]
 [ext_resource type="FontFile" uid="uid://drnd7vxhi7vpk" path="res://assets/text_fonts/press-start/prstart.ttf" id="7_ev1ag"]
+[ext_resource type="PackedScene" uid="uid://b6n2okalb2wyd" path="res://presets/line/grappling_hook.tscn" id="10_tdidi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
@@ -114,6 +115,8 @@ theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "hello"
 horizontal_alignment = 1
+
+[node name="GrapplingHook" parent="." instance=ExtResource("10_tdidi")]
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]
