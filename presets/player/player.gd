@@ -30,9 +30,13 @@ var pushing_box = false
 
 @export var on_water = false
 
+var hook_resource = preload("res://presets/hook/hook.tscn")
 func _ready():
 	current_rope_lenght = rope_lenght
 
+var hook_reference
+
+var hook_on_scene = false
 
 func _physics_process(delta):
 	if not on_water:
@@ -52,26 +56,36 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "OK!"
-				emit_signal("got_fish")
+				if hook_reference is Hook_Simple:
+					hook_reference.hook_reel()
+					hook_reference.fish_follow = true
 				stop_fishing()
 		elif ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -4 \
 		and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "NICE CATCH!"
-				emit_signal("got_fish")
+				if hook_reference is Hook_Simple:
+					hook_reference.hook_reel()
+					hook_reference.fish_follow = true
 				stop_fishing()
 		elif $fish_meter/pointer.position.x >= 22:
 			$fish_meter/fish_label.visible = true
 			$fish_meter/fish_label.text = "YIKES"
+			hook_reference.being_targeted = false
 			stop_fishing()
 		elif Input.is_action_just_pressed("hook_action") and $fish_meter/pointer.position.x > 5:
 			$fish_meter/fish_label.visible = true
 			$fish_meter/fish_label.text = "YIKES"
+			hook_reference.being_targeted = false
 			stop_fishing()
 		$fish_meter/pointer.move_and_slide()
 	
 func _on_water(delta):
+	if hooked:
+		queue_redraw()
+		hooked = false
+	
 	var direction_h = Input.get_axis("move_left", "move_right")
 	var direction_v = Input.get_axis("move_up", "move_down")
 	
@@ -121,17 +135,17 @@ func _on_land(delta):
 	var direction = 0
 	direction = Input.get_axis("move_left", "move_right")
 	
-	if direction >= 0:
+	if direction > 0:
 		$Sprite2D.flip_h = false
 		$hitbox.position.x = 176
 		$hitbox/AnimatedSprite2D.flip_h = false
-	elif direction <= 0:
+	elif direction < 0:
 		$Sprite2D.flip_h = true
 		$hitbox.position.x = -176
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
-	#if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
-	#	throw_hook(Vector2(100,-100))
+	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
+		throw_hook(Vector2(100,-100))
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
@@ -183,12 +197,20 @@ func start_fishing():
 func stop_fishing():
 	$Timers/Timer_fishing.start()
 	$fish_meter/pointer.velocity.x = 0
+	hook_reference.being_targeted = false
 	minigame_fishing = false
 	
 	
 func throw_hook(x):
-	emit_signal("throw_signal", self.position, x)
-
+	if not hook_on_scene:
+		var grabedInstance = hook_resource.instantiate()
+		get_tree().get_root().get_child(0).add_child(grabedInstance)
+		grabedInstance.hook_throw(position, velocity)
+		hook_reference = grabedInstance
+		hook_on_scene = true
+	elif not minigame_fishing and hook_reference:
+		hook_reference.hook_reel()
+		
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
 
@@ -196,6 +218,10 @@ func _on_timer_fishing_timeout():
 	$fish_meter.visible = false
 	$fish_meter/pointer.position.x = 0
 
+func check_got_fish():
+	return $fish_meter/fish_label.visible and ($fish_meter/fish_label.text == "OK!" \
+			or  $fish_meter/fish_label.text == "NICE CATCH!")
+			
 func hook():
 	$GrapplingHook.look_at(get_global_mouse_position())
 	if Input.is_action_just_pressed("left_click"):
