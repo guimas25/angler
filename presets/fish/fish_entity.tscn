@@ -53,6 +53,9 @@ autostart = true
 [node name="Timer_start_approach" type="Timer" parent="."]
 one_shot = true
 
+[node name="Timer_take_bait" type="Timer" parent="."]
+wait_time = 0.2
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 8
@@ -63,5 +66,6 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer_start_approach" to="." method="_on_timer_start_approach_timeout"]
+[connection signal="timeout" from="Timer_take_bait" to="." method="_on_timer_take_bait_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

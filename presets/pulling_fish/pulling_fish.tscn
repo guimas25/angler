@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=3 uid="uid://cmrt562ex6vm7"]
+
+[ext_resource type="Script" path="res://presets/pulling_fish/pulling_fish.gd" id="1_xtcab"]
+[ext_resource type="Texture2D" uid="uid://bup4nvjwf1f5" path="res://assets/sprites/fish/silly_fish.png" id="2_ha5fa"]
+[ext_resource type="Texture2D" uid="uid://3iuu1quv01d1" path="res://assets/sprites/fish/silly_fish2.png" id="3_w3pji"]
+[ext_resource type="Texture2D" uid="uid://cqqj8v7iac1ud" path="res://assets/sprites/fish/silly_fish3.png" id="4_wuc08"]
+[ext_resource type="Texture2D" uid="uid://yguop20omsoh" path="res://assets/sprites/fish/silly_fish4.png" id="5_fybmn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wpx8m"]
+size = Vector2(32, 31)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_08xtk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ha5fa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_w3pji")
+}],
+"loop": true,
+"name": &"fell_for_it",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_wuc08")
+}],
+"loop": true,
+"name": &"o-o",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_fybmn")
+}],
+"loop": true,
+"name": &"pushing",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_85aox"]
+radius = 151.03
+
+[node name="Pulling_fish" type="CharacterBody2D"]
+collision_layer = 20
+collision_mask = 20
+script = ExtResource("1_xtcab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.38419e-07, -0.5)
+shape = SubResource("RectangleShape2D_wpx8m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_08xtk")
+animation = &"o-o"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.054
+autostart = true
+
+[node name="Timer_start_approach" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer_take_bait" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_85aox")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer_start_approach" to="." method="_on_timer_start_approach_timeout"]
+[connection signal="timeout" from="Timer_take_bait" to="." method="_on_timer_take_bait_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

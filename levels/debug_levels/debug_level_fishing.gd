@@ -15,17 +15,10 @@ func _on_button_button_down():
 	get_tree().change_scene_to_file("res://levels/debug_Level/debug_level_pulling_fish.tscn")
 
 func _on_player_throw_signal(pos, vel):
-	$Hook.hook_throw(pos, vel)
+	pass
 
 func _on_player_got_fish():
-	$Hook.hook_reel()
-	pull = true
-	
-	body_hooked.set_collision_layer_value(3, false)
-	body_hooked.set_collision_layer_value(5, false)
-	body_hooked.set_collision_mask_value(3, false)
-	body_hooked.set_collision_mask_value(5, false)
+	pass
 
 func _on_hook_start_minigame(body):
-	body_hooked = body
-	$Player.start_fishing()
+	pass

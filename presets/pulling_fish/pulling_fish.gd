@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Fish_simple
+class_name Fish_pulling
 
 @export var SPEED = 300.0
 const JUMP_VELOCITY = -400.0
