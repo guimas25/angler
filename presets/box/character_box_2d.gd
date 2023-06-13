@@ -16,11 +16,10 @@ func _physics_process(delta):
 	velocity.x = move_toward(velocity.x, 0, 50)
 
 	move_and_slide()
-	if get_slide_collision_count() > 0:
-		var collision = get_last_slide_collision()
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
 		if collision.get_collider() is Box2D:
-			print("collidion")
-			collision.get_collider().slide(-collision.get_normal() * (SPEED_PUSH))
+			collision.get_collider().slide(-collision.get_normal() * (SPEED_PUSH/2))
 
 func slide(vector):
 	velocity.x = vector.x

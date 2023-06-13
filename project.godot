@@ -78,6 +78,11 @@ move_jump={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+left_click={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(303, 12),"global_position":Vector2(307, 55),"factor":1.0,"button_index":1,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [layer_names]
 

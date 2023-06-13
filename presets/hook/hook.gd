@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name Hook_Simple
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -16,6 +16,15 @@ var thrown = false
 
 var reeling = false
 var origin = null
+var player_ref
+
+var fish_caught
+
+var fish_follow = false
+
+var being_targeted = false
+
+var being_reeled = false
 
 signal start_minigame(body)
 signal reelable
@@ -23,6 +32,10 @@ signal reelable
 func _process(delta):
 	if(velocity == Vector2(0,0) and thrown and on_water):
 		emit_signal("reelable")
+
+func _ready():
+	player_ref = get_tree().get_root().get_child(0).get_node("Player")
+	print(player_ref)
 
 func _physics_process(delta):
 	if !on_water and !reeling and thrown:
@@ -39,6 +52,9 @@ func _physics_process(delta):
 			reeling = false
 			thrown = false
 			self.visible = false
+		
+	if fish_follow:
+		fish_caught.position = position
 	move_and_slide()
 	
 func hook_throw(pos, vel):
@@ -55,6 +71,9 @@ func hook_reel(pos):
 	on_water = false
 	origin = pos
 	reeling = true
+	being_targeted = true
+	being_reeled = true
+	$Timer.start()
 
 func get_on_water():
 	pass
@@ -74,6 +93,14 @@ func _on_area_2d_area_entered(area):
 
 
 func _on_area_2d_fishing_body_entered(body):
-	if(velocity == Vector2(0,0)):
+	if(velocity == Vector2(0,0) and body.get_bait):
+		fish_caught = body
 		body.hooked()
-		emit_signal("start_minigame", body)
+		player_ref.start_fishing()
+
+
+func _on_timer_timeout():
+	if fish_follow and (fish_caught is Fish_simple or fish_caught is Fish_pulling):
+		fish_caught.queue_free()
+	player_ref.hook_on_scene = false
+	self.queue_free()
