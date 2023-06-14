@@ -5,22 +5,16 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const MAX_VELOCITY_Y = 1000
 
+var player_ref
+var fish_caught
+var origin
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-var on_water = false
-
 var hook_height = 0
 
-var thrown = false
-
+var on_water = false
 var reeling = false
-var origin = null
-var player_ref
-
-var fish_caught
-
 var fish_follow = false
-
 var being_targeted = false
 
 func _ready():
@@ -81,13 +75,12 @@ func _on_area_2d_fishing_body_entered(body):
 		body.hooked()
 		player_ref.start_fishing()
 
-
-func _on_timer_timeout():
+func hook_done():
 	if fish_follow:
 		if (fish_caught is Fish_simple):
 			fish_caught.queue_free()
 		elif (fish_caught is Fish_pulling):
-			fish_caught.initiate_pull()
+			fish_caught.initiate_pull(player_ref.position)
 			fish_follow = false
 			player_ref.initiate_pulling(fish_caught)
 	player_ref.hook_on_scene = false
