@@ -80,7 +80,7 @@ func _physics_process(delta):
 				if hook_reference is Hook_Simple:
 					hook_reference.fish_follow = true
 					if hook_reference.fish_caught is Fish_pulling:
-						hook_reference._on_timer_timeout()
+						hook_reference.hook_done()
 					else:
 						hook_reference.hook_reel()
 				stop_fishing()
@@ -92,7 +92,7 @@ func _physics_process(delta):
 				if hook_reference is Hook_Simple:
 					hook_reference.fish_follow = true
 					if hook_reference.fish_caught is Fish_pulling:
-						hook_reference._on_timer_timeout()
+						hook_reference.hook_done()
 					else:
 						hook_reference.hook_reel()
 				stop_fishing()

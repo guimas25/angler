@@ -82,7 +82,7 @@ func _on_area_2d_fishing_body_entered(body):
 		player_ref.start_fishing()
 
 
-func _on_timer_timeout():
+func hook_done():
 	if fish_follow:
 		if (fish_caught is Fish_simple):
 			fish_caught.queue_free()
