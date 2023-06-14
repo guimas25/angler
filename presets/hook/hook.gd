@@ -62,9 +62,11 @@ func get_off_water():
 # When area_entered happen, call get_parent().start_fishing()
 
 func _on_area_2d_area_entered(area): 
-	if "water_body" in area.name: # TODO might fuck up in future, need change
+	if area is Water_body and not reeling:
 		hook_height = self.position.y
 		on_water = true
+		set_collision_layer_value(4, true)
+		set_collision_mask_value(4, true)
 		
 		#get_parent().start_fishing()
 
@@ -74,14 +76,25 @@ func _on_area_2d_fishing_body_entered(body):
 		fish_caught = body
 		body.hooked()
 		player_ref.start_fishing()
+	else:
+		$Timer_on_off.start()
+		$Area2D_fishing.set_collision_layer_value(5, false)
+		$Area2D_fishing.set_collision_mask_value(5, false)
 
 func hook_done():
-	if fish_follow:
-		if (fish_caught is Fish_simple):
-			fish_caught.queue_free()
-		elif (fish_caught is Fish_pulling):
-			fish_caught.initiate_pull(player_ref.position)
-			fish_follow = false
-			player_ref.initiate_pulling(fish_caught)
+	var check_bait = weakref(fish_caught)         # Try to get reference to the fish 
+	if check_bait.get_ref():                      # If it was able to, object still on the loose!
+		if fish_follow:
+			if (fish_caught is Fish_simple):
+				fish_caught.queue_free()
+			elif (fish_caught is Fish_pulling):
+				fish_caught.initiate_pull(player_ref.position)
+				fish_follow = false
+				player_ref.initiate_pulling(fish_caught)
 	player_ref.hook_on_scene = false
 	self.queue_free()
+
+
+func _on_timer_on_off_timeout():
+	$Area2D_fishing.set_collision_layer_value(5, true)
+	$Area2D_fishing.set_collision_mask_value(5, true)

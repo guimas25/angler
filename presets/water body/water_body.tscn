@@ -36,19 +36,19 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, -20)
+position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_240ol")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(20, 0)
+position = Vector2(21, 0)
 shape = SubResource("RectangleShape2D_a2ohw")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-20, 0)
+position = Vector2(-21, 0)
 shape = SubResource("RectangleShape2D_0ysgm")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 20)
+position = Vector2(0, 21)
 shape = SubResource("RectangleShape2D_3i047")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
