@@ -41,6 +41,8 @@ var pulling_fish_ref
 var pulling_vel_cooldown = false
 
 func _physics_process(delta):
+	var check_bait = weakref(hook_reference) # Try to get reference to the bait 
+
 	if pulled_by_fish:
 		if pulling_fish_ref.dead:
 			stop_pulling()
@@ -73,35 +75,39 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "OK!"
-				if hook_reference is Hook_Simple:
-					hook_reference.fish_follow = true
-					if hook_reference.fish_caught is Fish_pulling:
-						hook_reference.hook_done()
-					else:
-						hook_reference.hook_reel()
+				if check_bait.get_ref():                      # If it was able to, object still on the loose!
+					if hook_reference is Hook_Simple:
+						hook_reference.fish_follow = true
+						if hook_reference.fish_caught is Fish_pulling:
+							hook_reference.hook_done()
+						else:
+							hook_reference.hook_reel()
 				stop_fishing()
 		elif ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x -4 \
 		and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "NICE CATCH!"
-				if hook_reference is Hook_Simple:
-					hook_reference.fish_follow = true
-					if hook_reference.fish_caught is Fish_pulling:
-						hook_reference.hook_done()
-					else:
-						hook_reference.hook_reel()
+				if check_bait.get_ref():                      # If it was able to, object still on the loose!
+					if hook_reference is Hook_Simple:
+						hook_reference.fish_follow = true
+						if hook_reference.fish_caught is Fish_pulling:
+							hook_reference.hook_done()
+						else:
+							hook_reference.hook_reel()
 				stop_fishing()
 		elif $fish_meter/pointer.position.x >= 22:
 			$fish_meter/fish_label.visible = true
 			$fish_meter/fish_label.text = "YIKES"
-			hook_reference.being_targeted = false
-			stop_fishing()
+			if check_bait.get_ref():                      # If it was able to, object still on the loose!
+				hook_reference.being_targeted = false
+				stop_fishing()
 		elif Input.is_action_just_pressed("hook_action") and $fish_meter/pointer.position.x > 5:
 			$fish_meter/fish_label.visible = true
 			$fish_meter/fish_label.text = "YIKES"
-			hook_reference.being_targeted = false
-			stop_fishing()
+			if check_bait.get_ref():                      # If it was able to, object still on the loose!
+				hook_reference.being_targeted = false
+				stop_fishing()
 		$fish_meter/pointer.move_and_slide()
 	
 func _on_water(delta):

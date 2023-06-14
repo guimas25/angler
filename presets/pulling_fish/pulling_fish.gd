@@ -14,13 +14,13 @@ var y_vel = 0
 var x_dir = 1
 var y_dir = 0
 
-var bait_body
-var get_bait = false
+var bait_body             # Save Refence to current bait
+var get_bait = false      # If true, the fish will try to get the bait
 
-var pulling = false
-var on_water = true
+var pulling = false       # Check if fish is in pulling mode
+var on_water = true       # Check if fish is inside or out of water
 
-var dead = false
+var dead = false          # If true, fish hit the floor outside of water, it dies
 
 func _ready():
 	$AnimatedSprite2D.play("default")
@@ -29,13 +29,13 @@ func _ready():
 	velocity.y = randi_range(20,41)
 
 func _physics_process(delta):
-	
+	var check_bait = weakref(bait_body) # Try to get reference to the bait 
 	if is_on_floor() and not on_water:
 		dead = true
-	
-	if get_bait and bait_body is Hook_Simple:
-		velocity = Vector2(bait_body.position.x - position.x, bait_body.position.y - position.y)
-		velocity = velocity.normalized() * randf_range(30,51)
+	if check_bait.get_ref():                      # If it was able to, object still on the loose!
+		if get_bait and bait_body is Hook_Simple:
+			velocity = Vector2(bait_body.position.x - position.x, bait_body.position.y - position.y)
+			velocity = velocity.normalized() * randf_range(30,51)
 	
 	if pulling:
 		$AnimatedSprite2D.flip_h = true
@@ -45,18 +45,21 @@ func _physics_process(delta):
 			$AnimatedSprite2D.flip_v = true
 			
 		if on_water:
+			print(velocity)
 			if Input.is_action_pressed("move_right"):
 				velocity = velocity.rotated(2.5 * delta)
 			if Input.is_action_pressed("move_left"):
 				velocity = velocity.rotated(-2.5 * delta)
 			velocity = velocity.normalized() * SPEED
+			if get_slide_collision_count() > 0:
+				var collision = get_last_slide_collision()
+				velocity = collision.get_normal()
 			var pullDir = Vector2(velocity.x + position.x, velocity.y + position.y)
 			$AnimatedSprite2D.look_at(pullDir)
 		else:
 			var pullDir = Vector2(velocity.x + position.x, velocity.y + position.y)
 			$AnimatedSprite2D.look_at(pullDir)
 			velocity.y = velocity.y + gravity/2 * delta
-		
 	else:
 		if velocity.x > 0:
 			$AnimatedSprite2D.flip_h = true
@@ -168,3 +171,4 @@ func get_on_water():
 	
 func get_off_water():
 	on_water = false
+
