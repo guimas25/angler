@@ -134,9 +134,9 @@ func initiate_pull(pos):
 		
 	if dirx == 1 and diry == -1:
 		lower = PI
-		higher = (3*(PI/2))/2
+		higher = (3*(PI/2))
 	elif dirx == -1 and diry == -1:
-		lower = (3*(PI/2))/2
+		lower = (3*(PI/2))
 		higher = 2*PI
 	elif dirx == -1 and diry == 1:
 		lower = 0
@@ -145,8 +145,8 @@ func initiate_pull(pos):
 		lower = PI/2
 		higher = PI
 	
-	
 	var pulling_rotation = randf_range(lower, higher)
+	print(pulling_rotation)
 	velocity = velocity.rotated(pulling_rotation)
 	velocity = velocity.normalized() * SPEED
 	set_collision_layer_value(3, false)
