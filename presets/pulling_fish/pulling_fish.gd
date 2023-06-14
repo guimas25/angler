@@ -5,7 +5,7 @@ class_name Fish_pulling
 const JUMP_VELOCITY = -400.0
 const X_VELOCITY = 40
 const Y_VELOCITY = 20
-const CONST_RATE = 1.5
+const CONST_RATE = 3
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -45,18 +45,10 @@ func _physics_process(delta):
 			$AnimatedSprite2D.flip_v = true
 			
 		if on_water:
-			if Input.is_action_pressed("ui_right"):
-				velocity.x = lerp(velocity.x, SPEED, delta*CONST_RATE)
-				velocity.y = lerp(velocity.y, 0.0, delta*CONST_RATE)
-			if Input.is_action_pressed("ui_left"):
-				velocity.x = lerp(velocity.x, -SPEED, delta*CONST_RATE)
-				velocity.y = lerp(velocity.y, 0.0, delta*CONST_RATE)
-			if Input.is_action_pressed("ui_up"):
-				velocity.x = lerp(velocity.x, 0.0, delta*CONST_RATE)
-				velocity.y = lerp(velocity.y, -SPEED, delta*CONST_RATE)
-			if Input.is_action_pressed("ui_down"):
-				velocity.x = lerp(velocity.x, 0.0, delta*CONST_RATE)
-				velocity.y = lerp(velocity.y, SPEED, delta*CONST_RATE)
+			if Input.is_action_pressed("move_right"):
+				velocity = velocity.rotated(2.5 * delta)
+			if Input.is_action_pressed("move_left"):
+				velocity = velocity.rotated(-2.5 * delta)
 			velocity = velocity.normalized() * SPEED
 			var pullDir = Vector2(velocity.x + position.x, velocity.y + position.y)
 			$AnimatedSprite2D.look_at(pullDir)
@@ -129,11 +121,40 @@ func _on_timer_take_bait_timeout():
 			$Timer_take_bait.stop()           # Stop random timer
 			$Timer.stop()                     # Stop random behaviour
 
-func initiate_pull():
+func initiate_pull(pos):
+	velocity = Vector2(1,0)
+	var dirx = 1
+	var diry = 1
+	var lower = 0
+	var higher = 359
+	if pos.x < position.x:
+		dirx = -1
+	if pos.y > position.y:
+		diry = -1
+		
+	if dirx == 1 and diry == -1:
+		lower = PI
+		higher = (3*(PI/2))/2
+	elif dirx == -1 and diry == -1:
+		lower = (3*(PI/2))/2
+		higher = 2*PI
+	elif dirx == -1 and diry == 1:
+		lower = 0
+		higher = PI/2
+	elif dirx == 1 and diry == 1:
+		lower = PI/2
+		higher = PI
+	
+	
+	var pulling_rotation = randf_range(lower, higher)
+	velocity = velocity.rotated(pulling_rotation)
+	velocity = velocity.normalized() * SPEED
 	set_collision_layer_value(3, false)
 	set_collision_layer_value(5, false)
 	set_collision_mask_value(3, false)
 	set_collision_mask_value(5, false)
+	set_collision_layer_value(6, true)
+	set_collision_mask_value(6, true)
 	set_collision_layer_value(1, true)
 	set_collision_mask_value(1, true)
 	pulling = true
