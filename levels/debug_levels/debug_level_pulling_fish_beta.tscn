@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwvukjpwpsc4m"]
+[gd_scene load_steps=5 format=3 uid="uid://dhkr728or2ecd"]
 
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="1_f44mt"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_xjxbf"]
@@ -8,14 +8,10 @@
 [node name="debug_level_pulling_fish_beta" type="Node2D"]
 
 [node name="TileMap" parent="." instance=ExtResource("1_f44mt")]
-layer_0/tile_data = PackedInt32Array(65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 131071, 0, 0, 131070, 0, 0, 131069, 0, 0, 65533, 0, 0, -3, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, -131075, 0, 0, -65539, 0, 0, -196607, 0, 0, -196608, 0, 0, -131073, 0, 0, -131074, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 65551, 0, 0, 65552, 0, 0, -196592, 0, 0, -65520, 0, 0, 16, 0, 0, -131056, 0, 0, -262128, 0, 0, -327664, 0, 0, -393200, 0, 0, -458736, 0, 0, -524272, 0, 0, -917488, 0, 0, -851952, 0, 0, -786416, 0, 0, -720880, 0, 0, -655344, 0, 0, -589808, 0, 0, -262143, 0, 0, -327679, 0, 0, -393215, 0, 0, -458751, 0, 0, -524287, 0, 0, -589823, 0, 0, -655359, 0, 0, -720895, 0, 0, -786431, 0, 0, -851967, 0, 0, -917503, 0, 0)
+layer_0/tile_data = PackedInt32Array(65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 131071, 0, 0, 131070, 0, 0, 131069, 0, 0, 65533, 0, 0, -3, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, -131075, 0, 0, -65539, 0, 0, -196607, 0, 0, -196608, 0, 0, -131073, 0, 0, -131074, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 65551, 0, 0, -262143, 0, 0, -327679, 0, 0, -393215, 0, 0, -458751, 0, 0, -524287, 0, 0, -589823, 0, 0, -655359, 0, 0, -720895, 0, 0, -786431, 0, 0, -851967, 0, 0, -917503, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_xjxbf")]
 position = Vector2(144, 48)
-
-[node name="water_body3" parent="." instance=ExtResource("3_6d71w")]
-position = Vector2(520, -456)
-scale = Vector2(11.885, 8.764)
 
 [node name="Pulling_fish" parent="." instance=ExtResource("4_lnmwg")]
 position = Vector2(536, 80)
@@ -33,6 +29,6 @@ position = Vector2(720, 0)
 position = Vector2(648, -24)
 scale = Vector2(11.885, 8.764)
 
-[node name="water_body2" parent="." instance=ExtResource("3_6d71w")]
-position = Vector2(1416, -288)
-scale = Vector2(19.516, 22.161)
+[node name="water_body3" parent="." instance=ExtResource("3_6d71w")]
+position = Vector2(648, -378)
+scale = Vector2(479.429, 8.72551)

@@ -49,13 +49,9 @@ func _physics_process(delta):
 			var pulling_velocity = Vector2(0.0,0.0)
 			pulling_velocity.x = pulling_fish_ref.position.x - position.x
 			pulling_velocity.y = pulling_fish_ref.position.y - position.y
-		
-			if pulling_velocity.length() < 100:
-				speed_pull = SPEED/2
-			else:
-				speed_pull = pulling_fish_ref.SPEED
+				
+			speed_pull = pulling_fish_ref.SPEED * pulling_velocity.length()/100
 			
-			print(speed_pull)
 			velocity = pulling_velocity.normalized() * speed_pull
 			var pullDir = Vector2(velocity.x + position.x, velocity.y + position.y)
 			$Sprite2D.look_at(pullDir)
@@ -195,7 +191,7 @@ func _on_land(delta):
 		var collider = collision.get_collider()
 		if collider is Box2D:
 			pushing_box = true
-			print("collidion")
+			print("collision")
 			collider.slide(-collision.get_normal() * (SPEED_PUSH))
 	
 	
@@ -296,6 +292,8 @@ func _draw():
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
+	set_collision_layer_value(6, false)
+	set_collision_mask_value(6, false)
 	pulled_by_fish = true
 	pulling_fish_ref = x
 	
@@ -305,6 +303,8 @@ func stop_pulling():
 	$Sprite2D.rotation = 0.0
 	set_collision_layer_value(1, true)
 	set_collision_mask_value(1, true)
+	set_collision_layer_value(6, true)
+	set_collision_mask_value(6, true)
 
 
 func _on_timer_pull_cooldown_timeout():
