@@ -33,7 +33,7 @@ func _ready():
 	current_rope_lenght = rope_lenght
 
 var hook_reference
-
+var hook_max_distance = 300 # Max distance between the player and the hook
 var hook_on_scene = false
 
 var pulled_by_fish = false
@@ -42,7 +42,18 @@ var pulling_vel_cooldown = false
 
 func _physics_process(delta):
 	var check_bait = weakref(hook_reference) # Try to get reference to the bait 
-
+	
+	# Check if player is fishing, if yes nerf speed
+	if hook_on_scene:
+		var hook_distance = hook_reference.position - position
+		SPEED = 250 - 200 * (hook_distance.length() / hook_max_distance)
+		JUMP_VELOCITY = -400.0
+		if hook_distance.length() >= hook_max_distance:  # If player goes beyond max distance, reel back
+			stop_immediate_fishing()
+	else:
+		SPEED = 350
+		JUMP_VELOCITY = -800.0
+	
 	if pulled_by_fish:
 		if pulling_fish_ref.dead:
 			stop_pulling()
@@ -127,8 +138,8 @@ func _on_water(delta):
 		velocity.y = gravity/2 * delta
 		direction_v = velocity.y
 	
-	velocity.x = move_toward(velocity.x, direction_h * SPEED, 30)
-	velocity.y = move_toward(velocity.y, direction_v * SPEED, 30)
+	velocity.x = move_toward(velocity.x, direction_h * SPEED_WATER, 30)
+	velocity.y = move_toward(velocity.y, direction_v * SPEED_WATER, 30)
 	
 	move_and_slide()
 	
@@ -203,13 +214,14 @@ func _on_land(delta):
 	
 func get_on_water():
 	on_water = true
+	stop_immediate_fishing()
 	if velocity.y > 0:
 		velocity.y = 400.0
 
 func get_off_water():
 	on_water = false
 	if Input.is_action_pressed("move_up"):
-		velocity.y = -800.0
+		velocity.y = -200.0
 
 func _on_timer_attack_timeout():
 	$hitbox.visible = false
@@ -226,9 +238,17 @@ func start_fishing():
 func stop_fishing():
 	$Timers/Timer_fishing.start()
 	$fish_meter/pointer.velocity.x = 0
-	hook_reference.being_targeted = false
+	if hook_on_scene:
+		hook_reference.being_targeted = false
 	minigame_fishing = false
 	
+func stop_immediate_fishing():
+	$fish_meter/pointer.velocity.x = 0
+	if hook_on_scene:
+		hook_reference.being_targeted = false
+		hook_reference.hook_reel()
+	minigame_fishing = false
+	_on_timer_fishing_timeout()
 	
 func throw_hook():
 	if not hook_on_scene:
