@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=15 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
 [ext_resource type="Texture2D" uid="uid://d0ymd2dt72adr" path="res://assets/sprites/player/slash.png" id="3_2wreg"]
 [ext_resource type="Script" path="res://presets/player/Camera2D.gd" id="3_t1j6b"]
-[ext_resource type="Texture2D" uid="uid://dtd883vsmdweu" path="res://assets/sprites/player/fish_meter.png" id="5_73gb1"]
-[ext_resource type="Texture2D" uid="uid://cylbb3fsqrna5" path="res://assets/sprites/player/hit_marker.png" id="5_qp4h8"]
-[ext_resource type="Texture2D" uid="uid://dwqesmkw3qpa" path="res://assets/sprites/player/fish_meter_pointer.png" id="6_k8pdq"]
+[ext_resource type="Texture2D" uid="uid://mgy7647qcbgb" path="res://assets/sprites/player/Sprite-0006.png" id="5_evh2k"]
+[ext_resource type="Texture2D" uid="uid://dyk40htg24wui" path="res://assets/sprites/player/fish_meter_revamp_2.png" id="6_hhutb"]
+[ext_resource type="Texture2D" uid="uid://dna8ucvhys123" path="res://assets/sprites/player/Sprite-0005.png" id="6_pp16m"]
+[ext_resource type="Texture2D" uid="uid://ps42bpgr5kaw" path="res://assets/sprites/player/fish_meter_final.png" id="7_a7qfr"]
 [ext_resource type="FontFile" uid="uid://drnd7vxhi7vpk" path="res://assets/text_fonts/press-start/prstart.ttf" id="7_ev1ag"]
 [ext_resource type="PackedScene" uid="uid://b6n2okalb2wyd" path="res://presets/line/grappling_hook.tscn" id="9_4f7qt"]
 
@@ -28,7 +29,7 @@ animations = [{
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_syxvw"]
-size = Vector2(4, 4.01414)
+size = Vector2(11, 11.0389)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 33
@@ -73,36 +74,51 @@ one_shot = true
 one_shot = true
 
 [node name="fish_meter" type="ColorRect" parent="."]
-visible = false
-offset_left = -13.0
-offset_top = -26.0
-offset_right = 13.0
-offset_bottom = -22.0
+offset_left = -42.0
+offset_top = -40.0
+offset_right = 42.0
+offset_bottom = -25.0
 scale = Vector2(1, 0.99648)
-
-[node name="fish_meter" type="Sprite2D" parent="fish_meter"]
-texture_filter = 1
-position = Vector2(13, 2.00706)
-scale = Vector2(1, 1.00353)
-texture = ExtResource("5_73gb1")
+color = Color(0.909804, 0.454902, 0.380392, 1)
 
 [node name="fish_hit_marker" type="Sprite2D" parent="fish_meter"]
-position = Vector2(17, 2.00706)
-texture = ExtResource("5_qp4h8")
+position = Vector2(52, 7.527)
+scale = Vector2(1, 1.158)
+texture = ExtResource("5_evh2k")
+
+[node name="fish_hit_marker2" type="Sprite2D" parent="fish_meter"]
+position = Vector2(47, 0.00050354)
+scale = Vector2(1, 1.158)
+texture = ExtResource("6_pp16m")
+centered = false
+offset = Vector2(-10, 0)
+
+[node name="fish_hit_marker3" type="Sprite2D" parent="fish_meter"]
+position = Vector2(57, 0.000505447)
+scale = Vector2(1, 1.158)
+texture = ExtResource("6_pp16m")
+centered = false
 
 [node name="pointer" type="CharacterBody2D" parent="fish_meter"]
+position = Vector2(6, 7.516)
 collision_layer = 0
 collision_mask = 0
+metadata/_edit_group_ = true
 
 [node name="pointer_sprite" type="Sprite2D" parent="fish_meter/pointer"]
 texture_filter = 1
-position = Vector2(2, 2.00706)
 scale = Vector2(1, 1.00353)
-texture = ExtResource("6_k8pdq")
+texture = ExtResource("7_a7qfr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="fish_meter/pointer"]
-position = Vector2(2, 2.00706)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_syxvw")
+
+[node name="fish_meter" type="Sprite2D" parent="fish_meter"]
+texture_filter = 1
+position = Vector2(42, 8.02826)
+scale = Vector2(1, 1.00353)
+texture = ExtResource("6_hhutb")
 
 [node name="fish_label" type="Label" parent="fish_meter"]
 visible = false
