@@ -40,6 +40,9 @@ var pulled_by_fish = false
 var pulling_fish_ref
 var pulling_vel_cooldown = false
 
+func _process(delta):
+	$Node2D.look_at(get_global_mouse_position())
+		
 func _physics_process(delta):
 	var check_bait = weakref(hook_reference) # Try to get reference to the bait 
 
@@ -232,11 +235,15 @@ func stop_fishing():
 	
 func throw_hook():
 	if not hook_on_scene:
-		var grabedInstance = hook_resource.instantiate()
-		get_tree().get_root().get_child(0).add_child(grabedInstance)
-		grabedInstance.hook_throw(position, velocity)
-		hook_reference = grabedInstance
+		var hook_instance = hook_resource.instantiate()
+		hook_instance.position = get_global_position()
+		hook_instance.velocity = Vector2(300, 0).rotated($Node2D.rotation)
+		hook_instance.hook_throw()
+		hook_reference = hook_instance
+		get_tree().get_root().add_child(hook_instance)
+		#get_tree().get_root().get_child(0).add_child(grabedInstance)
 		hook_on_scene = true
+		
 	elif not minigame_fishing and hook_reference:
 		hook_reference.hook_reel()
 		

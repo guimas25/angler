@@ -22,14 +22,16 @@ func _ready():
 	print(player_ref)
 
 func _physics_process(delta):
+	look_at(Vector2(position.x + velocity.x, position.y + velocity.y))
 	origin = player_ref.position
 	if !on_water and !reeling:
 		if velocity.y <= MAX_VELOCITY_Y:
 			velocity.y += (gravity/2) * delta
 	elif on_water:
-		velocity.x = move_toward(velocity.x, 0, 4)
-		velocity.y = move_toward(velocity.y, 0, 20)
+		velocity.x = move_toward(velocity.x, 0, 20)
+		velocity.y = move_toward(velocity.y, 0, 10)
 		position.y = move_toward(position.y, hook_height, 1.5)
+		rotation = move_toward(rotation, PI/2, 0.5)
 	elif reeling:
 		velocity = Vector2(0,0)
 		position = position.lerp(origin, 0.3)
@@ -40,11 +42,8 @@ func _physics_process(delta):
 		fish_caught.position = position
 	move_and_slide()
 	
-func hook_throw(pos, vel):
+func hook_throw():
 	on_water = false
-	self.position = pos #ref do jogador
-	velocity.x = 100
-	velocity.y = -300
 	
 func hook_reel():
 	if not reeling:
