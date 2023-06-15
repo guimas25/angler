@@ -25,7 +25,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4spii"]
-size = Vector2(128, 208)
+size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_syxvw"]
 size = Vector2(4, 4.01414)
@@ -51,13 +51,13 @@ script = ExtResource("3_t1j6b")
 
 [node name="hitbox" type="Area2D" parent="."]
 visible = false
-position = Vector2(176, 0)
+position = Vector2(32, 0)
 collision_layer = 0
 collision_mask = 0
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="hitbox"]
 texture_filter = 1
-position = Vector2(-144, 0)
 sprite_frames = SubResource("SpriteFrames_s8ywg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]

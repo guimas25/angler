@@ -177,11 +177,11 @@ func _on_land(delta):
 	
 	if direction > 0:
 		$Sprite2D.flip_h = false
-		$hitbox.position.x = 176
+		$hitbox.position.x = 32
 		$hitbox/AnimatedSprite2D.flip_h = false
 	elif direction < 0:
 		$Sprite2D.flip_h = true
-		$hitbox.position.x = -176
+		$hitbox.position.x = -32
 		$hitbox/AnimatedSprite2D.flip_h = true
 		
 	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing and not reelable:
