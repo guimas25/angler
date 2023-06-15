@@ -28,11 +28,11 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_h = true
 	else:
 		$AnimatedSprite2D.flip_h = false
-	
-	if get_bait and bait_body is Hook_Simple:
-		velocity = Vector2(bait_body.position.x - position.x, bait_body.position.y - position.y)
-		velocity = velocity.normalized() * randf_range(30,51)
-	
+	var check_bait = weakref(bait_body) 		  # Try to get reference to the bait 
+	if check_bait.get_ref():                      # If it was able to, object still on the loose!
+		if get_bait and bait_body is Hook_Simple:
+			velocity = Vector2(bait_body.position.x - position.x, bait_body.position.y - position.y)
+			velocity = velocity.normalized() * randf_range(30,51)
 	move_and_slide()
 
 func hooked():
