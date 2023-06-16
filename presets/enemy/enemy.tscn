@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf0smkdnkwg0m"]
+[gd_scene load_steps=6 format=3 uid="uid://cf0smkdnkwg0m"]
 
 [ext_resource type="Script" path="res://presets/enemy/enemy.gd" id="1_pd02y"]
+[ext_resource type="FontFile" uid="uid://sb6s3wamb622" path="res://assets/text_fonts/press-start/prstartk.ttf" id="2_fe3ec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k7cwh"]
 size = Vector2(10, 12)
@@ -12,7 +13,8 @@ size = Vector2(8, 8)
 load_path = "res://.godot/imported/bob1.png-ede59ca9d4da1070b1c98364fd3f28d5.ctex"
 
 [node name="enemy" type="CharacterBody2D"]
-collision_layer = 3
+collision_layer = 35
+collision_mask = 33
 script = ExtResource("1_pd02y")
 
 [node name="HitBoxDamage" type="Area2D" parent="."]
@@ -30,17 +32,19 @@ shape = SubResource("RectangleShape2D_mhuo6")
 texture_filter = 1
 texture = SubResource("CompressedTexture2D_7whv7")
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
-offset_left = -7.0
-offset_top = -23.0
-offset_right = 15.0
-offset_bottom = 3.0
-theme_override_font_sizes/font_size = 13
+offset_left = -10.0
+offset_top = -53.0
+offset_right = 22.0
+offset_bottom = -34.0
+theme_override_fonts/font = ExtResource("2_fe3ec")
 text = "HP"
+horizontal_alignment = 3
+vertical_alignment = 3
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-9, -44)
+collision_mask = 32
 
 [connection signal="area_entered" from="HitBoxDamage" to="." method="_on_hit_box_damage_area_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

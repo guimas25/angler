@@ -33,7 +33,7 @@ radius = 151.03
 
 [node name="fish_entity" type="CharacterBody2D"]
 scale = Vector2(1.717, 1.717)
-collision_layer = 20
+collision_layer = 0
 collision_mask = 20
 script = ExtResource("1_2jg2f")
 metadata/_edit_group_ = true
