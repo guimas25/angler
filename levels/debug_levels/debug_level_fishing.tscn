@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://n4cwa68qb1l5"]
+[gd_scene load_steps=6 format=3 uid="uid://n4cwa68qb1l5"]
 
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="1_8ei46"]
 [ext_resource type="Script" path="res://levels/debug_levels/debug_level_fishing.gd" id="1_d0p8u"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_8smxj"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="3_0gil6"]
 [ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="3_wm23k"]
-[ext_resource type="PackedScene" uid="uid://cmrt562ex6vm7" path="res://presets/pulling_fish/pulling_fish.tscn" id="7_dlxj7"]
 
 [node name="debug_level_fishing" type="Node2D"]
 script = ExtResource("1_d0p8u")
@@ -47,9 +46,3 @@ scale = Vector2(1.156, 1.156)
 [node name="water_body" parent="." instance=ExtResource("3_0gil6")]
 position = Vector2(767, 329)
 scale = Vector2(23.43, 4.425)
-
-[node name="Pulling_fish" parent="." instance=ExtResource("7_dlxj7")]
-position = Vector2(1041, 334)
-
-[node name="Pulling_fish2" parent="." instance=ExtResource("7_dlxj7")]
-position = Vector2(919, 320)

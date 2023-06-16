@@ -6,16 +6,16 @@
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_240ol"]
-size = Vector2(32, 8)
+size = Vector2(34, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2ohw"]
-size = Vector2(8, 32)
+size = Vector2(8, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ysgm"]
-size = Vector2(8, 32)
+size = Vector2(8, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3i047"]
-size = Vector2(32, 8)
+size = Vector2(34, 8)
 
 [node name="water_body" type="Area2D"]
 script = ExtResource("1_fsa3i")
@@ -25,10 +25,10 @@ shape = SubResource("RectangleShape2D_ww072")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0.372549)
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
+offset_left = -17.0
+offset_top = -17.0
+offset_right = 17.0
+offset_bottom = 17.0
 color = Color(0.352941, 0.427451, 0.87451, 1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -36,19 +36,19 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, -20)
+position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_240ol")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(20, 0)
+position = Vector2(21, 0)
 shape = SubResource("RectangleShape2D_a2ohw")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-20, 0)
+position = Vector2(-21, 0)
 shape = SubResource("RectangleShape2D_0ysgm")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 20)
+position = Vector2(0, 21)
 shape = SubResource("RectangleShape2D_3i047")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

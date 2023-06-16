@@ -1,4 +1,5 @@
 extends Area2D
+class_name Water_body
 
 func _on_body_entered(body):
 	body.get_on_water()
