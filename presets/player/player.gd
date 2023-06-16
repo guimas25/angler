@@ -17,7 +17,7 @@ var pulling = false
 # Represents item in inventory
 class inventory_item:
 	var name
-	var id
+	var description
 	var count
 
 var inventory = []   # Array containing inventory items, saves player inventory
@@ -44,6 +44,19 @@ var pushing_box = false
 var hook_resource = preload("res://presets/hook/hook.tscn")
 func _ready():
 	current_rope_lenght = rope_lenght
+	add_item("a")
+	add_item("b")
+	add_item("c")
+	add_item("d")
+	add_item("e")
+	add_item("f")
+	add_item("g")
+	add_item("h")
+	add_item("i")
+	add_item("j")
+	add_item("k")
+	add_item("k2")
+	add_item("k3")
 
 var hook_reference
 var hook_max_distance = 300 # Max distance between the player and the hook
@@ -360,27 +373,31 @@ func _draw():
 
 # Makes Inventory visible and invisible
 func show_inventory():
+	inventory_page_number = 0
 	update_inventory()
 	$Inventory.visible = !$Inventory.visible
 
 # Updates inventory UI dynamically
 func update_inventory():
+	var i = 0+6*inventory_page_number
 	var j = 0
-	var i = 0
 	
-	print($Inventory/ColorRect/FishLabel.text)
 	for w in $Inventory/ColorRect.get_children():
 		w.visible = false
-	while i in range(0+6*inventory_page_number, 5 + 6*inventory_page_number) and i < inventory.size():
+	while i in range(0+6*inventory_page_number, 6 + 6*inventory_page_number) and i < inventory.size():
 		var item = $Inventory/ColorRect.get_child(j)
 		item.visible = true
 		item.texture = preload("res://assets/sprites/fish/fish2.png")
 		item.get_child(0).text = inventory[i].name
 		item.get_child(1).text = str(inventory[i].count)
 		i += 1
+		j += 1
 	
 	# Show current and total page numbers
-	$Inventory/ColorRect/FishLabel.text = str(inventory_page_number+1)  + "/" + str(int(ceil(inventory.size()/6.0)))
+	var n_pages = int(ceil(inventory.size()/6.0))
+	if n_pages == 0:
+		n_pages = 1
+	$Inventory/ColorRect/FishLabel.text = str(inventory_page_number+1)  + "/" + str(n_pages)
 	$Inventory/ColorRect/FishLabel.visible = true 
 	
 # Adds item to inventory
@@ -393,7 +410,7 @@ func add_item(name):
 	if not found:
 		var new_item = inventory_item.new()
 		new_item.name = name
-		new_item.id = 0
+		new_item.description = 0
 		new_item.count = 1
 		inventory.append(new_item)
 
@@ -583,3 +600,17 @@ func minigame_randomizer():
 	$fish_meter/fish_hit_marker3.scale.x = rand_scale
 	$fish_meter/fish_hit_marker2.position.x = $fish_meter/fish_hit_marker.position.x - 5 * $fish_meter/fish_hit_marker.scale.x
 	$fish_meter/fish_hit_marker3.position.x = $fish_meter/fish_hit_marker.position.x + 5 * $fish_meter/fish_hit_marker.scale.x
+
+
+func _on_previous_inventory_button_down():
+	inventory_page_number = inventory_page_number -1
+	if inventory_page_number < 0:
+		inventory_page_number = 0
+	update_inventory()
+
+func _on_next_inventory_button_down():
+	var n_pages = int(ceil(inventory.size()/6.0))
+	inventory_page_number = inventory_page_number + 1
+	if inventory_page_number >= n_pages:
+		inventory_page_number = n_pages - 1
+	update_inventory()

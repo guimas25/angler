@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=22 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://btcnbrblqhj6f" path="res://assets/sprites/player/fishing_round_green.png" id="10_8bj0x"]
 [ext_resource type="Texture2D" uid="uid://b3ilxunfjjwoa" path="res://assets/sprites/player/fishing_round_red.png" id="11_dll8c"]
 [ext_resource type="Texture2D" uid="uid://bw2xt2l3ggwxp" path="res://assets/sprites/player/fishing_round_yellow.png" id="12_oh8ol"]
+[ext_resource type="Texture2D" uid="uid://bttdrajf13lxo" path="res://assets/sprites/player/inventory_arrow_revamp.png" id="15_wk6ct"]
+[ext_resource type="Texture2D" uid="uid://c6lf68ttu5hpl" path="res://assets/sprites/player/inventory_arrow.png" id="16_2gfuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
@@ -200,7 +202,6 @@ animation = &"yellow"
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Inventory" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Inventory"]
 anchors_preset = 8
@@ -214,6 +215,7 @@ offset_right = 392.0
 offset_bottom = 232.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 1, 1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Inventory/ColorRect"]
 position = Vector2(128, 100)
@@ -372,16 +374,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect"]
-modulate = Color(0, 0, 0, 1)
 offset_left = 272.0
-offset_top = 420.0
+offset_top = 412.0
 offset_right = 512.0
-offset_bottom = 468.0
+offset_bottom = 460.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "page number"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="previous_inventory" type="TextureButton" parent="Inventory/ColorRect/FishLabel"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 4.0
+offset_right = 28.0
+offset_bottom = 48.0
+texture_normal = ExtResource("15_wk6ct")
+texture_disabled = ExtResource("16_2gfuu")
+
+[node name="next_inventory" type="TextureButton" parent="Inventory/ColorRect/FishLabel"]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 4.0
+offset_right = 256.0
+offset_bottom = 48.0
+texture_normal = ExtResource("15_wk6ct")
+texture_disabled = ExtResource("16_2gfuu")
+flip_h = true
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]
 [connection signal="timeout" from="Timers/Timer_fishing" to="." method="_on_timer_fishing_timeout"]
+[connection signal="button_down" from="Inventory/ColorRect/FishLabel/previous_inventory" to="." method="_on_previous_inventory_button_down"]
+[connection signal="button_down" from="Inventory/ColorRect/FishLabel/next_inventory" to="." method="_on_next_inventory_button_down"]
