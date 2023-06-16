@@ -16,6 +16,7 @@ var on_water = false
 var reeling = false
 var fish_follow = false
 var being_targeted = false
+var result_fish = false
 
 func _ready():
 	player_ref = get_tree().get_root().get_child(0).get_node("Player")
@@ -34,7 +35,7 @@ func _physics_process(delta):
 		velocity = Vector2(0,0)
 		position = position.lerp(origin, 0.3)
 		if position.x >= origin.x - 20 and position.x <= origin.x + 20 and position.y >= origin.y - 20 and position.y <= origin.y + 20:
-			hook_done()
+			hook_done(result_fish)
 		
 	if fish_follow:
 		fish_caught.position = position
@@ -46,11 +47,12 @@ func hook_throw(pos, vel):
 	velocity.x = 100
 	velocity.y = -300
 	
-func hook_reel():
+func hook_reel(result):
 	if not reeling:
 		on_water = false
 		reeling = true
 		being_targeted = true
+		result_fish = true
 
 func get_on_water():
 	pass
@@ -71,19 +73,19 @@ func _on_area_2d_area_entered(area):
 		#get_parent().start_fishing()
 
 
-func _on_area_2d_fishing_body_entered(body):
-	if(velocity == Vector2(0,0) and body.get_bait):
-		fish_caught = body
-		body.hooked()
+func _on_area_2d_fishing_area_entered(body):
+	if(velocity == Vector2(0,0) and body.get_parent().get_bait):
+		fish_caught = body.get_parent()
+		fish_caught.hooked()
 		player_ref.start_fishing()
 	else:
 		$Timer_on_off.start()
 		$Area2D_fishing.set_collision_layer_value(5, false)
 		$Area2D_fishing.set_collision_mask_value(5, false)
 
-func hook_done():
+func hook_done(result):
 	var check_bait = weakref(fish_caught)         # Try to get reference to the fish 
-	if check_bait.get_ref():                      # If it was able to, object still on the loose!
+	if check_bait.get_ref() and result:                      # If it was able to, object still on the loose!
 		if fish_follow:
 			if (fish_caught is Fish_simple):
 				fish_caught.queue_free()
@@ -93,7 +95,6 @@ func hook_done():
 				player_ref.initiate_pulling(fish_caught)
 	player_ref.hook_on_scene = false
 	self.queue_free()
-
 
 func _on_timer_on_off_timeout():
 	$Area2D_fishing.set_collision_layer_value(5, true)

@@ -37,11 +37,11 @@ func _physics_process(delta):
 
 func hooked():
 	$Timer.stop()
+	$Timer_take_bait.stop()           # Stop random timer
 	velocity.x = 0
 	velocity.y = 0
 	get_bait = false
-	$Timer_take_bait.stop()           # Stop random timer
-	$Timer.start()                    # Return to random behaviour
+
 	
 func go_timer():
 	$Timer.start()
@@ -70,12 +70,13 @@ func _on_area_2d_body_entered(body):
 
 
 func _on_area_2d_body_exited(body):
-	print("goodbay")
+	return_to_random()
+
+func return_to_random():
 	get_bait = false
 	$AnimatedSprite2D.play("default")
 	$Timer_take_bait.stop()           # Stop random timer
 	$Timer.start()                    # Return to random behaviour
-
 
 func _on_timer_start_approach_timeout():
 	print("omw")
