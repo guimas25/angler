@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://b1xe50r2jy3n2" path="res://icon.svg" id="10_6soqp"]
 [ext_resource type="PackedScene" uid="uid://b6n2okalb2wyd" path="res://presets/line/grappling_hook.tscn" id="10_tdidi"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
 
@@ -118,7 +117,7 @@ theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "hello"
 horizontal_alignment = 1
 
-[node name="GrapplingHook" parent="." instance=ExtResource("9_4f7qt")]
+[node name="GrapplingHook" parent="." instance=ExtResource("10_tdidi")]
 
 [node name="Inventory" type="CanvasLayer" parent="."]
 visible = false

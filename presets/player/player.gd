@@ -4,13 +4,14 @@ extends CharacterBody2D
 @export var SPEED = 350.0
 @export var SPEED_WATER = 150.0
 @export var JUMP_VELOCITY = -800.0
+@export var MAX_ROPE_LENGHT = 500
 
-const CHAIN_PULL = 105
-var chain_velocity := Vector2(0,0)
 var hook_pos = Vector2()
 var hooked = false
 const rope_lenght = 500
 var current_rope_lenght
+var just_grappled = true
+var pulling = false
 
 var caught_fish = [1, 4, 5]
 
@@ -107,76 +108,78 @@ func _on_water(delta):
 	move_and_slide()
 	
 func _on_land(delta):
-	# Add the gravity.
-	
-	if not is_on_floor():
-		coyote_time = coyote_time - delta
-		velocity.y += gravity * delta
-	else:
-		coyote_time = 0.2
-		
-	# Handle Jump.
-	jump_time = jump_time - delta
-	if Input.is_action_just_pressed("move_jump"):
-		jump_time = 0.2
-	
-	if jump_time > 0 and coyote_time > 0:
-		coyote_time = 0.0
-		velocity.y = JUMP_VELOCITY
-	
-	if Input.is_action_just_released("move_jump") and velocity.y < 0:
-		velocity.y = velocity.y/2
-	
 	hook()
 	queue_redraw()
 	if hooked:
+		if not is_on_floor():
+			velocity.y += gravity * delta
 		swing(delta)
+		just_grappled = false
 		velocity *= 0.975 # swing speed
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = 0
-	direction = Input.get_axis("move_left", "move_right")
 	
-	if direction > 0:
-		$Sprite2D.flip_h = false
-		$hitbox.position.x = 176
-		$hitbox/AnimatedSprite2D.flip_h = false
-	elif direction < 0:
-		$Sprite2D.flip_h = true
-		$hitbox.position.x = -176
-		$hitbox/AnimatedSprite2D.flip_h = true
-		
-	if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
-		throw_hook(Vector2(100,-100))
+		var direction = Input.get_axis("move_left", "move_right")
+		velocity.x += direction * 20 * 0.975
 	
-	if Input.is_action_just_pressed("inventory_open") and not minigame_fishing:
-		show_inventory()
-		
-	if direction:
-		velocity.x = move_toward(velocity.x, direction * SPEED, 30)
-
-	if !pushing_box:
-		if direction:
-			velocity.x = move_toward(velocity.x, direction * SPEED, 30)
-		else:
-			velocity.x = move_toward(velocity.x, 0, 50)
+	# Add the gravity.
 	else:
-		velocity.x = direction * SPEED_PUSH
+		if not is_on_floor():
+			coyote_time = coyote_time - delta
+			velocity.y += gravity * delta
+		else:
+			coyote_time = 0.2
+			
+		# Handle Jump.
+		jump_time = jump_time - delta
+		if Input.is_action_just_pressed("move_jump"):
+			jump_time = 0.2
 		
-	if direction == 0:
-		pushing_box = false
+		if jump_time > 0 and coyote_time > 0:
+			coyote_time = 0.0
+			velocity.y = JUMP_VELOCITY
 		
-	move_and_slide()
-	
-	for index in get_slide_collision_count():
-		var collision = get_slide_collision(index)
-		var collider = collision.get_collider()
-		if collider is Box2D:
-			pushing_box = true
-			print("collidion")
-			collider.slide(-collision.get_normal() * (SPEED_PUSH))
-	
+		if Input.is_action_just_released("move_jump") and velocity.y < 0:
+			velocity.y = velocity.y/2
+
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var direction = 0
+		direction = Input.get_axis("move_left", "move_right")
+		
+		if direction > 0:
+			$Sprite2D.flip_h = false
+			$hitbox.position.x = 176
+			$hitbox/AnimatedSprite2D.flip_h = false
+		elif direction < 0:
+			$Sprite2D.flip_h = true
+			$hitbox.position.x = -176
+			$hitbox/AnimatedSprite2D.flip_h = true
+			
+		if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
+			throw_hook(Vector2(100,-100))
+		
+		if Input.is_action_just_pressed("inventory_open") and not minigame_fishing:
+			show_inventory()
+
+		if !pushing_box:
+			if direction:
+				velocity.x = move_toward(velocity.x, direction * SPEED, 30)
+			else:
+				velocity.x = move_toward(velocity.x, 0, 50)
+		else:
+			velocity.x = direction * SPEED_PUSH
+			
+		if direction == 0:
+			pushing_box = false
+			
+		
+		
+		for index in get_slide_collision_count():
+			var collision = get_slide_collision(index)
+			var collider = collision.get_collider()
+			if collider is Box2D:
+				pushing_box = true
+				collider.slide(-collision.get_normal() * (SPEED_PUSH))
+	move_and_slide()	
 	
 func get_on_water():
 	on_water = true
@@ -237,6 +240,8 @@ func hook():
 			current_rope_lenght = global_position.distance_to(hook_pos)
 	if Input.is_action_just_released("left_click") and hooked:
 		hooked = false
+		just_grappled = true
+		pulling = false
 
 func get_hook_pos():
 	for raycast in $GrapplingHook.get_children():
@@ -245,17 +250,30 @@ func get_hook_pos():
 
 func swing(delta):
 	var radius = global_position - hook_pos
-	if velocity.length() < 0.01 or radius.length() < 10: return
+	if velocity.length() < 0.01 or radius.length() < 20: return
 	var angle = acos(radius.dot(velocity) / (radius.length() * velocity.length()))
+	var angle_to_floor = Vector2(1,0).angle_to(radius)
 	var rad_vel = cos(angle) * velocity.length()
 	velocity += radius.normalized() * -rad_vel
 	
+	if(angle_to_floor < 0 and angle_to_floor > -PI and just_grappled):
+		pulling = true
+	elif pulling:
+		velocity += (hook_pos - global_position).normalized() * 55000 * delta
+	if(angle_to_floor > 0):
+		pulling = false
+		if(Input.is_action_pressed("move_up")):
+			velocity += (hook_pos - global_position).normalized() * 3500 * delta
+			current_rope_lenght = (hook_pos - global_position).length()
+		if(Input.is_action_pressed("move_down")):
+			if(current_rope_lenght < MAX_ROPE_LENGHT):
+				velocity -= (hook_pos - global_position).normalized() * 3500 * delta
+				current_rope_lenght = (hook_pos - global_position).length()
+		#velocity += (hook_pos - global_position).normalized() * 1500 * delta
+	
 	if global_position.distance_to(hook_pos) > current_rope_lenght:
 		global_position = hook_pos + radius.normalized() * current_rope_lenght
-	
-	velocity += (hook_pos - global_position).normalized() * 15000 * delta
-
-
+	print(current_rope_lenght)
 func _draw():
 	var pos = global_position
 	
