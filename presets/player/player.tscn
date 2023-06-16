@@ -200,7 +200,6 @@ animation = &"yellow"
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Inventory" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Inventory"]
 anchors_preset = 8
@@ -368,6 +367,17 @@ offset_right = 72.0
 offset_bottom = 72.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishLabel" type="Label" parent="Inventory/ColorRect"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 272.0
+offset_top = 420.0
+offset_right = 512.0
+offset_bottom = 468.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "page number"
 horizontal_alignment = 1
 vertical_alignment = 1
 

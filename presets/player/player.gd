@@ -21,6 +21,7 @@ class inventory_item:
 	var count
 
 var inventory = []   # Array containing inventory items, saves player inventory
+var inventory_page_number = 0 # Inventory Page number
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.6
@@ -365,14 +366,22 @@ func show_inventory():
 # Updates inventory UI dynamically
 func update_inventory():
 	var j = 0
+	var i = 0
+	
+	print($Inventory/ColorRect/FishLabel.text)
 	for w in $Inventory/ColorRect.get_children():
 		w.visible = false
-	for i in inventory:
+	while i in range(0+6*inventory_page_number, 5 + 6*inventory_page_number) and i < inventory.size():
 		var item = $Inventory/ColorRect.get_child(j)
 		item.visible = true
 		item.texture = preload("res://assets/sprites/fish/fish2.png")
-		item.get_child(0).text = i.name
-		item.get_child(1).text = str(i.count)
+		item.get_child(0).text = inventory[i].name
+		item.get_child(1).text = str(inventory[i].count)
+		i += 1
+	
+	# Show current and total page numbers
+	$Inventory/ColorRect/FishLabel.text = str(inventory_page_number+1)  + "/" + str(int(ceil(inventory.size()/6.0)))
+	$Inventory/ColorRect/FishLabel.visible = true 
 	
 # Adds item to inventory
 func add_item(name):
