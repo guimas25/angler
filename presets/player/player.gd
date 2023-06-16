@@ -365,8 +365,11 @@ func show_inventory():
 # Updates inventory UI dynamically
 func update_inventory():
 	var j = 0
+	for w in $Inventory/ColorRect.get_children():
+		w.visible = false
 	for i in inventory:
 		var item = $Inventory/ColorRect.get_child(j)
+		item.visible = true
 		item.texture = preload("res://assets/sprites/fish/fish2.png")
 		item.get_child(0).text = i.name
 		item.get_child(1).text = str(i.count)
