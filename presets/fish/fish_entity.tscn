@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cc7cirpqmwa7b"]
+[gd_scene load_steps=8 format=3 uid="uid://cc7cirpqmwa7b"]
 
 [ext_resource type="Script" path="res://presets/fish/fish_entity.gd" id="1_2jg2f"]
 [ext_resource type="Texture2D" uid="uid://cbnx6aru8ifeg" path="res://assets/sprites/fish/fish1.png" id="2_jpq73"]
@@ -28,6 +28,8 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vymnr"]
 radius = 151.03
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_psjbf"]
 
 [node name="fish_entity" type="CharacterBody2D"]
 scale = Vector2(1.717, 1.717)
@@ -63,6 +65,14 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_vymnr")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Area2D_hook_detection" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_hook_detection"]
+scale = Vector2(0.853, 0.84)
+shape = SubResource("RectangleShape2D_psjbf")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer_start_approach" to="." method="_on_timer_start_approach_timeout"]

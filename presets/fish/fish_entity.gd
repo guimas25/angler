@@ -28,21 +28,20 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_h = true
 	else:
 		$AnimatedSprite2D.flip_h = false
-	var check_bait = weakref(bait_body)           # Try to get reference to the bait 
+	var check_bait = weakref(bait_body) 		  # Try to get reference to the bait 
 	if check_bait.get_ref():                      # If it was able to, object still on the loose!
 		if get_bait and bait_body is Hook_Simple:
 			velocity = Vector2(bait_body.position.x - position.x, bait_body.position.y - position.y)
 			velocity = velocity.normalized() * randf_range(30,51)
-	
 	move_and_slide()
 
 func hooked():
 	$Timer.stop()
+	$Timer_take_bait.stop()           # Stop random timer
 	velocity.x = 0
 	velocity.y = 0
 	get_bait = false
-	$Timer_take_bait.stop()           # Stop random timer
-	$Timer.start()                    # Return to random behaviour
+
 	
 func go_timer():
 	$Timer.start()
@@ -71,12 +70,13 @@ func _on_area_2d_body_entered(body):
 
 
 func _on_area_2d_body_exited(body):
-	print("goodbay")
+	return_to_random()
+
+func return_to_random():
 	get_bait = false
 	$AnimatedSprite2D.play("default")
 	$Timer_take_bait.stop()           # Stop random timer
 	$Timer.start()                    # Return to random behaviour
-
 
 func _on_timer_start_approach_timeout():
 	print("omw")

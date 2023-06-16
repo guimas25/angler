@@ -1,76 +1,33 @@
 [gd_scene format=3 uid="uid://b6n2okalb2wyd"]
 
 [node name="GrapplingHook" type="Node2D"]
-light_mask = 512
 rotation = -1.5708
 
 [node name="RayCast01" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
 position = Vector2(20, 0)
 target_position = Vector2(500, 0)
-collision_mask = 32
+collision_mask = 128
 
 [node name="RayCast02" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
-position = Vector2(20, 0)
-rotation = -0.0872665
-target_position = Vector2(500, 0)
-collision_mask = 32
-
-[node name="RayCast03" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
 position = Vector2(20, 0)
 rotation = 0.0872665
 target_position = Vector2(500, 0)
-collision_mask = 32
+collision_mask = 128
+
+[node name="RayCast03" type="RayCast2D" parent="."]
+position = Vector2(20, 0)
+rotation = -0.0872665
+target_position = Vector2(500, 0)
+collision_mask = 128
 
 [node name="RayCast04" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
-position = Vector2(20, 0)
-rotation = -0.174533
-target_position = Vector2(500, 0)
-collision_mask = 32
-
-[node name="RayCast05" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
 position = Vector2(20, 0)
 rotation = 0.174533
 target_position = Vector2(500, 0)
-collision_mask = 32
+collision_mask = 128
 
-[node name="RayCast06" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
+[node name="RayCast05" type="RayCast2D" parent="."]
 position = Vector2(20, 0)
-rotation = 0.261799
+rotation = -0.174533
 target_position = Vector2(500, 0)
-collision_mask = 32
-
-[node name="RayCast07" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
-position = Vector2(20, 0)
-rotation = -0.261799
-target_position = Vector2(500, 0)
-collision_mask = 32
-
-[node name="RayCast08" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
-position = Vector2(20, 0)
-rotation = -0.349066
-target_position = Vector2(500, 0)
-collision_mask = 32
-
-[node name="RayCast09" type="RayCast2D" parent="."]
-light_mask = 512
-visibility_layer = 512
-position = Vector2(20, 0)
-rotation = 0.349066
-target_position = Vector2(500, 0)
-collision_mask = 32
+collision_mask = 128
