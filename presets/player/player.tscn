@@ -200,6 +200,7 @@ animation = &"yellow"
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Inventory" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Inventory"]
 anchors_preset = 8
