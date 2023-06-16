@@ -16,6 +16,7 @@ var on_water = false
 var reeling = false
 var fish_follow = false
 var being_targeted = false
+var floating_angle = 0
 
 func _ready():
 	player_ref = get_tree().get_root().get_child(0).get_node("Player")
@@ -28,10 +29,10 @@ func _physics_process(delta):
 		if velocity.y <= MAX_VELOCITY_Y:
 			velocity.y += (gravity/2) * delta
 	elif on_water:
-		velocity.x = move_toward(velocity.x, 0, 20)
-		velocity.y = move_toward(velocity.y, 0, 10)
+		velocity.x = move_toward(velocity.x, 0, 30)
+		velocity.y = move_toward(velocity.y, 0, 15)
 		position.y = move_toward(position.y, hook_height, 1.5)
-		rotation = move_toward(rotation, PI/2, 0.5)
+		rotation = move_toward(rotation, floating_angle, 0.5)
 	elif reeling:
 		velocity = Vector2(0,0)
 		position = position.lerp(origin, 0.3)
@@ -51,24 +52,16 @@ func hook_reel():
 		reeling = true
 		being_targeted = true
 
-func get_on_water():
-	pass
-
-func get_off_water():
-	pass
-
-# On area2d entered for water, area_entered, for fish, body_entered
-# When area_entered happen, call get_parent().start_fishing()
-
 func _on_area_2d_area_entered(area): 
 	if area is Water_body and not reeling:
+		if self.velocity.y > 0:
+			floating_angle = PI/2
+		elif self.velocity.y < 0:
+			floating_angle = -PI/2
 		hook_height = self.position.y
 		on_water = true
 		set_collision_layer_value(4, true)
 		set_collision_mask_value(4, true)
-		
-		#get_parent().start_fishing()
-
 
 func _on_area_2d_fishing_body_entered(body):
 	if(velocity == Vector2(0,0) and body.get_bait):

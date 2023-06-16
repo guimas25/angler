@@ -3,6 +3,7 @@ extends CharacterBody2D
 var SPEED_PUSH = 250
 var SPEED = 350.0
 var SPEED_WATER = 150.0
+var SPEED_HOOK = 400
 var JUMP_VELOCITY = -800.0
 
 const CHAIN_PULL = 105
@@ -235,9 +236,18 @@ func stop_fishing():
 	
 func throw_hook():
 	if not hook_on_scene:
+		var mouse_position = get_local_mouse_position()
+		#print(mouse_position.length() - position.length())
+		var distance = mouse_position.abs().length()
+		var speed
 		var hook_instance = hook_resource.instantiate()
 		hook_instance.position = get_global_position()
-		hook_instance.velocity = Vector2(300, 0).rotated($Node2D.rotation)
+		if distance > 200:
+			speed = SPEED_HOOK
+			print("GO!")
+		else:
+			speed = SPEED_HOOK * (distance/200)
+		hook_instance.velocity = Vector2(speed, 0).rotated($Node2D.rotation)
 		hook_instance.hook_throw()
 		hook_reference = hook_instance
 		get_tree().get_root().add_child(hook_instance)

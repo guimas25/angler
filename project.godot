@@ -88,10 +88,11 @@ left_click={
 
 [layer_names]
 
-2d_physics/layer_1="player"
-2d_physics/layer_2="enemy"
-2d_physics/layer_3="fish"
-2d_physics/layer_4="hook_minigame"
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemy"
+2d_physics/layer_3="Fish"
+2d_physics/layer_4="HookMinigame"
+2d_physics/layer_6="Environment"
 
 [rendering]
 
