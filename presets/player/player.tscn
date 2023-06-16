@@ -198,6 +198,7 @@ animation = &"yellow"
 [node name="GrapplingHook" parent="." instance=ExtResource("9_4f7qt")]
 
 [node name="Node2D" type="Node2D" parent="."]
+
 [node name="Inventory" type="CanvasLayer" parent="."]
 visible = false
 
