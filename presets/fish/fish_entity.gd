@@ -13,6 +13,8 @@ var y_vel = 0
 var x_dir = 1
 var y_dir = 0
 
+var fish_name = "Cool sardine"
+
 var bait_body
 var get_bait = false
 

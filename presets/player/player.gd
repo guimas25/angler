@@ -14,7 +14,13 @@ var current_rope_lenght
 var just_grappled = true
 var pulling = false
 
-var caught_fish = [1, 4, 5]
+# Represents item in inventory
+class inventory_item:
+	var name
+	var id
+	var count
+
+var inventory = []   # Array containing inventory items, saves player inventory
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.6
@@ -48,7 +54,7 @@ var pulling_vel_cooldown = false
 
 func _process(delta):
 	$Node2D.look_at(get_global_mouse_position())
-		
+
 func _physics_process(delta):
 	var check_bait = weakref(hook_reference) # Try to get reference to the bait 
 	
@@ -336,6 +342,7 @@ func swing(delta):
 	if global_position.distance_to(hook_pos) > current_rope_lenght:
 		global_position = hook_pos + radius.normalized() * current_rope_lenght
 	print(current_rope_lenght)
+	
 func _draw():
 	var pos = global_position
 	
@@ -350,14 +357,34 @@ func _draw():
 		if colliding and pos.distance_to(collide_point) < rope_lenght:
 			draw_line(Vector2(0,0), to_local(collide_point), Color(0,0,0), 0.5, true)
 
+# Makes Inventory visible and invisible
 func show_inventory():
+	update_inventory()
 	$Inventory.visible = !$Inventory.visible
 
+# Updates inventory UI dynamically
 func update_inventory():
-	$Inventory/ColorRect/Sprite2D/FishLabel.text = str(caught_fish[0])
-	$Inventory/ColorRect/Sprite2D2/FishLabel.text = str(caught_fish[1])
-	$Inventory/ColorRect/Sprite2D3/FishLabel.text = str(caught_fish[2])
-			
+	var j = 0
+	for i in inventory:
+		var item = $Inventory/ColorRect.get_child(j)
+		item.texture = preload("res://assets/sprites/fish/fish2.png")
+		item.get_child(0).text = i.name
+		item.get_child(1).text = str(i.count)
+	
+# Adds item to inventory
+func add_item(name):
+	var found = false
+	for i in inventory:
+		if i.name == name:
+			i.count += 1
+			found = true
+	if not found:
+		var new_item = inventory_item.new()
+		new_item.name = name
+		new_item.id = 0
+		new_item.count = 1
+		inventory.append(new_item)
+
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
@@ -399,6 +426,7 @@ func fishing_minigame_1(check_bait):
 						if hook_reference.fish_caught is Fish_pulling:
 							hook_reference.hook_done(true)
 						else:
+							add_item(hook_reference.fish_caught.fish_name)
 							hook_reference.hook_reel(true)
 				stop_fishing()
 	elif ($fish_meter/pointer.position.x >= center_hit_low\
@@ -412,6 +440,7 @@ func fishing_minigame_1(check_bait):
 					if hook_reference.fish_caught is Fish_pulling:
 						hook_reference.hook_done(true)
 					else:
+						add_item(hook_reference.fish_caught.fish_name)
 						hook_reference.hook_reel(true)
 			stop_fishing()
 	elif $fish_meter/pointer.position.x >= 82 \
