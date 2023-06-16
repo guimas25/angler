@@ -132,7 +132,7 @@ texture = ExtResource("6_pp16m")
 centered = false
 
 [node name="pointer" type="CharacterBody2D" parent="fish_meter"]
-position = Vector2(6, 7.516)
+position = Vector2(2, 7.516)
 collision_layer = 0
 collision_mask = 0
 metadata/_edit_group_ = true
@@ -143,7 +143,6 @@ scale = Vector2(1, 1.00353)
 texture = ExtResource("7_6phoe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="fish_meter/pointer"]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_syxvw")
 
 [node name="fish_meter" type="Sprite2D" parent="fish_meter"]
