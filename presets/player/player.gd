@@ -81,7 +81,13 @@ func _physics_process(delta):
 		$Timers/Timer_attack.start()
 		
 	if minigame_fishing:
-		fishing_minigame_2(check_bait)
+		if check_bait.get_ref():
+			var check_fish = weakref(hook_reference.fish_caught)
+			if check_fish.get_ref():
+				if hook_reference.fish_caught is Fish_simple:
+					fishing_minigame_1(check_bait)
+				elif hook_reference.fish_caught is Fish_pulling:
+					fishing_minigame_2(check_bait)
 	
 func _on_water(delta):
 	if hooked:
@@ -178,7 +184,7 @@ func get_on_water():
 	on_water = true
 	stop_immediate_fishing()
 	if velocity.y > 0:
-		velocity.y = 400.0
+		velocity.y = 200.0
 
 func get_off_water():
 	on_water = false
@@ -193,29 +199,15 @@ func start_fishing():
 	if not minigame_fishing:
 		$fish_meter.visible = true
 		$fish_meter/fish_label.visible = false
-		$fish_meter/pointer.velocity.x = randf_range(50, 80)
-		$fish_meter/pointer.position.x = 6
 		minigame_fishing = true
-		#Minigame fishin 1
-		#Randomize and position meter
-		var rand_scale = randf_range(0.2, 0.7)
-		$fish_meter/fish_hit_marker.position.x = randf_range(34, 59)
-		$fish_meter/fish_hit_marker.scale.x = randf_range(0.5, 1.5)
-		$fish_meter/fish_hit_marker2.scale.x = rand_scale
-		$fish_meter/fish_hit_marker3.scale.x = rand_scale
-		$fish_meter/fish_hit_marker2.position.x = $fish_meter/fish_hit_marker.position.x - 5 * $fish_meter/fish_hit_marker.scale.x
-		$fish_meter/fish_hit_marker3.position.x = $fish_meter/fish_hit_marker.position.x + 5 * $fish_meter/fish_hit_marker.scale.x
-		
+		minigame_randomizer()
 		minigame_2_round_counter = 0
 		minigame_2_required = randi_range(2,5)
-		$fish_meter/round1.visible = true
-		$fish_meter/round2.visible = true
-		if minigame_2_required >= 3:
-			$fish_meter/round3.visible = true
-		if minigame_2_required >= 4:
-			$fish_meter/round4.visible = true
-		if minigame_2_required >= 5:
-			$fish_meter/round5.visible = true
+		$fish_meter/round1.visible = false
+		$fish_meter/round2.visible = false
+		$fish_meter/round3.visible = false
+		$fish_meter/round4.visible = false
+		$fish_meter/round5.visible = false
 			
 		# RANDOM MINIGAMES BETWEEN 1 and 2 TODO
 		
@@ -233,7 +225,7 @@ func stop_immediate_fishing():
 	$fish_meter/pointer.velocity.x = 0
 	if hook_on_scene:
 		hook_reference.being_targeted = false
-		hook_reference.hook_reel()
+		hook_reference.hook_reel(false)
 	minigame_fishing = false
 	_on_timer_fishing_timeout()
 	
@@ -245,7 +237,7 @@ func throw_hook():
 		hook_reference = grabedInstance
 		hook_on_scene = true
 	elif not minigame_fishing and hook_reference:
-		hook_reference.hook_reel()
+		hook_reference.hook_reel(false)
 		
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
@@ -335,10 +327,16 @@ func _on_timer_pull_cooldown_timeout():
 	pulling_vel_cooldown = false
 	
 func fishing_minigame_1(check_bait):
-	if ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker2.position.x - 10 * $fish_meter/fish_hit_marker2.scale.x \
-		and $fish_meter/pointer.position.x < $fish_meter/fish_hit_marker2.position.x) or \
-		($fish_meter/pointer.position.x > $fish_meter/fish_hit_marker3.position.x \
-		and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker3.position.x + 10 * $fish_meter/fish_hit_marker3.scale.x):
+	# Get coordinates for yellow areas
+	var left_hit_low = $fish_meter/fish_hit_marker2.position.x - 10 * $fish_meter/fish_hit_marker2.scale.x
+	var left_hit_high = $fish_meter/fish_hit_marker2.position.x
+	var right_hit_low = $fish_meter/fish_hit_marker3.position.x
+	var right_hit_high =  $fish_meter/fish_hit_marker3.position.x + 10 * $fish_meter/fish_hit_marker3.scale.x
+	var center_hit_low = $fish_meter/fish_hit_marker.position.x - 5 *  $fish_meter/fish_hit_marker.scale.x
+	var center_hit_high = $fish_meter/fish_hit_marker.position.x + 5  *  $fish_meter/fish_hit_marker.scale.x
+	
+	if ($fish_meter/pointer.position.x >= left_hit_low and $fish_meter/pointer.position.x < left_hit_high) or \
+		($fish_meter/pointer.position.x > right_hit_low and $fish_meter/pointer.position.x <= right_hit_high):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "OK!"
@@ -346,12 +344,12 @@ func fishing_minigame_1(check_bait):
 					if hook_reference is Hook_Simple:
 						hook_reference.fish_follow = true
 						if hook_reference.fish_caught is Fish_pulling:
-							hook_reference.hook_done()
+							hook_reference.hook_done(true)
 						else:
-							hook_reference.hook_reel()
+							hook_reference.hook_reel(true)
 				stop_fishing()
-	elif ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x - 5 *  $fish_meter/fish_hit_marker.scale.x\
-	and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x + 5  *  $fish_meter/fish_hit_marker.scale.x):
+	elif ($fish_meter/pointer.position.x >= center_hit_low\
+	and $fish_meter/pointer.position.x <= center_hit_high):
 		if Input.is_action_just_pressed("hook_action"):
 			$fish_meter/fish_label.visible = true
 			$fish_meter/fish_label.text = "NICE CATCH!"
@@ -359,69 +357,65 @@ func fishing_minigame_1(check_bait):
 				if hook_reference is Hook_Simple:
 					hook_reference.fish_follow = true
 					if hook_reference.fish_caught is Fish_pulling:
-						hook_reference.hook_done()
+						hook_reference.hook_done(true)
 					else:
-						hook_reference.hook_reel()
+						hook_reference.hook_reel(true)
 			stop_fishing()
-	elif $fish_meter/pointer.position.x >= 77 \
+	elif $fish_meter/pointer.position.x >= 82 \
 	or Input.is_action_just_pressed("hook_action") and $fish_meter/pointer.position.x > 10:
 		$fish_meter/fish_label.visible = true
 		$fish_meter/fish_label.text = "YIKES"
 		if check_bait.get_ref():                      # If it was able to, object still on the loose!
 			hook_reference.being_targeted = false
+			hook_reference.hook_reel(false)
 			stop_fishing()
 	$fish_meter/pointer.move_and_slide()
 	
 	
 func fishing_minigame_2(check_bait):
-	if ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker2.position.x - 10 * $fish_meter/fish_hit_marker2.scale.x \
-		and $fish_meter/pointer.position.x < $fish_meter/fish_hit_marker2.position.x) or \
-		($fish_meter/pointer.position.x > $fish_meter/fish_hit_marker3.position.x \
-		and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker3.position.x + 10 * $fish_meter/fish_hit_marker3.scale.x):
-			if Input.is_action_just_pressed("hook_action"):
-				$fish_meter/fish_label.visible = true
-				minigame_2_combo = 0
-				$fish_meter/fish_label.text = "OK!"
-				minigame_2_round_counter += 1
-				match minigame_2_round_counter:
-					1:
-						$fish_meter/round1.play("green")
-					2:
-						$fish_meter/round2.play("green")
-					3:
-						$fish_meter/round3.play("green")
-					4:
-						$fish_meter/round4.play("green")
-					5:
-						$fish_meter/round5.play("green")
-				if minigame_2_round_counter >= minigame_2_required:
-					if check_bait.get_ref():                      # If it was able to, object still on the loose!
-						if hook_reference is Hook_Simple:
-							hook_reference.fish_follow = true
-							if hook_reference.fish_caught is Fish_pulling:
-								hook_reference.hook_done()
-							else:
-								hook_reference.hook_reel()
-					minigame_2_round_counter = 0
-					stop_fishing()
-				else:
-					
-					$fish_meter/pointer.velocity.x = randf_range(50, 80)
-					$fish_meter/pointer.position.x = 6
-					var rand_scale = randf_range(0.2, 0.7)
-					$fish_meter/fish_hit_marker.position.x = randf_range(34, 59)
-					$fish_meter/fish_hit_marker.scale.x = randf_range(0.5, 1.5)
-					$fish_meter/fish_hit_marker2.scale.x = rand_scale
-					$fish_meter/fish_hit_marker3.scale.x = rand_scale
-					$fish_meter/fish_hit_marker2.position.x = $fish_meter/fish_hit_marker.position.x - 5 * $fish_meter/fish_hit_marker.scale.x
-					$fish_meter/fish_hit_marker3.position.x = $fish_meter/fish_hit_marker.position.x + 5 * $fish_meter/fish_hit_marker.scale.x
-					
-	elif ($fish_meter/pointer.position.x >= $fish_meter/fish_hit_marker.position.x - 5 *  $fish_meter/fish_hit_marker.scale.x\
-	and $fish_meter/pointer.position.x <= $fish_meter/fish_hit_marker.position.x + 5  *  $fish_meter/fish_hit_marker.scale.x):
+	$fish_meter/round1.visible = true
+	$fish_meter/round2.visible = true
+	if minigame_2_required >= 3:
+		$fish_meter/round3.visible = true
+	if minigame_2_required >= 4:
+		$fish_meter/round4.visible = true
+	if minigame_2_required >= 5:
+		$fish_meter/round5.visible = true
+	# Get coordinates for yellow areas
+	var left_hit_low = $fish_meter/fish_hit_marker2.position.x - 10 * $fish_meter/fish_hit_marker2.scale.x
+	var left_hit_high = $fish_meter/fish_hit_marker2.position.x
+	var right_hit_low = $fish_meter/fish_hit_marker3.position.x
+	var right_hit_high =  $fish_meter/fish_hit_marker3.position.x + 10 * $fish_meter/fish_hit_marker3.scale.x
+	var center_hit_low = $fish_meter/fish_hit_marker.position.x - 5 *  $fish_meter/fish_hit_marker.scale.x
+	var center_hit_high = $fish_meter/fish_hit_marker.position.x + 5  *  $fish_meter/fish_hit_marker.scale.x
+	# If pointer in yellow area, add one round, make round ball green, proceed
+	if ($fish_meter/pointer.position.x >= left_hit_low and $fish_meter/pointer.position.x < left_hit_high) or \
+		($fish_meter/pointer.position.x > right_hit_low and $fish_meter/pointer.position.x <= right_hit_high):
+		if Input.is_action_just_pressed("hook_action"):
+			$fish_meter/fish_label.visible = true
+			minigame_2_combo = 0
+			$fish_meter/fish_label.text = "Almost...!"
+			minigame_2_round_counter -= 1
+			minigame_2_round_counter = clamp(minigame_2_round_counter, 0, 5)
+			match minigame_2_round_counter:
+				0:
+					$fish_meter/round1.play("yellow")
+				1:
+					$fish_meter/round2.play("yellow")
+				2:
+					$fish_meter/round3.play("yellow")
+				3:
+					$fish_meter/round4.play("yellow")
+				4:
+					$fish_meter/round5.play("yellow")
+			minigame_randomizer()
+	# Check if hit was on center
+	elif ($fish_meter/pointer.position.x >= center_hit_low and $fish_meter/pointer.position.x <= center_hit_high):
 		if Input.is_action_just_pressed("hook_action"):
 			$fish_meter/fish_label.visible = true
 			minigame_2_combo = minigame_2_combo + 1
 			minigame_2_round_counter += 1
+			minigame_2_round_counter = clamp(minigame_2_round_counter, 0, 5)
 			match minigame_2_combo:
 				1:
 					$fish_meter/round1.play("green")
@@ -455,24 +449,15 @@ func fishing_minigame_2(check_bait):
 					if hook_reference is Hook_Simple:
 						hook_reference.fish_follow = true
 						if hook_reference.fish_caught is Fish_pulling:
-							hook_reference.hook_done()
+							hook_reference.hook_done(true)
 						else:
-							hook_reference.hook_reel()
+							hook_reference.hook_reel(true)
 				minigame_2_round_counter = 0
 				stop_fishing()
 			else:
-				
-				$fish_meter/pointer.velocity.x = randf_range(50, 80)
-				$fish_meter/pointer.position.x = 6
-				var rand_scale = randf_range(0.2, 0.7)
-				$fish_meter/fish_hit_marker.position.x = randf_range(34, 59)
-				$fish_meter/fish_hit_marker.scale.x = randf_range(0.5, 1.5)
-				$fish_meter/fish_hit_marker2.scale.x = rand_scale
-				$fish_meter/fish_hit_marker3.scale.x = rand_scale
-				$fish_meter/fish_hit_marker2.position.x = $fish_meter/fish_hit_marker.position.x - 5 * $fish_meter/fish_hit_marker.scale.x
-				$fish_meter/fish_hit_marker3.position.x = $fish_meter/fish_hit_marker.position.x + 5 * $fish_meter/fish_hit_marker.scale.x
-	elif $fish_meter/pointer.position.x >= 77 \
-	or (Input.is_action_just_pressed("hook_action") and $fish_meter/pointer.position.x > 10):
+				minigame_randomizer()
+	elif $fish_meter/pointer.position.x >= 82 \
+	or (Input.is_action_just_pressed("hook_action") and $fish_meter/pointer.position.x > 5):
 		$fish_meter/fish_label.visible = true
 		minigame_2_combo = 0
 		$fish_meter/fish_label.text = "YIKES"
@@ -490,5 +475,17 @@ func fishing_minigame_2(check_bait):
 				$fish_meter/round5.play("red")
 		if check_bait.get_ref():                      # If it was able to, object still on the loose!
 			hook_reference.being_targeted = false
+			hook_reference.hook_reel(false)
 			stop_fishing()
 	$fish_meter/pointer.move_and_slide()
+
+func minigame_randomizer():
+	$fish_meter/pointer.velocity.x = randf_range(50, 80) # change later
+	$fish_meter/pointer.position.x = 2
+	var rand_scale = randf_range(0.5, 1.5)
+	$fish_meter/fish_hit_marker.position.x = randf_range(34, 59)
+	$fish_meter/fish_hit_marker.scale.x = randf_range(0.5, 1)
+	$fish_meter/fish_hit_marker2.scale.x = rand_scale
+	$fish_meter/fish_hit_marker3.scale.x = rand_scale
+	$fish_meter/fish_hit_marker2.position.x = $fish_meter/fish_hit_marker.position.x - 5 * $fish_meter/fish_hit_marker.scale.x
+	$fish_meter/fish_hit_marker3.position.x = $fish_meter/fish_hit_marker.position.x + 5 * $fish_meter/fish_hit_marker.scale.x

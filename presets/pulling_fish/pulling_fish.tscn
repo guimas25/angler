@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmrt562ex6vm7"]
+[gd_scene load_steps=10 format=3 uid="uid://cmrt562ex6vm7"]
 
 [ext_resource type="Script" path="res://presets/pulling_fish/pulling_fish.gd" id="1_xtcab"]
 [ext_resource type="Texture2D" uid="uid://bup4nvjwf1f5" path="res://assets/sprites/fish/silly_fish.png" id="2_ha5fa"]
@@ -47,8 +47,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_85aox"]
 radius = 151.03
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqww0"]
+size = Vector2(40.4974, 37.2652)
+
 [node name="Pulling_fish" type="CharacterBody2D"]
-collision_layer = 20
+collision_layer = 0
 collision_mask = 20
 script = ExtResource("1_xtcab")
 
@@ -78,6 +81,16 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_85aox")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Area2D_hook_detection" type="Area2D" parent="."]
+scale = Vector2(0.868623, 0.926657)
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_hook_detection"]
+position = Vector2(4.46028e-07, -0.539575)
+scale = Vector2(0.852829, 0.839799)
+shape = SubResource("RectangleShape2D_cqww0")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer_start_approach" to="." method="_on_timer_start_approach_timeout"]

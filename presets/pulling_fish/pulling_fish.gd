@@ -70,11 +70,10 @@ func _physics_process(delta):
 
 func hooked():
 	$Timer.stop()
+	$Timer_take_bait.stop()           # Stop random timer
 	velocity.x = 0
 	velocity.y = 0
 	get_bait = false
-	$Timer_take_bait.stop()           # Stop random timer
-	$Timer.start()                    # Return to random behaviour
 	
 func go_timer():
 	$Timer.start()
