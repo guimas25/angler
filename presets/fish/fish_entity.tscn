@@ -29,11 +29,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_vymnr"]
 radius = 151.03
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qyphm"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_psjbf"]
 
 [node name="fish_entity" type="CharacterBody2D"]
 scale = Vector2(1.717, 1.717)
-collision_layer = 0
+collision_layer = 20
 collision_mask = 20
 script = ExtResource("1_2jg2f")
 metadata/_edit_group_ = true
@@ -71,8 +71,8 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_hook_detection"]
-scale = Vector2(0.852829, 0.839799)
-shape = SubResource("RectangleShape2D_qyphm")
+scale = Vector2(0.853, 0.84)
+shape = SubResource("RectangleShape2D_psjbf")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer_start_approach" to="." method="_on_timer_start_approach_timeout"]

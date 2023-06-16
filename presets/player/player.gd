@@ -165,7 +165,7 @@ func _on_land(delta):
 			$hitbox/AnimatedSprite2D.flip_h = true
 			
 		if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
-			throw_hook(Vector2(100,-100))
+			throw_hook()
 		
 		if Input.is_action_just_pressed("inventory_open") and not minigame_fishing:
 			show_inventory()
