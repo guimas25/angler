@@ -113,6 +113,9 @@ func _on_land(delta):
 	if hooked:
 		if not is_on_floor():
 			velocity.y += gravity * delta
+		else:
+			print("here")
+			velocity += (hook_pos - global_position).normalized() * 15000000 * delta
 		swing(delta)
 		just_grappled = false
 		velocity *= 0.975 # swing speed
@@ -269,6 +272,8 @@ func swing(delta):
 			if(current_rope_lenght < MAX_ROPE_LENGHT):
 				velocity -= (hook_pos - global_position).normalized() * 3500 * delta
 				current_rope_lenght = (hook_pos - global_position).length()
+		if(is_on_floor()):
+			velocity += (hook_pos - global_position).normalized() * 1500 * delta
 		#velocity += (hook_pos - global_position).normalized() * 1500 * delta
 	
 	if global_position.distance_to(hook_pos) > current_rope_lenght:
@@ -278,7 +283,7 @@ func _draw():
 	var pos = global_position
 	
 	if hooked:
-		draw_line(Vector2(0,0), to_local(hook_pos), Color(1,1,1), 0.5, true)
+		draw_line(Vector2(0,0), to_local(hook_pos), Color(1,1,1), 0.25, true)
 	else:
 		return
 		
