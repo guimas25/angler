@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://s55uk7ydisv6"]
+[gd_scene load_steps=6 format=3 uid="uid://s55uk7ydisv6"]
 
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="1_f44mt"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_xjxbf"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="3_6d71w"]
 [ext_resource type="PackedScene" uid="uid://cmrt562ex6vm7" path="res://presets/pulling_fish/pulling_fish.tscn" id="4_lnmwg"]
+[ext_resource type="PackedScene" uid="uid://ddqf5u4xrooky" path="res://presets/pickup_pull_fish/pulling_fish_pickup.tscn" id="5_gpmaa"]
 
 [node name="debug_level_pulling_fish_beta" type="Node2D"]
 
@@ -43,3 +44,6 @@ scale = Vector2(479.429, 8.72551)
 [node name="water_body4" parent="." instance=ExtResource("3_6d71w")]
 position = Vector2(1272, -1416)
 scale = Vector2(-84.1154, 49.5014)
+
+[node name="pulling_fish_pickup" parent="." instance=ExtResource("5_gpmaa")]
+position = Vector2(-160, 96)

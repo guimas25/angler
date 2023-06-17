@@ -160,7 +160,7 @@ func initiate_pull(pos):
 	set_collision_layer_value(1, true)
 	set_collision_mask_value(1, true)
 	pulling = true
-	$AnimatedSprite2D.play("fell_for_it")
+	$AnimatedSprite2D.play("pulling")
 	$Timer.stop()
 	$Timer_start_approach.stop()
 	$Timer_take_bait.stop()
@@ -171,3 +171,8 @@ func get_on_water():
 func get_off_water():
 	on_water = false
 
+func trigger_anim():
+	$AnimatedSprite2D.play("fell_for_it")
+	
+func normal_anim():
+	$AnimatedSprite2D.play("o-o")

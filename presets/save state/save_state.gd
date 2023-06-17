@@ -21,7 +21,7 @@ func _process(delta):
 # Check if fish already on fishopedia
 func check_fihsopedia(name):
 	match name:
-		"Cool sardine":
+		"Cool Sardine":
 			seen_fish[0] = true
-		"Wacky Tuna":
+		"Wacky Carp":
 			seen_fish[1] = true

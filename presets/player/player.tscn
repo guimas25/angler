@@ -208,6 +208,7 @@ animation = &"yellow"
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Inventory" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Inventory"]
 anchors_preset = 8
@@ -441,6 +442,7 @@ theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "Fish-Opedia"
 
 [node name="Fish_Opedia" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Fish_Opedia"]
 anchors_preset = 8
@@ -547,6 +549,7 @@ text = "Unknown"
 horizontal_alignment = 1
 
 [node name="Fish_texture6" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
 offset_left = 236.0
 offset_top = 216.0
 offset_right = 372.0
@@ -564,6 +567,7 @@ text = "Unknown"
 horizontal_alignment = 1
 
 [node name="Fish_texture7" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
 offset_left = 416.0
 offset_top = 216.0
 offset_right = 552.0
@@ -581,6 +585,7 @@ text = "Unknown"
 horizontal_alignment = 1
 
 [node name="Fish_texture8" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
 offset_left = 596.0
 offset_top = 216.0
 offset_right = 732.0

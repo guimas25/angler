@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://13x8oduqtonp"
-path="res://.godot/imported/pixelfish-red_bellied_piranha.png-4730a20a55b1d90f0cc713199cda77ef.ctex"
+uid="uid://cok80tklwncuv"
+path="res://.godot/imported/inspector_Wacky Carp.png-3f8516102c9efb49d7e4d851846e5f1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/fish/pixelfish-red_bellied_piranha.png"
-dest_files=["res://.godot/imported/pixelfish-red_bellied_piranha.png-4730a20a55b1d90f0cc713199cda77ef.ctex"]
+source_file="res://assets/UI/inventory_icon/inspector_Wacky Carp.png"
+dest_files=["res://.godot/imported/inspector_Wacky Carp.png-3f8516102c9efb49d7e4d851846e5f1d.ctex"]
 
 [params]
 

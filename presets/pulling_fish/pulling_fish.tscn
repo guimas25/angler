@@ -40,7 +40,7 @@ animations = [{
 "texture": ExtResource("5_fybmn")
 }],
 "loop": true,
-"name": &"pushing",
+"name": &"pulling",
 "speed": 5.0
 }]
 
@@ -62,7 +62,7 @@ shape = SubResource("RectangleShape2D_wpx8m")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_08xtk")
-animation = &"fell_for_it"
+animation = &"pulling"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.054
