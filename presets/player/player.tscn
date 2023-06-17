@@ -216,58 +216,171 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(145, 211)
+position = Vector2(128, 100)
 texture = ExtResource("10_6soqp")
-metadata/_edit_group_ = true
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D"]
 modulate = Color(0, 0, 0, 1)
-offset_left = -24.0
-offset_top = 91.0
-offset_right = 16.0
-offset_bottom = 114.0
+offset_left = -120.0
+offset_top = 64.0
+offset_right = 120.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "item name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 72.0
+offset_bottom = 72.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-clip_text = true
-metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D2" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(399, 165)
+position = Vector2(392, 100)
 texture = ExtResource("10_6soqp")
-metadata/_edit_group_ = true
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D2"]
 modulate = Color(0, 0, 0, 1)
-offset_left = -24.0
-offset_top = 91.0
-offset_right = 16.0
-offset_bottom = 114.0
+offset_left = -120.0
+offset_top = 64.0
+offset_right = 120.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "item name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D2"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 72.0
+offset_bottom = 72.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-clip_text = true
-metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D3" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(654, 99)
+position = Vector2(632, 100)
 texture = ExtResource("10_6soqp")
-metadata/_edit_group_ = true
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D3"]
 modulate = Color(0, 0, 0, 1)
-offset_left = -24.0
-offset_top = 91.0
-offset_right = 16.0
-offset_bottom = 114.0
+offset_left = -120.0
+offset_top = 64.0
+offset_right = 120.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "item name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D3"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 72.0
+offset_bottom = 72.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-clip_text = true
-metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D4" type="Sprite2D" parent="Inventory/ColorRect"]
+position = Vector2(128, 308)
+texture = ExtResource("10_6soqp")
+
+[node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D4"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -120.0
+offset_top = 64.0
+offset_right = 120.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "item name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D4"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 72.0
+offset_bottom = 72.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D5" type="Sprite2D" parent="Inventory/ColorRect"]
+position = Vector2(392, 308)
+texture = ExtResource("10_6soqp")
+
+[node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D5"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -120.0
+offset_top = 64.0
+offset_right = 120.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "item name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D5"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 72.0
+offset_bottom = 72.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D6" type="Sprite2D" parent="Inventory/ColorRect"]
+position = Vector2(632, 308)
+texture = ExtResource("10_6soqp")
+
+[node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D6"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -120.0
+offset_top = 64.0
+offset_right = 120.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "item name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D6"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 72.0
+offset_bottom = 72.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishLabel" type="Label" parent="Inventory/ColorRect"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 272.0
+offset_top = 420.0
+offset_right = 512.0
+offset_bottom = 468.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "page number"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]
