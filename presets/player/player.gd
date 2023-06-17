@@ -19,9 +19,11 @@ class inventory_item:
 	var name
 	var description
 	var count
+	var usable = false
 
 var inventory = []   # Array containing inventory items, saves player inventory
 var inventory_page_number = 0 # Inventory Page number
+var usable_items = ["a", "e"] # List of usable items
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.6
@@ -50,18 +52,6 @@ var item_selected = -1
 var hook_resource = preload("res://presets/hook/hook.tscn")
 func _ready():
 	current_rope_lenght = rope_lenght
-	add_item("a", "GUIMAS")
-	add_item("b", "HEHEHEHEHEHEH")
-	add_item("c", "YARE YARE")
-	add_item("d", "I'M ABOUT TO BLOW")
-	add_item("e", "YOOOOOO")
-	add_item("f", "foihnwsdfgobnrstfgo")
-	add_item("g", "UNDERTALE")
-	add_item("h", "OKOKOKOKOKOK")
-	add_item("i", "fghyh")
-	add_item("j", "kkkkkkkk")
-	add_item("k", "EU TENHO DE FAZER XIXI")
-	add_item("k2", "SOCORRO")
 
 var hook_reference
 var hook_max_distance = 300 # Max distance between the player and the hook
@@ -78,29 +68,61 @@ func _process(delta):
 			if item_selected != 0 + 4* inventory_page_number or item_selected == -1:
 				item_selected = 0 + 4* inventory_page_number
 				$Inventory/ColorRect2/RichTextLabel.text = "[center]" + inventory[item_selected].description + "[/center]"
+				$Inventory/ColorRect2/use_Button.disabled = not inventory[item_selected].usable
+				$Inventory/ColorRect2/use_Button.visible = inventory[item_selected].usable
+				var texture_path = "res://assets/UI/inventory_icon/inspector_" + inventory[item_selected].name + ".png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 			else:
 				$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+				$Inventory/ColorRect2/use_Button.visible = false
+				$Inventory/ColorRect2/use_Button.disabled = true
+				var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 				item_selected = -1
 		elif on_item_2:
 			if item_selected != 1 + 4* inventory_page_number or item_selected == -1:
 				item_selected = 1 + 4* inventory_page_number
 				$Inventory/ColorRect2/RichTextLabel.text = "[center]" + inventory[item_selected].description + "[/center]"
+				$Inventory/ColorRect2/use_Button.disabled = not inventory[item_selected].usable
+				$Inventory/ColorRect2/use_Button.visible = inventory[item_selected].usable
+				var texture_path = "res://assets/UI/inventory_icon/inspector_" + inventory[item_selected].name + ".png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 			else:
 				$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+				$Inventory/ColorRect2/use_Button.visible = false
+				$Inventory/ColorRect2/use_Button.disabled = true
+				var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 				item_selected = -1
 		elif on_item_3:
 			if item_selected != 2 + 4* inventory_page_number or item_selected == -1:
 				item_selected = 2 + 4* inventory_page_number
 				$Inventory/ColorRect2/RichTextLabel.text = "[center]" + inventory[item_selected].description + "[/center]"
+				$Inventory/ColorRect2/use_Button.disabled = not inventory[item_selected].usable
+				$Inventory/ColorRect2/use_Button.visible = inventory[item_selected].usable
+				var texture_path = "res://assets/UI/inventory_icon/inspector_" + inventory[item_selected].name + ".png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 			else:
 				$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+				$Inventory/ColorRect2/use_Button.visible = false
+				$Inventory/ColorRect2/use_Button.disabled = true
+				var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 				item_selected = -1
 		elif on_item_4:
 			if item_selected != 3 + 4* inventory_page_number or item_selected == -1:
 				item_selected = 3 + 4* inventory_page_number
 				$Inventory/ColorRect2/RichTextLabel.text = "[center]" + inventory[item_selected].description + "[/center]"
+				$Inventory/ColorRect2/use_Button.disabled = not inventory[item_selected].usable
+				$Inventory/ColorRect2/use_Button.visible = inventory[item_selected].usable
+				var texture_path = "res://assets/UI/inventory_icon/inspector_" + inventory[item_selected].name + ".png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 			else:
 				$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+				$Inventory/ColorRect2/use_Button.visible = false
+				$Inventory/ColorRect2/use_Button.disabled = true
+				var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 				item_selected = -1
 				
 func _physics_process(delta):
@@ -410,9 +432,12 @@ func show_inventory():
 	inventory_page_number = 0
 	update_inventory()
 	$Inventory.visible = !$Inventory.visible
-	if not $Inventory.visible:
-		$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
-		item_selected = -1
+	$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+	$Inventory/ColorRect2/use_Button.disabled = true
+	$Inventory/ColorRect2/use_Button.visible = false
+	var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+	$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+	item_selected = -1
 
 # Updates inventory UI dynamically
 func update_inventory():
@@ -424,7 +449,8 @@ func update_inventory():
 	while i in range(0+4*inventory_page_number, 4 + 4*inventory_page_number) and i < inventory.size():
 		var item = $Inventory/ColorRect.get_child(j)
 		item.visible = true
-		item.texture = preload("res://assets/sprites/fish/fish2.png")
+		var texture_path = "res://assets/UI/inventory_icon/small_" + inventory[i].name + ".png"
+		item.texture = load(texture_path)
 		item.get_child(0).text = inventory[i].name
 		item.get_child(1).text = str(inventory[i].count)
 		i += 1
@@ -437,6 +463,22 @@ func update_inventory():
 	$Inventory/ColorRect/FishLabel.text = str(inventory_page_number+1)  + "/" + str(n_pages)
 	$Inventory/ColorRect/FishLabel.visible = true 
 	
+	# Hide Buttons according to page number
+	if inventory_page_number == 0:
+		$Inventory/ColorRect/FishLabel/previous_inventory.visible = false
+		$Inventory/ColorRect/FishLabel/previous_inventory.disabled = true
+	else:
+		$Inventory/ColorRect/FishLabel/previous_inventory.visible = true
+		$Inventory/ColorRect/FishLabel/previous_inventory.disabled = false
+	
+	if inventory_page_number == n_pages - 1:
+		$Inventory/ColorRect/FishLabel/next_inventory.visible = false
+		$Inventory/ColorRect/FishLabel/next_inventory.disabled = true
+	else:
+		$Inventory/ColorRect/FishLabel/next_inventory.visible = true
+		$Inventory/ColorRect/FishLabel/next_inventory.disabled = false
+	
+		
 # Adds item to inventory
 func add_item(name, description):
 	var found = false
@@ -449,6 +491,10 @@ func add_item(name, description):
 		new_item.name = name
 		new_item.description = description
 		new_item.count = 1
+		if name in usable_items:
+			new_item.usable = true
+		else:
+			new_item.usable = false
 		inventory.append(new_item)
 
 func initiate_pulling(x):
@@ -599,6 +645,7 @@ func fishing_minigame_2(check_bait):
 						if hook_reference.fish_caught is Fish_pulling:
 							hook_reference.hook_done(true)
 						else:
+							add_item(hook_reference.fish_caught.fish_name, hook_reference.fish_caught.fish_description)
 							hook_reference.hook_reel(true)
 				minigame_2_round_counter = 0
 				stop_fishing()
@@ -683,6 +730,7 @@ func _on_sprite_2d_4_mouse_exited():
 
 # Example on how to make USE of items (get it?)
 func _on_use_button_button_down():
+	print("I'M GONNA USE IT")
 	if item_selected == -1:
 		return
 	if inventory[item_selected].name == "a":

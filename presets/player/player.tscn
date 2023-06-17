@@ -207,6 +207,7 @@ animation = &"yellow"
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Inventory" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Inventory"]
 anchors_preset = 8
@@ -232,6 +233,7 @@ texture = ExtResource("10_6soqp")
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = -56.0
 offset_top = 128.0
 offset_right = 184.0
@@ -243,6 +245,7 @@ vertical_alignment = 1
 
 [node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 80.0
 offset_top = 96.0
 offset_right = 136.0
@@ -262,6 +265,7 @@ texture = ExtResource("10_6soqp")
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D2"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = -56.0
 offset_top = 128.0
 offset_right = 184.0
@@ -273,6 +277,7 @@ vertical_alignment = 1
 
 [node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D2"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 80.0
 offset_top = 96.0
 offset_right = 136.0
@@ -292,6 +297,7 @@ texture = ExtResource("10_6soqp")
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D3"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = -56.0
 offset_top = 128.0
 offset_right = 184.0
@@ -303,6 +309,7 @@ vertical_alignment = 1
 
 [node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D3"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 80.0
 offset_top = 96.0
 offset_right = 136.0
@@ -322,6 +329,7 @@ texture = ExtResource("10_6soqp")
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D4"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = -56.0
 offset_top = 128.0
 offset_right = 184.0
@@ -333,6 +341,7 @@ vertical_alignment = 1
 
 [node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D4"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 80.0
 offset_top = 96.0
 offset_right = 136.0
@@ -343,6 +352,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect"]
+layout_mode = 0
 offset_left = 80.0
 offset_top = 388.0
 offset_right = 320.0
@@ -384,8 +394,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0.462745, 0.94902, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="Inventory/ColorRect2"]
-position = Vector2(196, 136)
+[node name="Sprite2D" type="TextureRect" parent="Inventory/ColorRect2"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 28.0
+offset_right = 362.0
+offset_bottom = 238.0
+pivot_offset = Vector2(165, 105)
 texture = ExtResource("17_633ql")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Inventory/ColorRect2"]
