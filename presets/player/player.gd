@@ -53,6 +53,8 @@ var item_selected = -1
 var fishopedia_first = false
 
 var hook_resource = preload("res://presets/hook/hook.tscn")
+var pickup_pulling_fish_resource = preload("res://presets/pickup_pull_fish/pulling_fish_pickup.tscn")
+
 func _ready():
 	current_rope_lenght = rope_lenght
 	inventory = SaveState.inventory
@@ -532,11 +534,11 @@ func show_FishOpedia():
 			j += 1
 	$Fish_Opedia/ColorRect/Label.text = str(int((j/8.0) * 100.0)) + "%"
 	if SaveState.seen_fish[0]:
-		$Fish_Opedia/ColorRect/Fish_texture.texture = preload("res://assets/UI/inventory_icon/inspector_a.png")
+		$Fish_Opedia/ColorRect/Fish_texture.texture = preload("res://assets/UI/inventory_icon/inspector_Cool sardine.png")
 		$Fish_Opedia/ColorRect/Fish_texture/Label.text = "Cool Sardine"
 	if SaveState.seen_fish[1]:
-		$Fish_Opedia/ColorRect/Fish_texture.texture = preload("res://assets/UI/inventory_icon/small_c.png")
-		$Fish_Opedia/ColorRect/Fish_texture/Label.text = "Wacky Tuna"
+		$Fish_Opedia/ColorRect/Fish_texture2.texture = preload("res://assets/UI/inventory_icon/small_Wacky Carp.png")
+		$Fish_Opedia/ColorRect/Fish_texture2/Label.text = "Wacky Carp"
 	if SaveState.seen_fish[2]:
 		pass
 	if SaveState.seen_fish[3]:
@@ -560,6 +562,10 @@ func initiate_pulling(x):
 	
 func stop_pulling():
 	pulled_by_fish = false
+	# Spawn Pulling fish pickup
+	var pickup_instance = pickup_pulling_fish_resource.instantiate()
+	pickup_instance.position = pulling_fish_ref.position
+	get_tree().get_root().add_child(pickup_instance)
 	pulling_fish_ref.queue_free()
 	$Sprite2D.rotation = 0.0
 	set_collision_layer_value(1, true)
@@ -635,6 +641,14 @@ func fishing_minigame_2(check_bait):
 	var right_hit_high =  $fish_meter/fish_hit_marker3.position.x + 10 * $fish_meter/fish_hit_marker3.scale.x
 	var center_hit_low = $fish_meter/fish_hit_marker.position.x - 5 *  $fish_meter/fish_hit_marker.scale.x
 	var center_hit_high = $fish_meter/fish_hit_marker.position.x + 5  *  $fish_meter/fish_hit_marker.scale.x
+	
+	if minigame_2_round_counter == minigame_2_required - 1:
+		if check_bait.get_ref():
+			hook_reference.fish_caught.trigger_anim()
+	else:
+		if check_bait.get_ref():
+			hook_reference.fish_caught.normal_anim()
+			
 	# If pointer in yellow area, add one round, make round ball green, proceed
 	if ($fish_meter/pointer.position.x >= left_hit_low and $fish_meter/pointer.position.x < left_hit_high) or \
 		($fish_meter/pointer.position.x > right_hit_low and $fish_meter/pointer.position.x <= right_hit_high):
@@ -691,6 +705,7 @@ func fishing_minigame_2(check_bait):
 					$fish_meter/round4.play("green")
 				5:
 					$fish_meter/round5.play("green")
+			
 			if minigame_2_round_counter >= minigame_2_required:
 				if check_bait.get_ref():                      # If it was able to, object still on the loose!
 					if hook_reference is Hook_Simple:
@@ -725,14 +740,15 @@ func fishing_minigame_2(check_bait):
 			hook_reference.being_targeted = false
 			hook_reference.hook_reel(false)
 			stop_fishing()
+			
 	$fish_meter/pointer.move_and_slide()
 
 func minigame_randomizer():
-	$fish_meter/pointer.velocity.x = randf_range(50, 80) # change later
+	$fish_meter/pointer.velocity.x = randf_range(35, 80) # change later
 	$fish_meter/pointer.position.x = 2
 	var rand_scale = randf_range(0.5, 1.5)
 	$fish_meter/fish_hit_marker.position.x = randf_range(34, 59)
-	$fish_meter/fish_hit_marker.scale.x = randf_range(0.5, 1)
+	$fish_meter/fish_hit_marker.scale.x = randf_range(0.7, 1.3)
 	$fish_meter/fish_hit_marker2.scale.x = rand_scale
 	$fish_meter/fish_hit_marker3.scale.x = rand_scale
 	$fish_meter/fish_hit_marker2.position.x = $fish_meter/fish_hit_marker.position.x - 5 * $fish_meter/fish_hit_marker.scale.x

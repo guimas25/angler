@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddqf5u4xrooky"]
+
+[ext_resource type="Texture2D" uid="uid://cqqj8v7iac1ud" path="res://assets/sprites/fish/silly_fish3.png" id="1_q6fjh"]
+[ext_resource type="Script" path="res://presets/pickup_pull_fish/pulling_fish_pickup.gd" id="2_a08vd"]
+[ext_resource type="AudioStream" uid="uid://b84i1p1qkm4wt" path="res://assets/sound_effects/pickup.wav" id="3_quetg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0x77g"]
+size = Vector2(48, 48)
+
+[sub_resource type="Animation" id="Animation_lvohn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2v3tv"]
+resource_name = "picked_up"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.22, 1.22), Vector2(1, 1), Vector2(1.675, 1.675), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b643e"]
+_data = {
+"RESET": SubResource("Animation_lvohn"),
+"picked_up": SubResource("Animation_2v3tv")
+}
+
+[node name="pulling_fish_pickup" type="Sprite2D"]
+texture = ExtResource("1_q6fjh")
+script = ExtResource("2_a08vd")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_0x77g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b643e")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_quetg")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

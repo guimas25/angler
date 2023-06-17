@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dracd02ukwpcx"
-path="res://.godot/imported/small_d.png-da4ed926b4bd3bb1537744ae48ff9b3e.ctex"
+uid="uid://s1jlsgi1bjwt"
+path="res://.godot/imported/small_Wacky Carp.png-0dcc7424d21085162b403e51db91d850.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/inventory_icon/small_d.png"
-dest_files=["res://.godot/imported/small_d.png-da4ed926b4bd3bb1537744ae48ff9b3e.ctex"]
+source_file="res://assets/UI/inventory_icon/small_Wacky Carp.png"
+dest_files=["res://.godot/imported/small_Wacky Carp.png-0dcc7424d21085162b403e51db91d850.ctex"]
 
 [params]
 
