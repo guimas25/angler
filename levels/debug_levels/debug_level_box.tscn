@@ -11,7 +11,7 @@ size = Vector2(34, 34)
 [node name="debug_level_box" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_a8nfl")]
-position = Vector2(346, 82)
+position = Vector2(-77, 461)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -23,14 +23,14 @@ offset_bottom = 522.0
 scale = Vector2(2.54959, 2.95235)
 text = "next Proto"
 
-[node name="Box2D" parent="." instance=ExtResource("4_s1jl0")]
-position = Vector2(-16, 408)
-
 [node name="Box2D2" parent="." instance=ExtResource("4_s1jl0")]
 position = Vector2(-128, 408)
 
 [node name="Box2D3" parent="." instance=ExtResource("4_s1jl0")]
-position = Vector2(-16, 344)
+position = Vector2(55, 445)
+
+[node name="Box2D4" parent="." instance=ExtResource("4_s1jl0")]
+position = Vector2(55, 488)
 
 [node name="TileMap" parent="." instance=ExtResource("3_f8lep")]
 layer_0/tile_data = PackedInt32Array(327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 327675, 0, 0, 262139, 0, 0, 196603, 0, 0, 131067, 0, 0, 65531, 0, 0)

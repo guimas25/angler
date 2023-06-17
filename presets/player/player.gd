@@ -15,6 +15,10 @@ var current_rope_lenght
 var just_grappled = true
 var pulling = false
 
+var object_to_pull
+var pull_object = false
+var hooked_to_box = false
+
 # Represents item in inventory
 class inventory_item:
 	var name
@@ -207,15 +211,21 @@ func _on_land(delta):
 		if not is_on_floor():
 			velocity.y += gravity * delta
 		else:
-			print("here")
-			velocity += (hook_pos - global_position).normalized() * 15000000 * delta
+			velocity.y += 10
+			
 		swing(delta)
 		just_grappled = false
 		velocity *= 0.975 # swing speed
 	
 		var direction = Input.get_axis("move_left", "move_right")
 		velocity.x += direction * 20 * 0.975
-	
+		
+	elif hooked_to_box:
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		if pull_object:
+			velocity.x = 0
+			pull_object_to_player(delta)
 	# Add the gravity.
 	else:
 		if not is_on_floor():
@@ -271,14 +281,13 @@ func _on_land(delta):
 		if direction == 0:
 			pushing_box = false
 			
-		
-		
 		for index in get_slide_collision_count():
 			var collision = get_slide_collision(index)
 			var collider = collision.get_collider()
 			if collider is Box2D:
 				pushing_box = true
-				collider.slide(-collision.get_normal() * (SPEED_PUSH))
+				collider.player_pushing = true
+				collider.slide(-collision.get_normal() * (SPEED_PUSH/2))
 	move_and_slide()	
 	
 func get_on_water():
@@ -385,15 +394,42 @@ func hook():
 		if hook_pos:
 			hooked = true
 			current_rope_lenght = global_position.distance_to(hook_pos)
-	if Input.is_action_just_released("left_click") and hooked:
+		else:
+			object_to_pull = get_object_to_pull()
+			if object_to_pull:
+				object_to_pull.getting_pulled = true
+				pull_object = true
+				hooked_to_box = true
+	if Input.is_action_just_released("left_click") and (hooked or hooked_to_box):
 		hooked = false
 		just_grappled = true
 		pulling = false
+		if hooked_to_box:
+			object_to_pull.getting_pulled = false
+			pull_object = false
+			hooked_to_box = false
+	
+
+func get_object_to_pull():
+	for raycast in $GrapplingHook.get_children():
+		if raycast.is_colliding():
+			var collidor = raycast.get_collider()
+			return collidor		
+
+func pull_object_to_player(delta):
+	var check_object = weakref(object_to_pull)
+	if !check_object.get_ref(): return
+	var radius = global_position - object_to_pull.global_position
+	if radius.length() < 30: return
+	object_to_pull.velocity.x += (global_position - object_to_pull.global_position).normalized().x * 3500 * delta
+
 
 func get_hook_pos():
 	for raycast in $GrapplingHook.get_children():
 		if raycast.is_colliding():
-			return raycast.get_collision_point()
+			var collidor = raycast.get_collider()
+			if not(collidor is Box2D):
+				return raycast.get_collision_point()
 
 func swing(delta):
 	var radius = global_position - hook_pos
@@ -416,22 +452,22 @@ func swing(delta):
 			if(current_rope_lenght < MAX_ROPE_LENGHT):
 				velocity -= (hook_pos - global_position).normalized() * 3500 * delta
 				current_rope_lenght = (hook_pos - global_position).length()
-		if(is_on_floor()):
-			velocity += (hook_pos - global_position).normalized() * 1500 * delta
 		#velocity += (hook_pos - global_position).normalized() * 1500 * delta
 	
 	if global_position.distance_to(hook_pos) > current_rope_lenght:
 		global_position = hook_pos + radius.normalized() * current_rope_lenght
-	print(current_rope_lenght)
 	
 func _draw():
 	var pos = global_position
 	
 	if hooked:
 		draw_line(Vector2(0,0), to_local(hook_pos), Color(1,1,1), 0.25, true)
+	elif hooked_to_box:
+		var check_object = weakref(object_to_pull)
+		if check_object.get_ref():
+			draw_line(Vector2(0,0), to_local(object_to_pull.global_position), Color(1,1,1), 0.25, true)
 	else:
 		return
-		
 		var colliding = $GrapplingHook.is_colliding()
 		var collide_point = $GrapplingHook.get_collision_point()
 		
