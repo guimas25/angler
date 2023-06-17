@@ -50,9 +50,12 @@ var on_item_3 = false
 var on_item_4 = false
 var item_selected = -1
 
+var fishopedia_first = false
+
 var hook_resource = preload("res://presets/hook/hook.tscn")
 func _ready():
 	current_rope_lenght = rope_lenght
+	inventory = SaveState.inventory
 
 var hook_reference
 var hook_max_distance = 300 # Max distance between the player and the hook
@@ -250,6 +253,10 @@ func _on_land(delta):
 		
 		if Input.is_action_just_pressed("inventory_open") and not minigame_fishing:
 			show_inventory()
+			
+		if Input.is_action_just_pressed("Fishopedia_open") and not minigame_fishing:
+			fishopedia_first = true
+			show_inventory()
 
 		if !pushing_box:
 			if direction:
@@ -329,6 +336,7 @@ func throw_hook():
 		var speed
 		var hook_instance = hook_resource.instantiate()
 		hook_instance.position = get_global_position()
+		hook_instance.player_ref = self
 		if distance > 200:
 			speed = SPEED_HOOK
 			print("GO!")
@@ -430,6 +438,16 @@ func _draw():
 
 # Makes Inventory visible and invisible
 func show_inventory():
+	# Swap Between Menus
+	print(fishopedia_first, $Inventory.visible, $Fish_Opedia.visible)
+	if $Inventory.visible and fishopedia_first and not $Fish_Opedia.visible:
+		$Fish_Opedia.visible = true
+		fishopedia_first = false
+		return
+	if $Inventory.visible and not fishopedia_first and $Fish_Opedia.visible:
+		$Fish_Opedia.visible = false
+		fishopedia_first = false
+		return
 	inventory_page_number = 0
 	update_inventory()
 	$Inventory.visible = !$Inventory.visible
@@ -439,6 +457,12 @@ func show_inventory():
 	var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
 	$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
 	item_selected = -1
+	show_FishOpedia()
+	if not $Inventory.visible:
+		$Fish_Opedia.visible = false
+	else:
+		$Fish_Opedia.visible = fishopedia_first
+	fishopedia_first = false
 
 # Updates inventory UI dynamically
 func update_inventory():
@@ -497,6 +521,34 @@ func add_item(name, description):
 		else:
 			new_item.usable = false
 		inventory.append(new_item)
+	SaveState.inventory = inventory
+	SaveState.check_fihsopedia(name)
+	
+# Show seen fishes on fish-opedia
+func show_FishOpedia():
+	var j = 0
+	for i in SaveState.seen_fish:
+		if i:
+			j += 1
+	$Fish_Opedia/ColorRect/Label.text = str(int((j/8.0) * 100.0)) + "%"
+	if SaveState.seen_fish[0]:
+		$Fish_Opedia/ColorRect/Fish_texture.texture = preload("res://assets/UI/inventory_icon/inspector_a.png")
+		$Fish_Opedia/ColorRect/Fish_texture/Label.text = "Cool Sardine"
+	if SaveState.seen_fish[1]:
+		$Fish_Opedia/ColorRect/Fish_texture.texture = preload("res://assets/UI/inventory_icon/small_c.png")
+		$Fish_Opedia/ColorRect/Fish_texture/Label.text = "Wacky Tuna"
+	if SaveState.seen_fish[2]:
+		pass
+	if SaveState.seen_fish[3]:
+		pass
+	if SaveState.seen_fish[4]:
+		pass
+	if SaveState.seen_fish[5]:
+		pass
+	if SaveState.seen_fish[6]:
+		pass
+	if SaveState.seen_fish[7]:
+		pass
 
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
@@ -736,3 +788,10 @@ func _on_use_button_button_down():
 		return
 	if inventory[item_selected].name == "a":
 		print("AHAHAHAHAH")
+
+
+func _on_button_go_fishopedia_button_down():
+	$Fish_Opedia.visible = true
+
+func _on_button_go_inventory_button_down():
+	$Fish_Opedia.visible = false

@@ -20,8 +20,9 @@ var floating_angle = 0
 var result_fish = false
 
 func _ready():
-	player_ref = get_tree().get_root().get_child(0).get_node("Player")
-	print(player_ref)
+	#player_ref = get_tree().get_root().get_child(0).get_node("Player")
+	#print(player_ref)
+	pass
 
 func _physics_process(delta):
 	look_at(Vector2(position.x + velocity.x, position.y + velocity.y))
