@@ -81,7 +81,7 @@ text = "Text goes here"
 metadata/_edit_use_anchors_ = true
 
 [node name="Indicator" type="Sprite2D" parent="CanvasLayer/DialogBox"]
-position = Vector2(480, 135.523)
+position = Vector2(480, 132)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_u7a2g")
 
