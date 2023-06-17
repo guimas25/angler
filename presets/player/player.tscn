@@ -373,6 +373,7 @@ vertical_alignment = 1
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 272.0
 offset_top = 420.0
 offset_right = 512.0

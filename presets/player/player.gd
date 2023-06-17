@@ -132,8 +132,7 @@ func _on_land(delta):
 		if not is_on_floor():
 			velocity.y += gravity * delta
 		else:
-			print("here")
-			velocity += (hook_pos - global_position).normalized() * 15000000 * delta
+			velocity.y += 10
 		swing(delta)
 		just_grappled = false
 		velocity *= 0.975 # swing speed
@@ -313,6 +312,7 @@ func hook():
 func get_hook_pos():
 	for raycast in $GrapplingHook.get_children():
 		if raycast.is_colliding():
+			var collidor = raycast.get_collider()
 			return raycast.get_collision_point()
 
 func swing(delta):
@@ -336,13 +336,11 @@ func swing(delta):
 			if(current_rope_lenght < MAX_ROPE_LENGHT):
 				velocity -= (hook_pos - global_position).normalized() * 3500 * delta
 				current_rope_lenght = (hook_pos - global_position).length()
-		if(is_on_floor()):
-			velocity += (hook_pos - global_position).normalized() * 1500 * delta
 		#velocity += (hook_pos - global_position).normalized() * 1500 * delta
 	
 	if global_position.distance_to(hook_pos) > current_rope_lenght:
 		global_position = hook_pos + radius.normalized() * current_rope_lenght
-	print(current_rope_lenght)
+	print(angle_to_floor)
 	
 func _draw():
 	var pos = global_position
