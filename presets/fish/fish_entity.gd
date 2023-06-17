@@ -14,6 +14,7 @@ var x_dir = 1
 var y_dir = 0
 
 var fish_name = "Cool sardine"
+var fish_description = "The coolest fish of all. Look at the blush."
 
 var bait_body
 var get_bait = false
