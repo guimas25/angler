@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=25 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://bw2xt2l3ggwxp" path="res://assets/sprites/player/fishing_round_yellow.png" id="12_oh8ol"]
 [ext_resource type="Texture2D" uid="uid://bttdrajf13lxo" path="res://assets/sprites/player/inventory_arrow_revamp.png" id="15_wk6ct"]
 [ext_resource type="Texture2D" uid="uid://c6lf68ttu5hpl" path="res://assets/sprites/player/inventory_arrow.png" id="16_2gfuu"]
+[ext_resource type="Texture2D" uid="uid://dsqp0marfycnh" path="res://assets/sprites/player/inventory_placeholder_inspector.png" id="17_633ql"]
+[ext_resource type="Texture2D" uid="uid://b5bd87a2xycho" path="res://assets/sprites/player/Use_button_revamp.png" id="18_yvmkq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
@@ -63,6 +65,9 @@ animations = [{
 "name": &"yellow",
 "speed": 5.0
 }]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ttd8h"]
+texture = ExtResource("18_yvmkq")
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 33
@@ -211,22 +216,26 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -392.0
 offset_top = -232.0
-offset_right = 392.0
 offset_bottom = 232.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 1, 1, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(128, 100)
+[node name="Sprite2D" type="TextureRect" parent="Inventory/ColorRect"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 28.0
+offset_right = 160.0
+offset_bottom = 156.0
+pivot_offset = Vector2(64, 64)
 texture = ExtResource("10_6soqp")
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D"]
 modulate = Color(0, 0, 0, 1)
-offset_left = -120.0
-offset_top = 64.0
-offset_right = 120.0
-offset_bottom = 112.0
+offset_left = -56.0
+offset_top = 128.0
+offset_right = 184.0
+offset_bottom = 176.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "item name"
 horizontal_alignment = 1
@@ -234,25 +243,29 @@ vertical_alignment = 1
 
 [node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D"]
 modulate = Color(0, 0, 0, 1)
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 72.0
-offset_bottom = 72.0
+offset_left = 80.0
+offset_top = 96.0
+offset_right = 136.0
+offset_bottom = 136.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sprite2D2" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(392, 100)
+[node name="Sprite2D2" type="TextureRect" parent="Inventory/ColorRect"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 28.0
+offset_right = 360.0
+offset_bottom = 156.0
 texture = ExtResource("10_6soqp")
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D2"]
 modulate = Color(0, 0, 0, 1)
-offset_left = -120.0
-offset_top = 64.0
-offset_right = 120.0
-offset_bottom = 112.0
+offset_left = -56.0
+offset_top = 128.0
+offset_right = 184.0
+offset_bottom = 176.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "item name"
 horizontal_alignment = 1
@@ -260,25 +273,29 @@ vertical_alignment = 1
 
 [node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D2"]
 modulate = Color(0, 0, 0, 1)
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 72.0
-offset_bottom = 72.0
+offset_left = 80.0
+offset_top = 96.0
+offset_right = 136.0
+offset_bottom = 136.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sprite2D3" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(632, 100)
+[node name="Sprite2D3" type="TextureRect" parent="Inventory/ColorRect"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 212.0
+offset_right = 160.0
+offset_bottom = 340.0
 texture = ExtResource("10_6soqp")
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D3"]
 modulate = Color(0, 0, 0, 1)
-offset_left = -120.0
-offset_top = 64.0
-offset_right = 120.0
-offset_bottom = 112.0
+offset_left = -56.0
+offset_top = 128.0
+offset_right = 184.0
+offset_bottom = 176.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "item name"
 horizontal_alignment = 1
@@ -286,25 +303,29 @@ vertical_alignment = 1
 
 [node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D3"]
 modulate = Color(0, 0, 0, 1)
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 72.0
-offset_bottom = 72.0
+offset_left = 80.0
+offset_top = 96.0
+offset_right = 136.0
+offset_bottom = 136.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sprite2D4" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(128, 308)
+[node name="Sprite2D4" type="TextureRect" parent="Inventory/ColorRect"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 212.0
+offset_right = 360.0
+offset_bottom = 340.0
 texture = ExtResource("10_6soqp")
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D4"]
 modulate = Color(0, 0, 0, 1)
-offset_left = -120.0
-offset_top = 64.0
-offset_right = 120.0
-offset_bottom = 112.0
+offset_left = -56.0
+offset_top = 128.0
+offset_right = 184.0
+offset_bottom = 176.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "item name"
 horizontal_alignment = 1
@@ -312,72 +333,20 @@ vertical_alignment = 1
 
 [node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D4"]
 modulate = Color(0, 0, 0, 1)
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 72.0
-offset_bottom = 72.0
-theme_override_fonts/font = ExtResource("7_ev1ag")
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Sprite2D5" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(392, 308)
-texture = ExtResource("10_6soqp")
-
-[node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D5"]
-modulate = Color(0, 0, 0, 1)
-offset_left = -120.0
-offset_top = 64.0
-offset_right = 120.0
-offset_bottom = 112.0
-theme_override_fonts/font = ExtResource("7_ev1ag")
-text = "item name"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D5"]
-modulate = Color(0, 0, 0, 1)
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 72.0
-offset_bottom = 72.0
-theme_override_fonts/font = ExtResource("7_ev1ag")
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Sprite2D6" type="Sprite2D" parent="Inventory/ColorRect"]
-position = Vector2(632, 308)
-texture = ExtResource("10_6soqp")
-
-[node name="FishLabel" type="Label" parent="Inventory/ColorRect/Sprite2D6"]
-modulate = Color(0, 0, 0, 1)
-offset_left = -120.0
-offset_top = 64.0
-offset_right = 120.0
-offset_bottom = 112.0
-theme_override_fonts/font = ExtResource("7_ev1ag")
-text = "item name"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FishLabel2" type="Label" parent="Inventory/ColorRect/Sprite2D6"]
-modulate = Color(0, 0, 0, 1)
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 72.0
-offset_bottom = 72.0
+offset_left = 80.0
+offset_top = 96.0
+offset_right = 136.0
+offset_bottom = 136.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FishLabel" type="Label" parent="Inventory/ColorRect"]
-offset_left = 272.0
-offset_top = 412.0
-offset_right = 512.0
-offset_bottom = 460.0
+offset_left = 80.0
+offset_top = 388.0
+offset_right = 320.0
+offset_bottom = 436.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "page number"
 horizontal_alignment = 1
@@ -402,8 +371,55 @@ texture_normal = ExtResource("15_wk6ct")
 texture_disabled = ExtResource("16_2gfuu")
 flip_h = true
 
+[node name="ColorRect2" type="ColorRect" parent="Inventory"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -232.0
+offset_right = 392.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.462745, 0.94902, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/ColorRect2"]
+position = Vector2(196, 136)
+texture = ExtResource("17_633ql")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Inventory/ColorRect2"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 248.0
+offset_right = 380.0
+offset_bottom = 344.0
+theme_override_fonts/normal_font = ExtResource("7_ev1ag")
+bbcode_enabled = true
+text = "[center]DESCRIPTION HERE[/center]
+"
+
+[node name="use_Button" type="Button" parent="Inventory/ColorRect2"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 396.0
+offset_right = 260.0
+offset_bottom = 432.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ttd8h")
+text = "USE"
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]
 [connection signal="timeout" from="Timers/Timer_fishing" to="." method="_on_timer_fishing_timeout"]
+[connection signal="mouse_entered" from="Inventory/ColorRect/Sprite2D" to="." method="_on_sprite_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/ColorRect/Sprite2D" to="." method="_on_sprite_2d_mouse_exited"]
+[connection signal="mouse_entered" from="Inventory/ColorRect/Sprite2D2" to="." method="_on_sprite_2d_2_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/ColorRect/Sprite2D2" to="." method="_on_sprite_2d_2_mouse_exited"]
+[connection signal="mouse_entered" from="Inventory/ColorRect/Sprite2D3" to="." method="_on_sprite_2d_3_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/ColorRect/Sprite2D3" to="." method="_on_sprite_2d_3_mouse_exited"]
+[connection signal="mouse_entered" from="Inventory/ColorRect/Sprite2D4" to="." method="_on_sprite_2d_4_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/ColorRect/Sprite2D4" to="." method="_on_sprite_2d_4_mouse_exited"]
 [connection signal="button_down" from="Inventory/ColorRect/FishLabel/previous_inventory" to="." method="_on_previous_inventory_button_down"]
 [connection signal="button_down" from="Inventory/ColorRect/FishLabel/next_inventory" to="." method="_on_next_inventory_button_down"]
+[connection signal="button_down" from="Inventory/ColorRect2/use_Button" to="." method="_on_use_button_button_down"]
