@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=26 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c6lf68ttu5hpl" path="res://assets/sprites/player/inventory_arrow.png" id="16_2gfuu"]
 [ext_resource type="Texture2D" uid="uid://dsqp0marfycnh" path="res://assets/sprites/player/inventory_placeholder_inspector.png" id="17_633ql"]
 [ext_resource type="Texture2D" uid="uid://b5bd87a2xycho" path="res://assets/sprites/player/Use_button_revamp.png" id="18_yvmkq"]
+[ext_resource type="Texture2D" uid="uid://cr51bs6iv5pm7" path="res://assets/UI/Fish-Opedia/mystery_fish.png" id="19_ot0iq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
@@ -207,7 +208,6 @@ animation = &"yellow"
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Inventory" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Inventory"]
 anchors_preset = 8
@@ -424,6 +424,188 @@ theme_override_fonts/font = ExtResource("7_ev1ag")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ttd8h")
 text = "USE"
 
+[node name="Button_Go_inventory" type="Button" parent="Inventory"]
+offset_left = 204.0
+offset_top = 56.0
+offset_right = 300.0
+offset_bottom = 92.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Inventory"
+
+[node name="Button_Go_Fishopedia" type="Button" parent="Inventory"]
+offset_left = 368.0
+offset_top = 56.0
+offset_right = 468.0
+offset_bottom = 92.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Fish-Opedia"
+
+[node name="Fish_Opedia" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Fish_Opedia"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -392.0
+offset_top = -232.0
+offset_right = 392.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.376471, 0.309804, 1)
+
+[node name="Fish_texture" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 32.0
+offset_right = 188.0
+offset_bottom = 168.0
+texture = ExtResource("19_ot0iq")
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect/Fish_texture"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 148.0
+offset_right = 160.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Fish_texture2" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 32.0
+offset_right = 372.0
+offset_bottom = 168.0
+texture = ExtResource("19_ot0iq")
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect/Fish_texture2"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 148.0
+offset_right = 160.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Fish_texture3" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 32.0
+offset_right = 552.0
+offset_bottom = 168.0
+texture = ExtResource("19_ot0iq")
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect/Fish_texture3"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 148.0
+offset_right = 160.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Fish_texture4" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
+offset_left = 596.0
+offset_top = 32.0
+offset_right = 732.0
+offset_bottom = 168.0
+texture = ExtResource("19_ot0iq")
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect/Fish_texture4"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 148.0
+offset_right = 160.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Fish_texture5" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 216.0
+offset_right = 188.0
+offset_bottom = 352.0
+texture = ExtResource("19_ot0iq")
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect/Fish_texture5"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 148.0
+offset_right = 160.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Fish_texture6" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+offset_left = 236.0
+offset_top = 216.0
+offset_right = 372.0
+offset_bottom = 352.0
+texture = ExtResource("19_ot0iq")
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect/Fish_texture6"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 148.0
+offset_right = 160.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Fish_texture7" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+offset_left = 416.0
+offset_top = 216.0
+offset_right = 552.0
+offset_bottom = 352.0
+texture = ExtResource("19_ot0iq")
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect/Fish_texture7"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 148.0
+offset_right = 160.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Fish_texture8" type="TextureRect" parent="Fish_Opedia/ColorRect"]
+offset_left = 596.0
+offset_top = 216.0
+offset_right = 732.0
+offset_bottom = 352.0
+texture = ExtResource("19_ot0iq")
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect/Fish_texture8"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 148.0
+offset_right = 160.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Fish_Opedia/ColorRect"]
+layout_mode = 0
+offset_top = 412.0
+offset_right = 784.0
+offset_bottom = 438.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+text = "Completion Percentage"
+horizontal_alignment = 1
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]
 [connection signal="timeout" from="Timers/Timer_fishing" to="." method="_on_timer_fishing_timeout"]
@@ -438,3 +620,5 @@ text = "USE"
 [connection signal="button_down" from="Inventory/ColorRect/FishLabel/previous_inventory" to="." method="_on_previous_inventory_button_down"]
 [connection signal="button_down" from="Inventory/ColorRect/FishLabel/next_inventory" to="." method="_on_next_inventory_button_down"]
 [connection signal="button_down" from="Inventory/ColorRect2/use_Button" to="." method="_on_use_button_button_down"]
+[connection signal="button_down" from="Inventory/Button_Go_inventory" to="." method="_on_button_go_inventory_button_down"]
+[connection signal="button_down" from="Inventory/Button_Go_Fishopedia" to="." method="_on_button_go_fishopedia_button_down"]
