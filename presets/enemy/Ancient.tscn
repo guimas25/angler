@@ -1,0 +1,167 @@
+[gd_scene load_steps=28 format=3 uid="uid://cpldldpn0o02"]
+
+[ext_resource type="Script" path="res://presets/enemy/Ancient.gd" id="1_citsg"]
+[ext_resource type="Texture2D" uid="uid://bd2c1xqcrwfou" path="res://assets/sprites/enemy/ancient_walk1.png" id="1_uuj5d"]
+[ext_resource type="Texture2D" uid="uid://bqyw848t2b6hf" path="res://assets/sprites/enemy/ancient_walk2.png" id="2_0oi41"]
+[ext_resource type="Texture2D" uid="uid://cpvy1mtut0vby" path="res://assets/sprites/enemy/ancient_attack1.png" id="2_qvihb"]
+[ext_resource type="Texture2D" uid="uid://dbidq8hdxdukf" path="res://assets/sprites/enemy/ancient_walk3.png" id="3_5jt8m"]
+[ext_resource type="Texture2D" uid="uid://dq4hi7doollb3" path="res://assets/sprites/enemy/ancient_attack2.png" id="3_it5a8"]
+[ext_resource type="Texture2D" uid="uid://ce5qb8con4d0b" path="res://assets/sprites/enemy/ancient_attack3.png" id="4_aqen8"]
+[ext_resource type="Texture2D" uid="uid://cgjkdkhxohan0" path="res://assets/sprites/enemy/ancient_walk4.png" id="4_qtsjf"]
+[ext_resource type="Texture2D" uid="uid://bho0o103racy5" path="res://assets/sprites/enemy/ancient_walk5.png" id="5_o6aks"]
+[ext_resource type="Texture2D" uid="uid://dvhrlke4x4q0y" path="res://assets/sprites/enemy/ancient_attack4.png" id="5_wn3ub"]
+[ext_resource type="Texture2D" uid="uid://bxiud2mhxn8ow" path="res://assets/sprites/enemy/ancient_walk6.png" id="6_1i1jv"]
+[ext_resource type="Texture2D" uid="uid://hwm4rsobpsy8" path="res://assets/sprites/enemy/ancient_attack5.png" id="6_26gwj"]
+[ext_resource type="Texture2D" uid="uid://o5vjgbxh8xnq" path="res://assets/sprites/enemy/ancient_attack6.png" id="7_g1htb"]
+[ext_resource type="Texture2D" uid="uid://npscbarejl8o" path="res://assets/sprites/enemy/ancient_walk7.png" id="7_ylix7"]
+[ext_resource type="Texture2D" uid="uid://bvmagxcd4n18q" path="res://assets/sprites/enemy/ancient_attack7.png" id="8_7pu62"]
+[ext_resource type="Texture2D" uid="uid://dg1kw7uj08fp1" path="res://assets/sprites/enemy/ancient_walk8.png" id="8_rco6t"]
+[ext_resource type="Texture2D" uid="uid://ckht6efnnse7x" path="res://assets/sprites/enemy/ancient_attack8.png" id="9_citho"]
+[ext_resource type="Texture2D" uid="uid://38ao3hjbo0iq" path="res://assets/sprites/enemy/ancient_attack9.png" id="10_qrfk0"]
+[ext_resource type="Texture2D" uid="uid://cdlb6gnsmk5dr" path="res://assets/sprites/enemy/ancient_attack10.png" id="11_fbkpy"]
+[ext_resource type="Texture2D" uid="uid://dw2ay7tdjnft0" path="res://assets/sprites/enemy/ancient_attack11.png" id="12_bhope"]
+[ext_resource type="Texture2D" uid="uid://d2rvcprcmsj6y" path="res://assets/sprites/enemy/ancient_attack12.png" id="13_cie46"]
+[ext_resource type="Texture2D" uid="uid://bwu5hko2ga5e8" path="res://assets/sprites/enemy/ancient_attack13.png" id="14_biiq0"]
+[ext_resource type="Texture2D" uid="uid://dy6dsml06aa8b" path="res://assets/sprites/enemy/ancient_attack14.png" id="15_2d4f1"]
+[ext_resource type="Texture2D" uid="uid://yxa03i81iurr" path="res://assets/sprites/enemy/ancient_attack15.png" id="16_mv5ve"]
+[ext_resource type="Texture2D" uid="uid://cu07lj7bbv4bw" path="res://assets/sprites/enemy/ancient_attack16.png" id="17_8dbx5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cmn4e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qvihb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_it5a8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_aqen8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wn3ub")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_26gwj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_g1htb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7pu62")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_citho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_qrfk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fbkpy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_bhope")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_cie46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_biiq0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_2d4f1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_mv5ve")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_uuj5d")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 12.0,
+"texture": ExtResource("17_8dbx5")
+}],
+"loop": false,
+"name": &"laser",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0oi41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5jt8m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qtsjf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o6aks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1i1jv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ylix7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rco6t")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lyv2"]
+size = Vector2(18.8235, 16.875)
+
+[node name="Ancient" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 34
+collision_mask = 32
+script = ExtResource("1_citsg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_cmn4e")
+animation = &"laser"
+autoplay = "moving"
+
+[node name="HitBox" type="Area2D" parent="."]
+scale = Vector2(-1.7, 1.6)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(1.13687e-13, 1.5625)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_1lyv2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-8, -11, 8, -11, 16, 5, 16, 16, -16, 16, -16, 5)
+
+[node name="RayCastGround" type="RayCast2D" parent="."]
+position = Vector2(-23, -27)
+collision_mask = 32
+
+[node name="RayCastWall" type="RayCast2D" parent="."]
+target_position = Vector2(-23, 0)
+collision_mask = 32
+
+[node name="RayCastPlayer" type="RayCast2D" parent="."]
+position = Vector2(0, 3.5)
+target_position = Vector2(-154, 0)
+
+[node name="RayCastPlayerBack" type="RayCast2D" parent="."]
+position = Vector2(0, 3.5)
+target_position = Vector2(46.5, 0)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
