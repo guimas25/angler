@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ka1s58dopajr"]
+[gd_scene load_steps=5 format=3 uid="uid://ka1s58dopajr"]
 
 [ext_resource type="Script" path="res://presets/box/character_box_2d.gd" id="1_0gkwc"]
 [ext_resource type="Texture2D" uid="uid://dundq3dv1ejix" path="res://assets/sprites/box/box.png" id="2_fpd4x"]
@@ -6,10 +6,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xvhof"]
 size = Vector2(32, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nsiny"]
+size = Vector2(29.3161, 1.33802)
+
 [node name="Box2D" type="CharacterBody2D"]
 scale = Vector2(1.147, 1.147)
-collision_layer = 32
-collision_mask = 32
+collision_layer = 160
+collision_mask = 160
 script = ExtResource("1_0gkwc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -19,3 +22,14 @@ texture = ExtResource("2_fpd4x")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.933, 0.933)
 shape = SubResource("RectangleShape2D_xvhof")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.139791, 16.72)
+shape = SubResource("RectangleShape2D_nsiny")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
