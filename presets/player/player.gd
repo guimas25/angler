@@ -152,8 +152,10 @@ func _physics_process(delta):
 	# Check if player is fishing, if yes nerf speed
 	if hook_on_scene:
 		var hook_distance = hook_reference.position - position
-		SPEED = 250 - 200 * (hook_distance.length() / hook_max_distance)
-		JUMP_VELOCITY = -400.0
+		SPEED = 30 - 20 * (hook_distance.length() / hook_max_distance)
+		JUMP_VELOCITY = -200
+		if not minigame_fishing and hook_reference.on_water and not hook_reference.reeling:
+			$Sprite2D/AnimatedSprite2D.play("fishing")
 		if hook_distance.length() >= hook_max_distance:  # If player goes beyond max distance, reel back
 			stop_immediate_fishing()
 	else:
@@ -161,6 +163,7 @@ func _physics_process(delta):
 		JUMP_VELOCITY = -800.0
 	
 	if pulled_by_fish:
+		$Sprite2D/AnimatedSprite2D.play("pulled_by_fish")
 		if pulling_fish_ref.dead:
 			stop_pulling()
 		else:
@@ -178,8 +181,10 @@ func _physics_process(delta):
 	elif not on_water:
 		_on_land(delta)
 	else:
+		$Sprite2D/AnimatedSprite2D.play("water_walk")
 		_on_water(delta)
-	if Input.is_action_just_pressed("melee_action") and not attack_cooldown:
+	if Input.is_action_just_pressed("melee_action") and not attack_cooldown and not hook_on_scene:
+		$Sprite2D/AnimatedSprite2D.play("attack")
 		on_attack = true
 		$HitBox_Attack.visible = true
 
@@ -193,6 +198,8 @@ func _physics_process(delta):
 			i.get_hurt(self.position)
 		
 	if minigame_fishing:
+		$Sprite2D/rope_start_fishing.position = Vector2(37, -7)
+		$Sprite2D/AnimatedSprite2D.play("catch")
 		if check_bait.get_ref():
 			var check_fish = weakref(hook_reference.fish_caught)
 			if check_fish.get_ref():
@@ -210,9 +217,9 @@ func _on_water(delta):
 	var direction_v = Input.get_axis("move_up", "move_down")
 	
 	if direction_h == 1:
-		$Sprite2D.flip_h = false
+		$Sprite2D/AnimatedSprite2D.flip_h = false
 	elif direction_h == -1:
-		$Sprite2D.flip_h = true
+		$Sprite2D/AnimatedSprite2D.flip_h = true
 	
 	if not is_on_floor() and direction_v == 0:
 		velocity.y = gravity/2 * delta
@@ -233,6 +240,8 @@ func _on_land(delta):
 		$Camera2D.global_position.y = global_position.y + (hook_reference.global_position.y - global_position.y)/2
 	queue_redraw()
 	if hooked:
+		$Sprite2D/AnimatedSprite2D.play("swing")
+		$Sprite2D/rope_start_fishing.position = Vector2(-1,-40)
 		if not is_on_floor():
 			velocity.y += gravity * delta
 		else:
@@ -246,6 +255,7 @@ func _on_land(delta):
 		velocity.x += direction * 20 * 0.975
 		
 	elif hooked_to_box:
+		$Sprite2D/AnimatedSprite2D.play("fishing")
 		if not is_on_floor():
 			velocity.y += gravity * delta
 		if pull_object:
@@ -256,6 +266,8 @@ func _on_land(delta):
 		if not is_on_floor():
 			coyote_time = coyote_time - delta
 			velocity.y += gravity * delta
+			if $Timers/Timer_attack_duration.time_left == 0 and not hook_on_scene:
+				$Sprite2D/AnimatedSprite2D.play("jump")
 		else:
 			coyote_time = 0.2
 			
@@ -276,17 +288,30 @@ func _on_land(delta):
 		var direction = 0
 		direction = Input.get_axis("move_left", "move_right")
 		
-		if direction > 0:
-			$Sprite2D.flip_h = false
-			$HitBox_Attack.position.x = 32
-			$HitBox_Attack/AnimatedSprite2D.flip_h = false
-		elif direction < 0:
-			$Sprite2D.flip_h = true
-			$HitBox_Attack.position.x = -32
-			$HitBox_Attack/AnimatedSprite2D.flip_h = true
-			
-		if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
+		if not hook_on_scene and $Timers/Timer_attack_duration.time_left == 0 and is_on_floor():
+			if direction != 0:
+				$Sprite2D/AnimatedSprite2D.play("walk")
+			else:
+				$Sprite2D/AnimatedSprite2D.play("idle")
+		
+		if not check_bait.get_ref():
+			if direction > 0:
+				$Sprite2D/AnimatedSprite2D.flip_h = false
+				$HitBox_Attack.position.x = 32
+			elif direction < 0:
+				$Sprite2D/AnimatedSprite2D.flip_h = true
+				$HitBox_Attack.position.x = -32
+		else:
+			var direction_of_hook = sign(hook_reference.position.x - position.x)
+			if direction_of_hook > 0:
+				$Sprite2D/AnimatedSprite2D.flip_h = false
+				$HitBox_Attack.position.x = 32
+			elif direction_of_hook < 0:
+				$Sprite2D/AnimatedSprite2D.flip_h = true
+				$HitBox_Attack.position.x = -32
+		if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing and $Timers/Timer_attack_duration.time_left == 0:
 			throw_hook()
+			$Sprite2D/AnimatedSprite2D.play("throw")
 		
 		if Input.is_action_just_pressed("inventory_open") and not minigame_fishing:
 			show_inventory()
@@ -383,10 +408,12 @@ func throw_hook():
 		hook_instance.hook_throw()
 		hook_reference = hook_instance
 		get_tree().get_root().add_child(hook_instance)
+		$Sprite2D/rope_start_fishing.position = Vector2(sign(hook_reference.velocity.x) * 20, -12)
 		#get_tree().get_root().get_child(0).add_child(grabedInstance)
 		hook_on_scene = true
 		
 	elif not minigame_fishing and hook_reference:
+		$Sprite2D/rope_start_fishing.position = Vector2(-41, -4)
 		hook_reference.hook_reel(false)
 		draw_hook = false
 		
@@ -447,6 +474,15 @@ func pull_object_to_player(delta):
 	var radius = global_position - object_to_pull.global_position
 	if radius.length() < 30: return
 	object_to_pull.velocity.x += (global_position - object_to_pull.global_position).normalized().x * 3500 * delta
+	$Sprite2D/rope_start_fishing.position = Vector2(sign(object_to_pull.velocity.x) * -1 * 20, -12)
+	var direction = sign(sign(object_to_pull.velocity.x) * -1)
+	if direction > 0:
+		$Sprite2D/AnimatedSprite2D.flip_h = false
+		$HitBox_Attack.position.x = 32
+	elif direction < 0:
+		$Sprite2D/AnimatedSprite2D.flip_h = true
+		$HitBox_Attack.position.x = -32
+	
 
 
 func get_hook_pos():
@@ -486,15 +522,15 @@ func _draw():
 	var pos = global_position
 	
 	if hooked:
-		draw_line(Vector2(0,0), to_local(hook_pos), Color(1,1,1), 0.25, true)
+		draw_line($Sprite2D/rope_start_fishing.position, to_local(hook_pos), Color(1,1,1), 0.25, true)
 	elif hooked_to_box:
 		var check_object = weakref(object_to_pull)
 		if check_object.get_ref():
-			draw_line(Vector2(0,0), to_local(object_to_pull.global_position), Color(1,1,1), 0.25, true)
+			draw_line($Sprite2D/rope_start_fishing.position, to_local(object_to_pull.global_position), Color(1,1,1), 0.25, true)
 	elif draw_hook:
 		var check_bait = weakref(hook_reference)
 		if check_bait.get_ref():
-			draw_line(Vector2(0,0), to_local(hook_reference.position), Color(1,1,1), 0.25, true)
+			draw_line($Sprite2D/rope_start_fishing.position, to_local(hook_reference.position), Color(1,1,1), 0.25, true)
 	else:
 		return
 		var colliding = $GrapplingHook.is_colliding()
@@ -664,6 +700,7 @@ func fishing_minigame_1(check_bait):
 						else:
 							add_item(hook_reference.fish_caught.fish_name, hook_reference.fish_caught.fish_description)
 							hook_reference.hook_reel(true)
+				$Sprite2D/AnimatedSprite2D.play("caught_fish")
 				stop_fishing()
 	elif ($fish_meter/pointer.position.x >= center_hit_low\
 	and $fish_meter/pointer.position.x <= center_hit_high):
@@ -678,6 +715,7 @@ func fishing_minigame_1(check_bait):
 					else:
 						add_item(hook_reference.fish_caught.fish_name, hook_reference.fish_caught.fish_description)
 						hook_reference.hook_reel(true)
+			$Sprite2D/AnimatedSprite2D.play("caught_fish")
 			stop_fishing()
 	elif $fish_meter/pointer.position.x >= 82 \
 	or Input.is_action_just_pressed("hook_action") and $fish_meter/pointer.position.x > 10:
@@ -687,6 +725,7 @@ func fishing_minigame_1(check_bait):
 			hook_reference.being_targeted = false
 			hook_reference.hook_reel(false)
 			stop_fishing()
+		$Sprite2D/AnimatedSprite2D.play("caught_fish")
 	$fish_meter/pointer.move_and_slide()
 	
 	
@@ -781,6 +820,7 @@ func fishing_minigame_2(check_bait):
 							add_item(hook_reference.fish_caught.fish_name, hook_reference.fish_caught.fish_description)
 							hook_reference.hook_reel(true)
 				minigame_2_round_counter = 0
+				$Sprite2D/AnimatedSprite2D.play("caught_fish")
 				stop_fishing()
 			else:
 				minigame_randomizer()
@@ -804,7 +844,8 @@ func fishing_minigame_2(check_bait):
 		if check_bait.get_ref():                      # If it was able to, object still on the loose!
 			hook_reference.being_targeted = false
 			hook_reference.hook_reel(false)
-			stop_fishing()
+		$Sprite2D/AnimatedSprite2D.play("caught_fish")
+		stop_fishing()
 			
 	$fish_meter/pointer.move_and_slide()
 
