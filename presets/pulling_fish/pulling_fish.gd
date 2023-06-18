@@ -156,8 +156,8 @@ func initiate_pull(pos):
 	set_collision_mask_value(5, false)
 	set_collision_layer_value(6, true)
 	set_collision_mask_value(6, true)
-	set_collision_layer_value(1, true)
-	set_collision_mask_value(1, true)
+	set_collision_layer_value(10, true)
+	set_collision_mask_value(10, true)
 	pulling = true
 	$AnimatedSprite2D.play("pulling")
 	$Timer.stop()
