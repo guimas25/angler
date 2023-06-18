@@ -6,7 +6,7 @@ class_name Player
 @export var SPEED_WATER = 150.0
 @export var JUMP_VELOCITY = -800.0
 @export var SPEED_HOOK = 400
-@export var MAX_ROPE_LENGHT = 500
+@export var MAX_ROPE_LENGHT = 350
 
 var hook_pos = Vector2()
 var hooked = false
@@ -66,7 +66,7 @@ func _ready():
 	inventory = SaveState.inventory
 
 var hook_reference
-var hook_max_distance = 300 # Max distance between the player and the hook
+var hook_max_distance = 700 # Max distance between the player and the hook
 var hook_on_scene = false
 
 var pulled_by_fish = false
@@ -210,6 +210,10 @@ func _on_land(delta):
 	var check_bait = weakref(hook_reference)
 	if not check_bait.get_ref():
 		hook()
+		$Camera2D.position = Vector2.ZERO
+	else:
+		$Camera2D.global_position.x = global_position.x + (hook_reference.global_position.x - global_position.x)/2
+		$Camera2D.global_position.y = global_position.y + (hook_reference.global_position.y - global_position.y)/2
 	queue_redraw()
 	if hooked:
 		if not is_on_floor():
