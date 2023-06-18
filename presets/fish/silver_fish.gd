@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Fish_simple
+class_name SilverFish
 
 @export var SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -13,8 +13,8 @@ var y_vel = 0
 var x_dir = 1
 var y_dir = 0
 
-var fish_name = "Lemon Sardine"
-var fish_description = "A very warm sardine, personality wise. It's not sour though..."
+var fish_name = "Silver Fish"
+var fish_description = "A fish native to this oceanic cave... What a giant specimen!"
 
 var bait_body
 var get_bait = false

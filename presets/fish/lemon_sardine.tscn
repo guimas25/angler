@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dlw0kekh4k3nc"]
 
-[ext_resource type="Script" path="res://presets/fish/lemon_fish.gd" id="1_3nfxq"]
+[ext_resource type="Script" path="res://presets/fish/lemon_sardine.gd" id="1_3nfxq"]
 [ext_resource type="Texture2D" uid="uid://b0x2grlnytruo" path="res://assets/sprites/fish/lemon_fish1.png" id="2_efqaw"]
 [ext_resource type="Texture2D" uid="uid://buwf67aokduc3" path="res://assets/sprites/fish/lemon_fish2.png" id="3_6xsja"]
 [ext_resource type="Texture2D" uid="uid://b0oyh8jnjb0co" path="res://assets/sprites/fish/lemon_fish3.png" id="4_5e005"]
@@ -41,6 +41,7 @@ radius = 151.03
 
 [node name="lemon_fish" type="CharacterBody2D"]
 script = ExtResource("1_3nfxq")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.38858e-07, -0.582412)
@@ -77,3 +78,9 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_hook_detection"]
 scale = Vector2(0.853, 0.84)
 shape = SubResource("RectangleShape2D_mwaui")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer_start_approach" to="." method="_on_timer_start_approach_timeout"]
+[connection signal="timeout" from="Timer_take_bait" to="." method="_on_timer_take_bait_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
