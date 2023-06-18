@@ -207,7 +207,9 @@ func _on_water(delta):
 	move_and_slide()
 	
 func _on_land(delta):
-	hook()
+	var check_bait = weakref(hook_reference)
+	if not check_bait.get_ref():
+		hook()
 	queue_redraw()
 	if hooked:
 		if not is_on_floor():
