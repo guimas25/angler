@@ -5,29 +5,41 @@ rotation = -1.5708
 
 [node name="RayCast01" type="RayCast2D" parent="."]
 position = Vector2(20, 0)
-target_position = Vector2(500, 0)
+target_position = Vector2(350, 0)
 collision_mask = 128
 
 [node name="RayCast02" type="RayCast2D" parent="."]
 position = Vector2(20, 0)
 rotation = 0.0872665
-target_position = Vector2(500, 0)
+target_position = Vector2(350, 0)
 collision_mask = 128
 
 [node name="RayCast03" type="RayCast2D" parent="."]
 position = Vector2(20, 0)
 rotation = -0.0872665
-target_position = Vector2(500, 0)
+target_position = Vector2(350, 0)
 collision_mask = 128
 
 [node name="RayCast04" type="RayCast2D" parent="."]
 position = Vector2(20, 0)
 rotation = 0.174533
-target_position = Vector2(500, 0)
+target_position = Vector2(350, 0)
 collision_mask = 128
 
 [node name="RayCast05" type="RayCast2D" parent="."]
 position = Vector2(20, 0)
 rotation = -0.174533
-target_position = Vector2(500, 0)
+target_position = Vector2(350, 0)
+collision_mask = 128
+
+[node name="RayCast06" type="RayCast2D" parent="."]
+position = Vector2(20, 0)
+rotation = -0.261799
+target_position = Vector2(350, 0)
+collision_mask = 128
+
+[node name="RayCast07" type="RayCast2D" parent="."]
+position = Vector2(20, 0)
+rotation = 0.261799
+target_position = Vector2(350, 0)
 collision_mask = 128

@@ -6,7 +6,7 @@ class_name Player
 @export var SPEED_WATER = 150.0
 @export var JUMP_VELOCITY = -800.0
 @export var SPEED_HOOK = 400
-@export var MAX_ROPE_LENGHT = 500
+@export var MAX_ROPE_LENGHT = 350
 
 var hook_pos = Vector2()
 var hooked = false
@@ -18,14 +18,22 @@ var iframes = false
 var attack_cooldown = false
 var on_attack = false
 
+var object_to_pull
+var pull_object = false
+var hooked_to_box = false
+
+var draw_hook = false
+
 # Represents item in inventory
 class inventory_item:
 	var name
-	var id
+	var description
 	var count
+	var usable = false
 
 var inventory = []   # Array containing inventory items, saves player inventory
 var inventory_page_number = 0 # Inventory Page number
+var usable_items = ["a", "e"] # List of usable items
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.6
@@ -45,12 +53,23 @@ var pushing_box = false
 
 @export var on_water = false
 
+var on_item_1 = false
+var on_item_2 = false
+var on_item_3 = false
+var on_item_4 = false
+var item_selected = -1
+
+var fishopedia_first = false
+
 var hook_resource = preload("res://presets/hook/hook.tscn")
+var pickup_pulling_fish_resource = preload("res://presets/pickup_pull_fish/pulling_fish_pickup.tscn")
+
 func _ready():
 	current_rope_lenght = rope_lenght
+	inventory = SaveState.inventory
 
 var hook_reference
-var hook_max_distance = 300 # Max distance between the player and the hook
+var hook_max_distance = 700 # Max distance between the player and the hook
 var hook_on_scene = false
 
 var pulled_by_fish = false
@@ -61,13 +80,75 @@ func _process(delta):
 	$Node2D.look_at(get_global_mouse_position())
 	if hp == 0:
 		print("YOU DIED")
-		for i in get_tree().get_root().get_children(): # clean all scene and reload
-			i.queue_free()
-		get_tree().reload_current_scene()
+		hp = 3
+		position.x = -1150
+		position.y = -45
 
+	if Input.is_action_just_pressed("left_click") and $Inventory.visible:
+		if on_item_1:
+			if item_selected != 0 + 4* inventory_page_number or item_selected == -1:
+				item_selected = 0 + 4* inventory_page_number
+				$Inventory/ColorRect2/RichTextLabel.text = "[center]" + inventory[item_selected].description + "[/center]"
+				$Inventory/ColorRect2/use_Button.disabled = not inventory[item_selected].usable
+				$Inventory/ColorRect2/use_Button.visible = inventory[item_selected].usable
+				var texture_path = "res://assets/UI/inventory_icon/inspector_" + inventory[item_selected].name + ".png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+			else:
+				$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+				$Inventory/ColorRect2/use_Button.visible = false
+				$Inventory/ColorRect2/use_Button.disabled = true
+				var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+				item_selected = -1
+		elif on_item_2:
+			if item_selected != 1 + 4* inventory_page_number or item_selected == -1:
+				item_selected = 1 + 4* inventory_page_number
+				$Inventory/ColorRect2/RichTextLabel.text = "[center]" + inventory[item_selected].description + "[/center]"
+				$Inventory/ColorRect2/use_Button.disabled = not inventory[item_selected].usable
+				$Inventory/ColorRect2/use_Button.visible = inventory[item_selected].usable
+				var texture_path = "res://assets/UI/inventory_icon/inspector_" + inventory[item_selected].name + ".png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+			else:
+				$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+				$Inventory/ColorRect2/use_Button.visible = false
+				$Inventory/ColorRect2/use_Button.disabled = true
+				var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+				item_selected = -1
+		elif on_item_3:
+			if item_selected != 2 + 4* inventory_page_number or item_selected == -1:
+				item_selected = 2 + 4* inventory_page_number
+				$Inventory/ColorRect2/RichTextLabel.text = "[center]" + inventory[item_selected].description + "[/center]"
+				$Inventory/ColorRect2/use_Button.disabled = not inventory[item_selected].usable
+				$Inventory/ColorRect2/use_Button.visible = inventory[item_selected].usable
+				var texture_path = "res://assets/UI/inventory_icon/inspector_" + inventory[item_selected].name + ".png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+			else:
+				$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+				$Inventory/ColorRect2/use_Button.visible = false
+				$Inventory/ColorRect2/use_Button.disabled = true
+				var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+				item_selected = -1
+		elif on_item_4:
+			if item_selected != 3 + 4* inventory_page_number or item_selected == -1:
+				item_selected = 3 + 4* inventory_page_number
+				$Inventory/ColorRect2/RichTextLabel.text = "[center]" + inventory[item_selected].description + "[/center]"
+				$Inventory/ColorRect2/use_Button.disabled = not inventory[item_selected].usable
+				$Inventory/ColorRect2/use_Button.visible = inventory[item_selected].usable
+				var texture_path = "res://assets/UI/inventory_icon/inspector_" + inventory[item_selected].name + ".png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+			else:
+				$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+				$Inventory/ColorRect2/use_Button.visible = false
+				$Inventory/ColorRect2/use_Button.disabled = true
+				var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+				$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+				item_selected = -1
+				
 func _physics_process(delta):
 	var check_bait = weakref(hook_reference) # Try to get reference to the bait 
-	
+		
 	# Check if player is fishing, if yes nerf speed
 	if hook_on_scene:
 		var hook_distance = hook_reference.position - position
@@ -143,21 +224,33 @@ func _on_water(delta):
 	move_and_slide()
 	
 func _on_land(delta):
-	hook()
+	var check_bait = weakref(hook_reference)
+	if not check_bait.get_ref():
+		hook()
+		$Camera2D.position = Vector2.ZERO
+	else:
+		$Camera2D.global_position.x = global_position.x + (hook_reference.global_position.x - global_position.x)/2
+		$Camera2D.global_position.y = global_position.y + (hook_reference.global_position.y - global_position.y)/2
 	queue_redraw()
 	if hooked:
 		if not is_on_floor():
 			velocity.y += gravity * delta
 		else:
-			print("here")
-			velocity += (hook_pos - global_position).normalized() * 15000000 * delta
+			velocity.y += 10
+			
 		swing(delta)
 		just_grappled = false
 		velocity *= 0.975 # swing speed
 	
 		var direction = Input.get_axis("move_left", "move_right")
 		velocity.x += direction * 20 * 0.975
-	
+		
+	elif hooked_to_box:
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		if pull_object:
+			velocity.x = 0
+			pull_object_to_player(delta)
 	# Add the gravity.
 	else:
 		if not is_on_floor():
@@ -197,6 +290,10 @@ func _on_land(delta):
 		
 		if Input.is_action_just_pressed("inventory_open") and not minigame_fishing:
 			show_inventory()
+			
+		if Input.is_action_just_pressed("Fishopedia_open") and not minigame_fishing:
+			fishopedia_first = true
+			show_inventory()
 
 		if !pushing_box:
 			if direction:
@@ -209,14 +306,13 @@ func _on_land(delta):
 		if direction == 0:
 			pushing_box = false
 			
-		
-		
 		for index in get_slide_collision_count():
 			var collision = get_slide_collision(index)
 			var collider = collision.get_collider()
 			if collider is Box2D:
 				pushing_box = true
-				collider.slide(-collision.get_normal() * (SPEED_PUSH))
+				collider.player_pushing = true
+				collider.slide(-collision.get_normal() * (SPEED_PUSH/2))
 	move_and_slide()	
 	
 func get_on_water():
@@ -270,12 +366,14 @@ func stop_immediate_fishing():
 	
 func throw_hook():
 	if not hook_on_scene:
+		draw_hook = true
 		var mouse_position = get_local_mouse_position()
 		#print(mouse_position.length() - position.length())
 		var distance = mouse_position.abs().length()
 		var speed
 		var hook_instance = hook_resource.instantiate()
 		hook_instance.position = get_global_position()
+		hook_instance.player_ref = self
 		if distance > 200:
 			speed = SPEED_HOOK
 			print("GO!")
@@ -290,6 +388,7 @@ func throw_hook():
 		
 	elif not minigame_fishing and hook_reference:
 		hook_reference.hook_reel(false)
+		draw_hook = false
 		
 
 func _on_timer_fishing_timeout():
@@ -320,15 +419,42 @@ func hook():
 		if hook_pos:
 			hooked = true
 			current_rope_lenght = global_position.distance_to(hook_pos)
-	if Input.is_action_just_released("left_click") and hooked:
+		else:
+			object_to_pull = get_object_to_pull()
+			if object_to_pull:
+				object_to_pull.getting_pulled = true
+				pull_object = true
+				hooked_to_box = true
+	if Input.is_action_just_released("left_click") and (hooked or hooked_to_box):
 		hooked = false
 		just_grappled = true
 		pulling = false
+		if hooked_to_box:
+			object_to_pull.getting_pulled = false
+			pull_object = false
+			hooked_to_box = false
+	
+
+func get_object_to_pull():
+	for raycast in $GrapplingHook.get_children():
+		if raycast.is_colliding():
+			var collidor = raycast.get_collider()
+			return collidor		
+
+func pull_object_to_player(delta):
+	var check_object = weakref(object_to_pull)
+	if !check_object.get_ref(): return
+	var radius = global_position - object_to_pull.global_position
+	if radius.length() < 30: return
+	object_to_pull.velocity.x += (global_position - object_to_pull.global_position).normalized().x * 3500 * delta
+
 
 func get_hook_pos():
 	for raycast in $GrapplingHook.get_children():
 		if raycast.is_colliding():
-			return raycast.get_collision_point()
+			var collidor = raycast.get_collider()
+			if not(collidor is Box2D):
+				return raycast.get_collision_point()
 
 func swing(delta):
 	var radius = global_position - hook_pos
@@ -351,22 +477,26 @@ func swing(delta):
 			if(current_rope_lenght < MAX_ROPE_LENGHT):
 				velocity -= (hook_pos - global_position).normalized() * 3500 * delta
 				current_rope_lenght = (hook_pos - global_position).length()
-		if(is_on_floor()):
-			velocity += (hook_pos - global_position).normalized() * 1500 * delta
 		#velocity += (hook_pos - global_position).normalized() * 1500 * delta
 	
 	if global_position.distance_to(hook_pos) > current_rope_lenght:
 		global_position = hook_pos + radius.normalized() * current_rope_lenght
-	print(current_rope_lenght)
 	
 func _draw():
 	var pos = global_position
 	
 	if hooked:
 		draw_line(Vector2(0,0), to_local(hook_pos), Color(1,1,1), 0.25, true)
+	elif hooked_to_box:
+		var check_object = weakref(object_to_pull)
+		if check_object.get_ref():
+			draw_line(Vector2(0,0), to_local(object_to_pull.global_position), Color(1,1,1), 0.25, true)
+	elif draw_hook:
+		var check_bait = weakref(hook_reference)
+		if check_bait.get_ref():
+			draw_line(Vector2(0,0), to_local(hook_reference.position), Color(1,1,1), 0.25, true)
 	else:
 		return
-		
 		var colliding = $GrapplingHook.is_colliding()
 		var collide_point = $GrapplingHook.get_collision_point()
 		
@@ -375,31 +505,74 @@ func _draw():
 
 # Makes Inventory visible and invisible
 func show_inventory():
+	# Swap Between Menus
+	print(fishopedia_first, $Inventory.visible, $Fish_Opedia.visible)
+	if $Inventory.visible and fishopedia_first and not $Fish_Opedia.visible:
+		$Fish_Opedia.visible = true
+		fishopedia_first = false
+		return
+	if $Inventory.visible and not fishopedia_first and $Fish_Opedia.visible:
+		$Fish_Opedia.visible = false
+		fishopedia_first = false
+		return
+	inventory_page_number = 0
 	update_inventory()
 	$Inventory.visible = !$Inventory.visible
+	$Inventory/ColorRect2/RichTextLabel.text = "[center]DESCRIPTION[/center]"
+	$Inventory/ColorRect2/use_Button.disabled = true
+	$Inventory/ColorRect2/use_Button.visible = false
+	var texture_path = "res://assets/sprites/player/inventory_placeholder_inspector.png"
+	$Inventory/ColorRect2/Sprite2D.texture = load(texture_path)
+	item_selected = -1
+	show_FishOpedia()
+	if not $Inventory.visible:
+		$Fish_Opedia.visible = false
+	else:
+		$Fish_Opedia.visible = fishopedia_first
+	fishopedia_first = false
 
 # Updates inventory UI dynamically
 func update_inventory():
+	var i = 0+4*inventory_page_number
 	var j = 0
-	var i = 0
 	
-	print($Inventory/ColorRect/FishLabel.text)
 	for w in $Inventory/ColorRect.get_children():
 		w.visible = false
-	while i in range(0+6*inventory_page_number, 5 + 6*inventory_page_number) and i < inventory.size():
+	while i in range(0+4*inventory_page_number, 4 + 4*inventory_page_number) and i < inventory.size():
 		var item = $Inventory/ColorRect.get_child(j)
 		item.visible = true
-		item.texture = preload("res://assets/sprites/fish/fish2.png")
+		var texture_path = "res://assets/UI/inventory_icon/small_" + inventory[i].name + ".png"
+		item.texture = load(texture_path)
 		item.get_child(0).text = inventory[i].name
 		item.get_child(1).text = str(inventory[i].count)
 		i += 1
+		j += 1
 	
 	# Show current and total page numbers
-	$Inventory/ColorRect/FishLabel.text = str(inventory_page_number+1)  + "/" + str(int(ceil(inventory.size()/6.0)))
+	var n_pages = int(ceil(inventory.size()/4.0))
+	if n_pages == 0:
+		n_pages = 1
+	$Inventory/ColorRect/FishLabel.text = str(inventory_page_number+1)  + "/" + str(n_pages)
 	$Inventory/ColorRect/FishLabel.visible = true 
 	
+	# Hide Buttons according to page number
+	if inventory_page_number == 0:
+		$Inventory/ColorRect/FishLabel/previous_inventory.visible = false
+		$Inventory/ColorRect/FishLabel/previous_inventory.disabled = true
+	else:
+		$Inventory/ColorRect/FishLabel/previous_inventory.visible = true
+		$Inventory/ColorRect/FishLabel/previous_inventory.disabled = false
+	
+	if inventory_page_number == n_pages - 1:
+		$Inventory/ColorRect/FishLabel/next_inventory.visible = false
+		$Inventory/ColorRect/FishLabel/next_inventory.disabled = true
+	else:
+		$Inventory/ColorRect/FishLabel/next_inventory.visible = true
+		$Inventory/ColorRect/FishLabel/next_inventory.disabled = false
+	
+		
 # Adds item to inventory
-func add_item(name):
+func add_item(name, description):
 	var found = false
 	for i in inventory:
 		if i.name == name:
@@ -408,9 +581,41 @@ func add_item(name):
 	if not found:
 		var new_item = inventory_item.new()
 		new_item.name = name
-		new_item.id = 0
+		new_item.description = description
 		new_item.count = 1
+		if name in usable_items:
+			new_item.usable = true
+		else:
+			new_item.usable = false
 		inventory.append(new_item)
+	SaveState.inventory = inventory
+	SaveState.check_fihsopedia(name)
+	
+# Show seen fishes on fish-opedia
+func show_FishOpedia():
+	var j = 0
+	for i in SaveState.seen_fish:
+		if i:
+			j += 1
+	$Fish_Opedia/ColorRect/Label.text = str(int((j/8.0) * 100.0)) + "%"
+	if SaveState.seen_fish[0]:
+		$Fish_Opedia/ColorRect/Fish_texture.texture = preload("res://assets/UI/inventory_icon/inspector_Cool sardine.png")
+		$Fish_Opedia/ColorRect/Fish_texture/Label.text = "Cool Sardine"
+	if SaveState.seen_fish[1]:
+		$Fish_Opedia/ColorRect/Fish_texture2.texture = preload("res://assets/UI/inventory_icon/small_Wacky Carp.png")
+		$Fish_Opedia/ColorRect/Fish_texture2/Label.text = "Wacky Carp"
+	if SaveState.seen_fish[2]:
+		pass
+	if SaveState.seen_fish[3]:
+		pass
+	if SaveState.seen_fish[4]:
+		pass
+	if SaveState.seen_fish[5]:
+		pass
+	if SaveState.seen_fish[6]:
+		pass
+	if SaveState.seen_fish[7]:
+		pass
 
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
@@ -422,6 +627,10 @@ func initiate_pulling(x):
 	
 func stop_pulling():
 	pulled_by_fish = false
+	# Spawn Pulling fish pickup
+	var pickup_instance = pickup_pulling_fish_resource.instantiate()
+	pickup_instance.position = pulling_fish_ref.position
+	get_tree().get_root().add_child(pickup_instance)
 	pulling_fish_ref.queue_free()
 	$Sprite2D.rotation = 0.0
 	set_collision_layer_value(1, true)
@@ -453,7 +662,7 @@ func fishing_minigame_1(check_bait):
 						if hook_reference.fish_caught is Fish_pulling:
 							hook_reference.hook_done(true)
 						else:
-							add_item(hook_reference.fish_caught.fish_name)
+							add_item(hook_reference.fish_caught.fish_name, hook_reference.fish_caught.fish_description)
 							hook_reference.hook_reel(true)
 				stop_fishing()
 	elif ($fish_meter/pointer.position.x >= center_hit_low\
@@ -467,7 +676,7 @@ func fishing_minigame_1(check_bait):
 					if hook_reference.fish_caught is Fish_pulling:
 						hook_reference.hook_done(true)
 					else:
-						add_item(hook_reference.fish_caught.fish_name)
+						add_item(hook_reference.fish_caught.fish_name, hook_reference.fish_caught.fish_description)
 						hook_reference.hook_reel(true)
 			stop_fishing()
 	elif $fish_meter/pointer.position.x >= 82 \
@@ -497,6 +706,14 @@ func fishing_minigame_2(check_bait):
 	var right_hit_high =  $fish_meter/fish_hit_marker3.position.x + 10 * $fish_meter/fish_hit_marker3.scale.x
 	var center_hit_low = $fish_meter/fish_hit_marker.position.x - 5 *  $fish_meter/fish_hit_marker.scale.x
 	var center_hit_high = $fish_meter/fish_hit_marker.position.x + 5  *  $fish_meter/fish_hit_marker.scale.x
+	
+	if minigame_2_round_counter == minigame_2_required - 1:
+		if check_bait.get_ref():
+			hook_reference.fish_caught.trigger_anim()
+	else:
+		if check_bait.get_ref():
+			hook_reference.fish_caught.normal_anim()
+			
 	# If pointer in yellow area, add one round, make round ball green, proceed
 	if ($fish_meter/pointer.position.x >= left_hit_low and $fish_meter/pointer.position.x < left_hit_high) or \
 		($fish_meter/pointer.position.x > right_hit_low and $fish_meter/pointer.position.x <= right_hit_high):
@@ -553,6 +770,7 @@ func fishing_minigame_2(check_bait):
 					$fish_meter/round4.play("green")
 				5:
 					$fish_meter/round5.play("green")
+			
 			if minigame_2_round_counter >= minigame_2_required:
 				if check_bait.get_ref():                      # If it was able to, object still on the loose!
 					if hook_reference is Hook_Simple:
@@ -560,6 +778,7 @@ func fishing_minigame_2(check_bait):
 						if hook_reference.fish_caught is Fish_pulling:
 							hook_reference.hook_done(true)
 						else:
+							add_item(hook_reference.fish_caught.fish_name, hook_reference.fish_caught.fish_description)
 							hook_reference.hook_reel(true)
 				minigame_2_round_counter = 0
 				stop_fishing()
@@ -586,14 +805,15 @@ func fishing_minigame_2(check_bait):
 			hook_reference.being_targeted = false
 			hook_reference.hook_reel(false)
 			stop_fishing()
+			
 	$fish_meter/pointer.move_and_slide()
 
 func minigame_randomizer():
-	$fish_meter/pointer.velocity.x = randf_range(50, 80) # change later
+	$fish_meter/pointer.velocity.x = randf_range(35, 80) # change later
 	$fish_meter/pointer.position.x = 2
 	var rand_scale = randf_range(0.5, 1.5)
 	$fish_meter/fish_hit_marker.position.x = randf_range(34, 59)
-	$fish_meter/fish_hit_marker.scale.x = randf_range(0.5, 1)
+	$fish_meter/fish_hit_marker.scale.x = randf_range(0.7, 1.3)
 	$fish_meter/fish_hit_marker2.scale.x = rand_scale
 	$fish_meter/fish_hit_marker3.scale.x = rand_scale
 	$fish_meter/fish_hit_marker2.position.x = $fish_meter/fish_hit_marker.position.x - 5 * $fish_meter/fish_hit_marker.scale.x
@@ -603,6 +823,8 @@ func take_damage():
 	print("AU")
 	hp = hp - 1
 	iframes = true
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
 	$Sprite2D/AnimationPlayer.play("iframes")
 	$Timers/Timer_iframes.start()
 
@@ -611,9 +833,68 @@ func get_iframes():
 
 func _on_timer_iframes_timeout():
 	iframes = false
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
 	$Sprite2D/AnimationPlayer.play("RESET")
 
 
 func _on_timer_attack_cooldown_timeout():
 	attack_cooldown = false
 
+# Inventory menus function =======================
+func _on_previous_inventory_button_down():
+	inventory_page_number = inventory_page_number -1
+	if inventory_page_number < 0:
+		inventory_page_number = 0
+	update_inventory()
+
+func _on_next_inventory_button_down():
+	var n_pages = int(ceil(inventory.size()/6.0))
+	inventory_page_number = inventory_page_number + 1
+	if inventory_page_number > n_pages:
+		inventory_page_number = n_pages
+	update_inventory()
+	
+	
+# Handle Item to select 
+func _on_sprite_2d_mouse_entered():
+	on_item_1 = true
+
+func _on_sprite_2d_mouse_exited():
+	on_item_1 = false
+
+
+func _on_sprite_2d_2_mouse_entered():
+	on_item_2 = true
+
+func _on_sprite_2d_2_mouse_exited():
+	on_item_2 = false
+
+
+func _on_sprite_2d_3_mouse_entered():
+	on_item_3 = true
+
+func _on_sprite_2d_3_mouse_exited():
+	on_item_3 = false
+
+
+func _on_sprite_2d_4_mouse_entered():
+	on_item_4 = true
+
+func _on_sprite_2d_4_mouse_exited():
+	on_item_4 = false
+
+# Example on how to make USE of items (get it?)
+func _on_use_button_button_down():
+	print("I'M GONNA USE IT")
+	if item_selected == -1:
+		return
+	if inventory[item_selected].name == "a":
+		print("AHAHAHAHAH")
+
+
+func _on_button_go_fishopedia_button_down():
+	$Fish_Opedia.visible = true
+
+func _on_button_go_inventory_button_down():
+	$Fish_Opedia.visible = false

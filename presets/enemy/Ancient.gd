@@ -93,9 +93,9 @@ func _on_animated_sprite_2d_animation_finished():
 		laser_instance.position.y = self.position.y - 4
 		get_tree().get_root().add_child(laser_instance)
 		attack_mode = false
+		laser_instance.timer_start()
 	else:
 		laser = false
-		laser_instance.queue_free()
 		cooldown = true
 		$Timer.start()
 

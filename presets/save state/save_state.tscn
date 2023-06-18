@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dysp014fr4ola"]
+
+[ext_resource type="Script" path="res://presets/save state/save_state.gd" id="1_mhrs0"]
+
+[node name="save_state" type="Node"]
+script = ExtResource("1_mhrs0")

@@ -12,3 +12,7 @@ func _on_area_2d_body_entered(body):
 	if body is Player and not body.get_iframes():
 		body.take_damage()
 		body.velocity = Vector2(800 * direction, -500)
+
+
+func _on_timer_timeout():
+	queue_free()
