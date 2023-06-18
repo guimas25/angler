@@ -13,8 +13,8 @@ radius = 1.0
 radius = 4.45
 
 [node name="Hook" type="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 256
+collision_mask = 256
 script = ExtResource("1_y1jqx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
