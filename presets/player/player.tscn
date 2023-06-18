@@ -1,9 +1,8 @@
-[gd_scene load_steps=51 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=50 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://bcdtvu42amt6a" path="res://assets/sprites/player/player_final/attack1.png" id="2_eqqgn"]
 [ext_resource type="Texture2D" uid="uid://dxivj0hoa38pg" path="res://assets/sprites/player/player_final/attack2.png" id="3_2p3vh"]
-[ext_resource type="Texture2D" uid="uid://d0ymd2dt72adr" path="res://assets/sprites/player/slash.png" id="3_2wreg"]
 [ext_resource type="Script" path="res://presets/player/Camera2D.gd" id="3_t1j6b"]
 [ext_resource type="Texture2D" uid="uid://c0krnx25isw7n" path="res://assets/sprites/player/player_final/attack3.png" id="4_gaulu"]
 [ext_resource type="Texture2D" uid="uid://mgy7647qcbgb" path="res://assets/sprites/player/Sprite-0006.png" id="5_evh2k"]
@@ -19,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://clhxdye6evxru" path="res://assets/sprites/player/player_final/catch_fix_2.png" id="9_6i0nt"]
 [ext_resource type="Texture2D" uid="uid://b1xe50r2jy3n2" path="res://icon.svg" id="10_6soqp"]
 [ext_resource type="Texture2D" uid="uid://btcnbrblqhj6f" path="res://assets/sprites/player/fishing_round_green.png" id="10_8bj0x"]
+[ext_resource type="Texture2D" uid="uid://dxof3w405q5wm" path="res://assets/sprites/player/player_final/catch_fix_3.png" id="10_lt7ok"]
 [ext_resource type="Texture2D" uid="uid://bg6mkckn8vbf3" path="res://assets/sprites/player/player_final/death.png" id="10_twrm0"]
 [ext_resource type="Texture2D" uid="uid://b3ilxunfjjwoa" path="res://assets/sprites/player/fishing_round_red.png" id="11_dll8c"]
 [ext_resource type="Texture2D" uid="uid://wh1y3wb3gbxa" path="res://assets/sprites/player/player_final/idle_1.png" id="11_x2fce"]
@@ -42,7 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://cxrqqx24g11pv" path="res://assets/sprites/player/player_final/water_walk_2.png" id="23_m76k6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
-size = Vector2(3.2, 3.2)
+size = Vector2(1.9, 3.2)
 
 [sub_resource type="Animation" id="Animation_6m1bu"]
 length = 0.001
@@ -102,7 +102,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("7_nqxnw")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -119,10 +119,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("10_lt7ok")
+}],
+"loop": true,
+"name": &"caught_fish",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("10_twrm0")
 }],
 "loop": true,
 "name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_xxwro")
+}],
+"loop": true,
+"name": &"fishing",
 "speed": 5.0
 }, {
 "frames": [{
@@ -140,6 +156,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_pdpsg")
+}],
+"loop": true,
+"name": &"jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -168,9 +192,9 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("19_xxwro")
 }],
-"loop": true,
+"loop": false,
 "name": &"throw",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -196,18 +220,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4spii"]
-size = Vector2(32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_s8ywg"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_2wreg")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+size = Vector2(17, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_syxvw"]
 size = Vector2(11, 11.0389)
@@ -248,7 +261,7 @@ collision_mask = 33
 script = ExtResource("1_73ldj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.8147e-06, 0)
+position = Vector2(0.5, 0)
 scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_tu7fa")
 one_way_collision_margin = 0.0
@@ -263,27 +276,24 @@ libraries = {
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
 sprite_frames = SubResource("SpriteFrames_6tsjj")
-animation = &"idle"
-frame = 1
-frame_progress = 0.605556
+animation = &"fishing"
+
+[node name="rope_start_fishing" type="Node2D" parent="Sprite2D"]
+position = Vector2(20, -12)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 script = ExtResource("3_t1j6b")
 
 [node name="HitBox_Attack" type="Area2D" parent="."]
-visible = false
 position = Vector2(32, 0)
 collision_layer = 2
 collision_mask = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox_Attack"]
+position = Vector2(-13.5, 0)
 shape = SubResource("RectangleShape2D_4spii")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HitBox_Attack"]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_s8ywg")
 
 [node name="Timers" type="Node" parent="."]
 
@@ -291,7 +301,7 @@ sprite_frames = SubResource("SpriteFrames_s8ywg")
 one_shot = true
 
 [node name="Timer_attack_duration" type="Timer" parent="Timers"]
-wait_time = 0.2
+wait_time = 0.5
 one_shot = true
 
 [node name="Timer_iframes" type="Timer" parent="Timers"]
