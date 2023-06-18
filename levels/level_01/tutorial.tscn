@@ -1,8 +1,82 @@
-[gd_scene load_steps=3 format=3 uid="uid://dl8nr8ugw3wre"]
+[gd_scene load_steps=5 format=3 uid="uid://dl8nr8ugw3wre"]
 
 [ext_resource type="PackedScene" uid="uid://bdgvdpjs25nc0" path="res://presets/tilemap/cave_tilemap.tscn" id="1_hu7xt"]
+[ext_resource type="Texture2D" uid="uid://bbed8wimvuq6i" path="res://assets/sprites/environment/cave_tiles.png" id="2_42fog"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0onyi"]
+texture = ExtResource("2_42fog")
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+12:8/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+12:9/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+12:10/0 = 0
+5:11/0 = 0
+6:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+11:11/0 = 0
+12:11/0 = 0
+5:12/0 = 0
+6:12/0 = 0
+7:12/0 = 0
+8:12/0 = 0
+9:12/0 = 0
+10:12/0 = 0
+11:12/0 = 0
+12:12/0 = 0
+7:14/0 = 0
+8:14/0 = 0
+9:14/0 = 0
+10:14/0 = 0
+11:14/0 = 0
+6:15/0 = 0
+7:15/0 = 0
+8:15/0 = 0
+9:15/0 = 0
+10:15/0 = 0
+11:15/0 = 0
+6:16/0 = 0
+7:16/0 = 0
+8:16/0 = 0
+9:16/0 = 0
+10:16/0 = 0
+11:16/0 = 0
+6:17/0 = 0
+7:17/0 = 0
+8:17/0 = 0
+9:17/0 = 0
+10:17/0 = 0
+11:17/0 = 0
+6:18/0 = 0
+7:18/0 = 0
+8:18/0 = 0
+9:18/0 = 0
+10:18/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_x10nl"]
+sources/0 = SubResource("TileSetAtlasSource_0onyi")
 
 [node name="Node2D" type="Node2D"]
 
