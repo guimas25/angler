@@ -13,8 +13,8 @@ var y_vel = 0
 var x_dir = 1
 var y_dir = 0
 
-var fish_name = "Cool Sardine"
-var fish_description = "The coolest fish, literally. It trives in cold waters. Look at that blush!"
+var fish_name = "Lemon Sardine"
+var fish_description = "A very warm sardine, personality wise. It's not sour though..."
 
 var bait_body
 var get_bait = false
