@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://xhsyqmy218tp"]
+
+[ext_resource type="Texture2D" uid="uid://cpo0llex8glyl" path="res://assets/sprites/fish/shrimp1.png" id="1_45fte"]
+[ext_resource type="Script" path="res://presets/fish/shrimp.gd" id="1_200wq"]
+[ext_resource type="Texture2D" uid="uid://cujqvayby3nli" path="res://assets/sprites/fish/shrimp2.png" id="2_ve2e3"]
+[ext_resource type="Texture2D" uid="uid://dackvlleeup8e" path="res://assets/sprites/fish/shrimp3.png" id="3_65hvd"]
+[ext_resource type="Texture2D" uid="uid://urbupdirr044" path="res://assets/sprites/fish/shrimp4.png" id="4_r5x78"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p6ib3"]
+size = Vector2(16.3075, 16.3075)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7sbpt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_45fte")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ve2e3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_65hvd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r5x78")
+}],
+"loop": true,
+"name": &"o-o",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cqkv3"]
+radius = 151.03
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tir1q"]
+
+[node name="shrimp" type="CharacterBody2D"]
+script = ExtResource("1_200wq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.38858e-07, -0.582412)
+shape = SubResource("RectangleShape2D_p6ib3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -0.582411)
+sprite_frames = SubResource("SpriteFrames_7sbpt")
+animation = &"o-o"
+frame = 1
+frame_progress = 0.798071
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.054
+autostart = true
+
+[node name="Timer_start_approach" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer_take_bait" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_cqkv3")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Area2D_hook_detection" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_hook_detection"]
+scale = Vector2(0.853, 0.84)
+shape = SubResource("RectangleShape2D_tir1q")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer_start_approach" to="." method="_on_timer_start_approach_timeout"]
+[connection signal="timeout" from="Timer_take_bait" to="." method="_on_timer_take_bait_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
