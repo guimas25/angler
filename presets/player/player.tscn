@@ -1,24 +1,45 @@
-[gd_scene load_steps=29 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=51 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
-[ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
+[ext_resource type="Texture2D" uid="uid://bcdtvu42amt6a" path="res://assets/sprites/player/player_final/attack1.png" id="2_eqqgn"]
+[ext_resource type="Texture2D" uid="uid://dxivj0hoa38pg" path="res://assets/sprites/player/player_final/attack2.png" id="3_2p3vh"]
 [ext_resource type="Texture2D" uid="uid://d0ymd2dt72adr" path="res://assets/sprites/player/slash.png" id="3_2wreg"]
 [ext_resource type="Script" path="res://presets/player/Camera2D.gd" id="3_t1j6b"]
+[ext_resource type="Texture2D" uid="uid://c0krnx25isw7n" path="res://assets/sprites/player/player_final/attack3.png" id="4_gaulu"]
 [ext_resource type="Texture2D" uid="uid://mgy7647qcbgb" path="res://assets/sprites/player/Sprite-0006.png" id="5_evh2k"]
+[ext_resource type="Texture2D" uid="uid://bwjbgbytpsxg" path="res://assets/sprites/player/player_final/attack4.png" id="5_s7e7v"]
 [ext_resource type="Texture2D" uid="uid://dyk40htg24wui" path="res://assets/sprites/player/fish_meter_revamp_2.png" id="6_hhutb"]
 [ext_resource type="Texture2D" uid="uid://dna8ucvhys123" path="res://assets/sprites/player/Sprite-0005.png" id="6_pp16m"]
+[ext_resource type="Texture2D" uid="uid://dmjxbb41rtbd5" path="res://assets/sprites/player/player_final/attack5.png" id="6_s0yoy"]
 [ext_resource type="Texture2D" uid="uid://b8ia6rr61pksy" path="res://assets/sprites/player/fishing_meter_pointer_slick.png" id="7_6phoe"]
 [ext_resource type="FontFile" uid="uid://drnd7vxhi7vpk" path="res://assets/text_fonts/press-start/prstart.ttf" id="7_ev1ag"]
+[ext_resource type="Texture2D" uid="uid://2nbo2ohv5qes" path="res://assets/sprites/player/player_final/attack6.png" id="7_nqxnw"]
+[ext_resource type="Texture2D" uid="uid://b1uqmg2k0web3" path="res://assets/sprites/player/player_final/catch_fix_1.png" id="8_c4b2j"]
 [ext_resource type="PackedScene" uid="uid://b6n2okalb2wyd" path="res://presets/line/grappling_hook.tscn" id="9_4f7qt"]
+[ext_resource type="Texture2D" uid="uid://clhxdye6evxru" path="res://assets/sprites/player/player_final/catch_fix_2.png" id="9_6i0nt"]
 [ext_resource type="Texture2D" uid="uid://b1xe50r2jy3n2" path="res://icon.svg" id="10_6soqp"]
 [ext_resource type="Texture2D" uid="uid://btcnbrblqhj6f" path="res://assets/sprites/player/fishing_round_green.png" id="10_8bj0x"]
+[ext_resource type="Texture2D" uid="uid://bg6mkckn8vbf3" path="res://assets/sprites/player/player_final/death.png" id="10_twrm0"]
 [ext_resource type="Texture2D" uid="uid://b3ilxunfjjwoa" path="res://assets/sprites/player/fishing_round_red.png" id="11_dll8c"]
+[ext_resource type="Texture2D" uid="uid://wh1y3wb3gbxa" path="res://assets/sprites/player/player_final/idle_1.png" id="11_x2fce"]
 [ext_resource type="Texture2D" uid="uid://bw2xt2l3ggwxp" path="res://assets/sprites/player/fishing_round_yellow.png" id="12_oh8ol"]
+[ext_resource type="Texture2D" uid="uid://dcs3r7yi1jrrv" path="res://assets/sprites/player/player_final/idle_2.png" id="12_qluwy"]
+[ext_resource type="Texture2D" uid="uid://dqey5pgwam2f2" path="res://assets/sprites/player/player_final/idle_3.png" id="13_l1am5"]
+[ext_resource type="Texture2D" uid="uid://nsogyeb88xov" path="res://assets/sprites/player/player_final/idle_4.png" id="14_oe5pt"]
+[ext_resource type="Texture2D" uid="uid://b85frwioatp62" path="res://assets/sprites/player/player_final/pulled_by_fish.png" id="15_kjcjw"]
 [ext_resource type="Texture2D" uid="uid://bttdrajf13lxo" path="res://assets/sprites/player/inventory_arrow_revamp.png" id="15_wk6ct"]
 [ext_resource type="Texture2D" uid="uid://c6lf68ttu5hpl" path="res://assets/sprites/player/inventory_arrow.png" id="16_2gfuu"]
+[ext_resource type="Texture2D" uid="uid://cklmeakkrpg4g" path="res://assets/sprites/player/player_final/swing.png" id="16_nqce7"]
 [ext_resource type="Texture2D" uid="uid://dsqp0marfycnh" path="res://assets/sprites/player/inventory_placeholder_inspector.png" id="17_633ql"]
+[ext_resource type="Texture2D" uid="uid://b18eicwtsiitq" path="res://assets/sprites/player/player_final/throw_1.png" id="17_crl40"]
+[ext_resource type="Texture2D" uid="uid://dpfbu8bsby7ft" path="res://assets/sprites/player/player_final/throw_2.png" id="18_iq31y"]
 [ext_resource type="Texture2D" uid="uid://b5bd87a2xycho" path="res://assets/sprites/player/Use_button_revamp.png" id="18_yvmkq"]
 [ext_resource type="Texture2D" uid="uid://cr51bs6iv5pm7" path="res://assets/UI/Fish-Opedia/mystery_fish.png" id="19_ot0iq"]
+[ext_resource type="Texture2D" uid="uid://ds6kkb4jkvsc4" path="res://assets/sprites/player/player_final/throw_3.png" id="19_xxwro"]
+[ext_resource type="Texture2D" uid="uid://vyi3dpmjexbb" path="res://assets/sprites/player/player_final/walk_1.png" id="20_pdpsg"]
+[ext_resource type="Texture2D" uid="uid://c2wafhy3bx7ln" path="res://assets/sprites/player/player_final/walk_2.png" id="21_63mmf"]
+[ext_resource type="Texture2D" uid="uid://dnbdy0cvekxnn" path="res://assets/sprites/player/player_final/water_walk_1.png" id="22_fx04i"]
+[ext_resource type="Texture2D" uid="uid://cxrqqx24g11pv" path="res://assets/sprites/player/player_final/water_walk_2.png" id="23_m76k6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
@@ -59,6 +80,120 @@ _data = {
 "RESET": SubResource("Animation_6m1bu"),
 "iframes": SubResource("Animation_bcewk")
 }
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6tsjj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eqqgn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2p3vh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gaulu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s7e7v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_s0yoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_nqxnw")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_c4b2j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6i0nt")
+}],
+"loop": true,
+"name": &"catch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_twrm0")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_x2fce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qluwy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_l1am5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_oe5pt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_kjcjw")
+}],
+"loop": true,
+"name": &"pulled_by_fish",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_nqce7")
+}],
+"loop": true,
+"name": &"swing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_crl40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_iq31y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_xxwro")
+}],
+"loop": true,
+"name": &"throw",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_pdpsg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_63mmf")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_fx04i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_m76k6")
+}],
+"loop": true,
+"name": &"water_walk",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4spii"]
 size = Vector2(32, 32)
@@ -120,12 +255,17 @@ one_way_collision_margin = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_kcb4d")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 libraries = {
 "": SubResource("AnimationLibrary_6utin")
 }
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+sprite_frames = SubResource("SpriteFrames_6tsjj")
+animation = &"idle"
+frame = 1
+frame_progress = 0.605556
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
