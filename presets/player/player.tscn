@@ -282,7 +282,7 @@ animation = &"pulled_by_fish"
 position = Vector2(20, -12)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.4, 1.4)
 script = ExtResource("3_t1j6b")
 
 [node name="HitBox_Attack" type="Area2D" parent="."]

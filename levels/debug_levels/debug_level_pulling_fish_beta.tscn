@@ -46,4 +46,13 @@ position = Vector2(1272, -1416)
 scale = Vector2(-84.1154, 49.5014)
 
 [node name="pulling_fish_pickup" parent="." instance=ExtResource("5_gpmaa")]
-position = Vector2(-160, 96)
+position = Vector2(1024, -23)
+
+[node name="pulling_fish_pickup2" parent="." instance=ExtResource("5_gpmaa")]
+position = Vector2(1025, 37)
+
+[node name="pulling_fish_pickup3" parent="." instance=ExtResource("5_gpmaa")]
+position = Vector2(1024, 101)
+
+[node name="pulling_fish_pickup4" parent="." instance=ExtResource("5_gpmaa")]
+position = Vector2(1022, -98)
