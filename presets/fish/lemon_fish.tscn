@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://dlw0kekh4k3nc"]
+
+[ext_resource type="Script" path="res://presets/fish/lemon_fish.gd" id="1_3nfxq"]
+[ext_resource type="Texture2D" uid="uid://b0x2grlnytruo" path="res://assets/sprites/fish/lemon_fish1.png" id="2_efqaw"]
+[ext_resource type="Texture2D" uid="uid://buwf67aokduc3" path="res://assets/sprites/fish/lemon_fish2.png" id="3_6xsja"]
+[ext_resource type="Texture2D" uid="uid://b0oyh8jnjb0co" path="res://assets/sprites/fish/lemon_fish3.png" id="4_5e005"]
+[ext_resource type="Texture2D" uid="uid://c1h43suib1jx1" path="res://assets/sprites/fish/lemon_fish4.png" id="5_t78ex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vc05e"]
+size = Vector2(16.3075, 16.3075)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a6dsa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_efqaw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6xsja")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5e005")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t78ex")
+}],
+"loop": true,
+"name": &"o-o",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvs8p"]
+radius = 151.03
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwaui"]
+
+[node name="lemon_fish" type="CharacterBody2D"]
+script = ExtResource("1_3nfxq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.38858e-07, -0.582412)
+shape = SubResource("RectangleShape2D_vc05e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -0.582411)
+sprite_frames = SubResource("SpriteFrames_a6dsa")
+animation = &"o-o"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.054
+autostart = true
+
+[node name="Timer_start_approach" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer_take_bait" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_rvs8p")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Area2D_hook_detection" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_hook_detection"]
+scale = Vector2(0.853, 0.84)
+shape = SubResource("RectangleShape2D_mwaui")
