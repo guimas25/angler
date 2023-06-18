@@ -14,6 +14,9 @@ const rope_lenght = 500
 var current_rope_lenght
 var just_grappled = true
 var pulling = false
+var iframes = false
+var attack_cooldown = false
+var on_attack = false
 
 # Represents item in inventory
 class inventory_item:
@@ -32,7 +35,7 @@ var jump_time = 0.0
 
 var O2_timer = 10.0
 
-var hp = 5 
+var hp = 3 
 var minigame_2_round_counter = 0 # Used to count rounds for minigame 2
 var minigame_2_required = 0 # number of rounds to win
 var minigame_2_combo = 0 # Use for funny combo
@@ -56,6 +59,11 @@ var pulling_vel_cooldown = false
 
 func _process(delta):
 	$Node2D.look_at(get_global_mouse_position())
+	if hp == 0:
+		print("YOU DIED")
+		for i in get_tree().get_root().get_children(): # clean all scene and reload
+			i.queue_free()
+		get_tree().reload_current_scene()
 
 func _physics_process(delta):
 	var check_bait = weakref(hook_reference) # Try to get reference to the bait 
@@ -90,10 +98,18 @@ func _physics_process(delta):
 		_on_land(delta)
 	else:
 		_on_water(delta)
-	if Input.is_action_just_pressed("melee_action") and not $hitbox.visible:
-		$hitbox.visible = true
-		$hitbox.set_collision_mask_value(2, true)
-		$Timers/Timer_attack.start()
+	if Input.is_action_just_pressed("melee_action") and not attack_cooldown:
+		on_attack = true
+		$HitBox_Attack.visible = true
+
+		$Timers/Timer_attack_duration.start()
+		attack_cooldown = true
+		$Timers/Timer_attack_cooldown.start()
+		
+	if on_attack and $HitBox_Attack.has_overlapping_bodies():
+		on_attack = false
+		for i in $HitBox_Attack.get_overlapping_bodies():
+			i.get_hurt(self.position)
 		
 	if minigame_fishing:
 		if check_bait.get_ref():
@@ -169,12 +185,12 @@ func _on_land(delta):
 		
 		if direction > 0:
 			$Sprite2D.flip_h = false
-			$hitbox.position.x = 176
-			$hitbox/AnimatedSprite2D.flip_h = false
+			$HitBox_Attack.position.x = 32
+			$HitBox_Attack/AnimatedSprite2D.flip_h = false
 		elif direction < 0:
 			$Sprite2D.flip_h = true
-			$hitbox.position.x = -176
-			$hitbox/AnimatedSprite2D.flip_h = true
+			$HitBox_Attack.position.x = -32
+			$HitBox_Attack/AnimatedSprite2D.flip_h = true
 			
 		if Input.is_action_just_pressed("hook_action") and $Timers/Timer_fishing.time_left == 0 and not minigame_fishing:
 			throw_hook()
@@ -214,9 +230,9 @@ func get_off_water():
 	if Input.is_action_pressed("move_up"):
 		velocity.y = -200.0
 
-func _on_timer_attack_timeout():
-	$hitbox.visible = false
-	$hitbox.set_collision_mask_value(2, false)
+func _on_timer_attack_duration_timeout():
+	on_attack = false
+	$HitBox_Attack.visible = false
 
 func start_fishing():
 	if not minigame_fishing:
@@ -275,8 +291,6 @@ func throw_hook():
 	elif not minigame_fishing and hook_reference:
 		hook_reference.hook_reel(false)
 		
-func _on_hitbox_body_entered(body):
-	body.get_hurt()
 
 func _on_timer_fishing_timeout():
 	$fish_meter.visible = false
@@ -584,3 +598,22 @@ func minigame_randomizer():
 	$fish_meter/fish_hit_marker3.scale.x = rand_scale
 	$fish_meter/fish_hit_marker2.position.x = $fish_meter/fish_hit_marker.position.x - 5 * $fish_meter/fish_hit_marker.scale.x
 	$fish_meter/fish_hit_marker3.position.x = $fish_meter/fish_hit_marker.position.x + 5 * $fish_meter/fish_hit_marker.scale.x
+
+func take_damage():
+	print("AU")
+	hp = hp - 1
+	iframes = true
+	$Sprite2D/AnimationPlayer.play("iframes")
+	$Timers/Timer_iframes.start()
+
+func get_iframes():
+	return iframes
+
+func _on_timer_iframes_timeout():
+	iframes = false
+	$Sprite2D/AnimationPlayer.play("RESET")
+
+
+func _on_timer_attack_cooldown_timeout():
+	attack_cooldown = false
+

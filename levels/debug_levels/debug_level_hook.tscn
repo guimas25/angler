@@ -21,4 +21,3 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0
 
 [node name="Ancient" parent="." instance=ExtResource("5_y4xab")]
 position = Vector2(-719, -49)
-collision_layer = 32
