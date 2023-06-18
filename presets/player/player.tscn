@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=29 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://btd1k3w2fvdny" path="res://assets/sprites/player/placeholder.png" id="2_kcb4d"]
@@ -23,6 +23,46 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(3.2, 3.2)
 
+[sub_resource type="Animation" id="Animation_bcewk"]
+resource_name = "iframes"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.298039), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6m1bu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6utin"]
+_data = {
+"RESET": SubResource("Animation_6m1bu"),
+"iframes": SubResource("Animation_bcewk")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4spii"]
+size = Vector2(32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_s8ywg"]
 animations = [{
 "frames": [{
@@ -33,9 +73,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4spii"]
-size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_syxvw"]
 size = Vector2(11, 11.0389)
@@ -85,32 +122,43 @@ one_way_collision_margin = 0.0
 texture_filter = 1
 texture = ExtResource("2_kcb4d")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_6utin")
+}
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.4, 1.4)
 script = ExtResource("3_t1j6b")
 
-[node name="hitbox" type="Area2D" parent="."]
+[node name="HitBox_Attack" type="Area2D" parent="."]
 visible = false
 position = Vector2(32, 0)
-collision_layer = 0
-collision_mask = 0
+collision_layer = 2
+collision_mask = 2
 metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox_Attack"]
+shape = SubResource("RectangleShape2D_4spii")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HitBox_Attack"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_s8ywg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-shape = SubResource("RectangleShape2D_4spii")
-
 [node name="Timers" type="Node" parent="."]
-
-[node name="Timer_attack" type="Timer" parent="Timers"]
-wait_time = 0.2
-one_shot = true
 
 [node name="Timer_fishing" type="Timer" parent="Timers"]
 one_shot = true
+
+[node name="Timer_attack_duration" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Timer_iframes" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Timer_attack_cooldown" type="Timer" parent="Timers"]
 
 [node name="fish_meter" type="ColorRect" parent="."]
 visible = false
@@ -611,9 +659,10 @@ theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "Completion Percentage"
 horizontal_alignment = 1
 
-[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
-[connection signal="timeout" from="Timers/Timer_attack" to="." method="_on_timer_attack_timeout"]
 [connection signal="timeout" from="Timers/Timer_fishing" to="." method="_on_timer_fishing_timeout"]
+[connection signal="timeout" from="Timers/Timer_attack_duration" to="." method="_on_timer_attack_duration_timeout"]
+[connection signal="timeout" from="Timers/Timer_iframes" to="." method="_on_timer_iframes_timeout"]
+[connection signal="timeout" from="Timers/Timer_attack_cooldown" to="." method="_on_timer_attack_cooldown_timeout"]
 [connection signal="mouse_entered" from="Inventory/ColorRect/Sprite2D" to="." method="_on_sprite_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Inventory/ColorRect/Sprite2D" to="." method="_on_sprite_2d_mouse_exited"]
 [connection signal="mouse_entered" from="Inventory/ColorRect/Sprite2D2" to="." method="_on_sprite_2d_2_mouse_entered"]

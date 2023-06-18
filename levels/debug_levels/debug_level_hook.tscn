@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://levels/debug_levels/debug_level_hook.gd" id="1_y5ea4"]
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="2_anym7"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="4_iyp7t"]
-[ext_resource type="PackedScene" path="res://presets/enemy/Ancient.tscn" id="5_y4xab"]
+[ext_resource type="PackedScene" uid="uid://cpldldpn0o02" path="res://presets/enemy/Ancient.tscn" id="5_y4xab"]
 
 [node name="debug_level_hook" type="Node2D"]
 script = ExtResource("1_y5ea4")
@@ -21,4 +21,3 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0
 
 [node name="Ancient" parent="." instance=ExtResource("5_y4xab")]
 position = Vector2(-719, -49)
-collision_layer = 32

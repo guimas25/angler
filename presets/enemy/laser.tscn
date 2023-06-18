@@ -1,19 +1,51 @@
 [gd_scene load_steps=4 format=3 uid="uid://h3yt80wmbl5x"]
 
 [ext_resource type="Texture2D" uid="uid://bmett61gcyku6" path="res://assets/sprites/enemy/laser.png" id="1_2xd22"]
-[ext_resource type="Script" path="res://presets/enemy/laser.gd" id="2_6wrpg"]
+[ext_resource type="Texture2D" uid="uid://c6m8y8336yvv7" path="res://assets/sprites/enemy/start_laser.png" id="3_snajj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_81khq"]
-size = Vector2(16, 12)
+[sub_resource type="GDScript" id="GDScript_o5aut"]
+script/source = "extends Node2D
 
-[node name="Laser" type="Sprite2D"]
-texture_filter = 1
-scale = Vector2(30, 2)
+var direction = 0
+
+func change_direction(left):
+	if left:
+		direction = -1
+	else:
+		direction = 1
+
+func _on_area_2d_body_entered(body):
+	if body is Player and not body.get_iframes():
+		body.take_damage()
+		body.velocity = Vector2(800 * direction, -500)
+
+func timer_start():
+	$Timer.start()
+	
+func _on_timer_timeout():
+	queue_free()
+"
+
+[node name="Laser" type="Node2D"]
+scale = Vector2(2, 2)
+script = SubResource("GDScript_o5aut")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-124, 0)
+scale = Vector2(16.5, 1)
 texture = ExtResource("1_2xd22")
-script = ExtResource("2_6wrpg")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(14, 0)
+texture = ExtResource("3_snajj")
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1.27157e-07, 0)
-shape = SubResource("RectangleShape2D_81khq")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(20, -2, 19, -3, 13, -3, 11, -6, -256, -6, -256, 6, 11, 6, 13, 3, 19, 3, 20, 2)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
