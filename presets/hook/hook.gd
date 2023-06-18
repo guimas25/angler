@@ -50,6 +50,8 @@ func hook_throw():
 	
 func hook_reel(result):
 	if not reeling:
+		set_collision_layer_value(9, false)
+		set_collision_mask_value(9, false)
 		on_water = false
 		reeling = true
 		being_targeted = true
