@@ -15,6 +15,8 @@ var cooldown = false
 
 var took_damage = false
 
+var dying = false
+
 var laser_resource = preload("res://presets/enemy/laser.tscn")
 
 var laser_instance
@@ -24,8 +26,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _process(delta):
 	detect_turn_around()
-	detect_player()
-	if velocity.x != 0 and not laser and not attack_mode:
+	if not dying:
+		detect_player()
+	if velocity.x != 0 and not laser and not attack_mode and not dying:
 		$AnimatedSprite2D.play("moving")
 	elif laser:
 		$AnimatedSprite2D.play("laser")
@@ -77,6 +80,11 @@ func get_hurt(pos):
 	hp = hp - 1
 	if hp <= 0:
 		$AnimatedSprite2D/AnimationPlayer.play("death")
+		#$AnimatedSprite2D.play("idle")
+		if laser:
+			laser = false
+			laser_instance.queue_free()
+			dying = true
 	else:
 		$AnimatedSprite2D/AnimationPlayer.play("damage")
 
@@ -106,8 +114,6 @@ func _on_animation_player_animation_finished(anim_name):
 	if took_damage:
 		took_damage = false
 	if hp <= 0:
-		if laser:
-			laser_instance.queue_free()
 		queue_free()
 
 
