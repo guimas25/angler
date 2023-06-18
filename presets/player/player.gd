@@ -163,7 +163,8 @@ func _physics_process(delta):
 		JUMP_VELOCITY = -800.0
 	
 	if pulled_by_fish:
-		$Sprite2D/rope_start_fishing.position = velocity.normalized() * 16
+		queue_redraw()
+		$Sprite2D/rope_start_fishing.position = velocity.normalized() * 42
 		$Sprite2D/AnimatedSprite2D.play("pulled_by_fish")
 		if pulling_fish_ref.dead:
 			stop_pulling()
@@ -536,6 +537,9 @@ func _draw():
 		#var check_fish = weakref(pulling_fish_ref)
 		#if check_fish.get_ref():
 		#	draw_line($Sprite2D/rope_start_fishing.position, to_local(pulling_fish_ref.position), Color(1,1,1), 0.25, true)
+	elif pulled_by_fish:
+		print("a desenhar pah")
+		draw_line($Sprite2D/rope_start_fishing.position, to_local(pulling_fish_ref.position), Color(1,1,1), 0.25, true)
 	else:
 		return
 		var colliding = $GrapplingHook.is_colliding()
