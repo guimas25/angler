@@ -128,7 +128,7 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.4, 1.4)
+zoom = Vector2(2, 2)
 script = ExtResource("3_t1j6b")
 
 [node name="HitBox_Attack" type="Area2D" parent="."]
