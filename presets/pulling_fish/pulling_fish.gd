@@ -45,7 +45,6 @@ func _physics_process(delta):
 			$AnimatedSprite2D.flip_v = true
 			
 		if on_water:
-			print(velocity)
 			if Input.is_action_pressed("move_right"):
 				velocity = velocity.rotated(2.5 * delta)
 			if Input.is_action_pressed("move_left"):

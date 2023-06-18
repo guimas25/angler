@@ -23,7 +23,7 @@ var pull_object = false
 var hooked_to_box = false
 
 var draw_hook = false
-
+var draw_pull = false
 # Represents item in inventory
 class inventory_item:
 	var name
@@ -163,6 +163,7 @@ func _physics_process(delta):
 		JUMP_VELOCITY = -800.0
 	
 	if pulled_by_fish:
+		$Sprite2D/rope_start_fishing.position = velocity.normalized() * 16
 		$Sprite2D/AnimatedSprite2D.play("pulled_by_fish")
 		if pulling_fish_ref.dead:
 			stop_pulling()
@@ -183,7 +184,7 @@ func _physics_process(delta):
 	else:
 		$Sprite2D/AnimatedSprite2D.play("water_walk")
 		_on_water(delta)
-	if Input.is_action_just_pressed("melee_action") and not attack_cooldown and not hook_on_scene:
+	if Input.is_action_just_pressed("melee_action") and not attack_cooldown and not hook_on_scene and not pulled_by_fish:
 		$Sprite2D/AnimatedSprite2D.play("attack")
 		on_attack = true
 		$HitBox_Attack.visible = true
@@ -531,6 +532,10 @@ func _draw():
 		var check_bait = weakref(hook_reference)
 		if check_bait.get_ref():
 			draw_line($Sprite2D/rope_start_fishing.position, to_local(hook_reference.position), Color(1,1,1), 0.25, true)
+		# [ TODO ] rip
+		#var check_fish = weakref(pulling_fish_ref)
+		#if check_fish.get_ref():
+		#	draw_line($Sprite2D/rope_start_fishing.position, to_local(pulling_fish_ref.position), Color(1,1,1), 0.25, true)
 	else:
 		return
 		var colliding = $GrapplingHook.is_colliding()
@@ -658,6 +663,7 @@ func initiate_pulling(x):
 	set_collision_mask_value(1, false)
 	set_collision_layer_value(6, false)
 	set_collision_mask_value(6, false)
+	draw_hook = false
 	pulled_by_fish = true
 	pulling_fish_ref = x
 	
@@ -669,6 +675,7 @@ func stop_pulling():
 	get_tree().get_root().add_child(pickup_instance)
 	pulling_fish_ref.queue_free()
 	$Sprite2D.rotation = 0.0
+	draw_pull = false
 	set_collision_layer_value(1, true)
 	set_collision_mask_value(1, true)
 	set_collision_layer_value(6, true)
