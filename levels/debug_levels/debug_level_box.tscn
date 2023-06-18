@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://gla3slksyjic"]
+[gd_scene load_steps=8 format=3 uid="uid://gla3slksyjic"]
 
+[ext_resource type="Script" path="res://levels/debug_levels/debug_level_box.gd" id="1_yqby4"]
 [ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="2_a8nfl"]
 [ext_resource type="PackedScene" uid="uid://b8rg31em7gllv" path="res://presets/tilemap/tile_map.tscn" id="3_f8lep"]
 [ext_resource type="Texture2D" uid="uid://b1xe50r2jy3n2" path="res://icon.svg" id="4_pbmfn"]
@@ -8,7 +9,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjiq8"]
 size = Vector2(34, 34)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kl8ed"]
+radius = 21.0238
+
 [node name="debug_level_box" type="Node2D"]
+script = ExtResource("1_yqby4")
 
 [node name="Player" parent="." instance=ExtResource("2_a8nfl")]
 position = Vector2(-77, 461)
@@ -69,7 +74,7 @@ scale = Vector2(0.282, 0.282)
 texture = ExtResource("4_pbmfn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-shape = SubResource("RectangleShape2D_rjiq8")
+shape = SubResource("CircleShape2D_kl8ed")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
 position = Vector2(726, 353)

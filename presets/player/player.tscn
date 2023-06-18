@@ -86,7 +86,7 @@ texture_filter = 1
 texture = ExtResource("2_kcb4d")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.4, 1.4)
 script = ExtResource("3_t1j6b")
 
 [node name="hitbox" type="Area2D" parent="."]

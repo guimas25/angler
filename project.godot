@@ -107,6 +107,8 @@ Fishopedia_open={
 2d_physics/layer_3="Fish"
 2d_physics/layer_4="HookMinigame"
 2d_physics/layer_6="Environment"
+2d_physics/layer_8="GrappleHook"
+2d_physics/layer_9="Hook_Tilemap_Collision"
 
 [rendering]
 
