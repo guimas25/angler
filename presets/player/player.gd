@@ -19,6 +19,8 @@ var object_to_pull
 var pull_object = false
 var hooked_to_box = false
 
+var draw_hook = false
+
 # Represents item in inventory
 class inventory_item:
 	var name
@@ -137,7 +139,7 @@ func _process(delta):
 				
 func _physics_process(delta):
 	var check_bait = weakref(hook_reference) # Try to get reference to the bait 
-	
+		
 	# Check if player is fishing, if yes nerf speed
 	if hook_on_scene:
 		var hook_distance = hook_reference.position - position
@@ -341,6 +343,7 @@ func stop_immediate_fishing():
 	
 func throw_hook():
 	if not hook_on_scene:
+		draw_hook = true
 		var mouse_position = get_local_mouse_position()
 		#print(mouse_position.length() - position.length())
 		var distance = mouse_position.abs().length()
@@ -362,6 +365,7 @@ func throw_hook():
 		
 	elif not minigame_fishing and hook_reference:
 		hook_reference.hook_reel(false)
+		draw_hook = false
 		
 func _on_hitbox_body_entered(body):
 	body.get_hurt()
@@ -466,6 +470,10 @@ func _draw():
 		var check_object = weakref(object_to_pull)
 		if check_object.get_ref():
 			draw_line(Vector2(0,0), to_local(object_to_pull.global_position), Color(1,1,1), 0.25, true)
+	elif draw_hook:
+		var check_bait = weakref(hook_reference)
+		if check_bait.get_ref():
+			draw_line(Vector2(0,0), to_local(hook_reference.position), Color(1,1,1), 0.25, true)
 	else:
 		return
 		var colliding = $GrapplingHook.is_colliding()
