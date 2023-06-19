@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://wj3tju2h8on" path="res://assets/sprites/environment/plant2.png" id="10_ysf25"]
 [ext_resource type="Texture2D" uid="uid://bf2nohl6pln6c" path="res://assets/sprites/environment/plant3.png" id="11_u0inf"]
 [ext_resource type="PackedScene" uid="uid://cfnq8512lyjei" path="res://presets/parallax/parallax.tscn" id="12_7uuky"]
-[ext_resource type="FontFile" uid="uid://drnd7vxhi7vpk" path="res://assets/text_fonts/press-start/prstart.ttf" id="12_w1lgw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4l4qv"]
 size = Vector2(35, 100)
