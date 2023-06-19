@@ -209,6 +209,19 @@ func _physics_process(delta):
 					fishing_minigame_1(check_bait)
 				elif hook_reference.fish_caught is Fish_pulling:
 					fishing_minigame_2(check_bait)
+				elif hook_reference.fish_caught is LemonFish:
+					fishing_minigame_1(check_bait)
+				elif hook_reference.fish_caught is Jellyfish:
+					fishing_minigame_1(check_bait)
+				elif hook_reference.fish_caught is Salmon:
+					fishing_minigame_2(check_bait)
+				elif hook_reference.fish_caught is Shrimp:
+					fishing_minigame_1(check_bait)
+				elif hook_reference.fish_caught is Tuna:
+					fishing_minigame_2(check_bait)
+				elif hook_reference.fish_caught is SilverFish:
+					fishing_minigame_2(check_bait)
+				
 	
 func _on_water(delta):
 	if hooked:
@@ -229,6 +242,9 @@ func _on_water(delta):
 	
 	velocity.x = move_toward(velocity.x, direction_h * SPEED_WATER, 30)
 	velocity.y = move_toward(velocity.y, direction_v * SPEED_WATER, 30)
+	
+	if velocity.y > 100:
+		velocity.y = 100
 	
 	move_and_slide()
 	
