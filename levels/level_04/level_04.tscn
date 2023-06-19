@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="4_51eh8"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="4_vw2d7"]
 [ext_resource type="PackedScene" uid="uid://cmrt562ex6vm7" path="res://presets/pulling_fish/pulling_fish.tscn" id="5_0ook3"]
-[ext_resource type="PackedScene" path="res://presets/fish/tuna.tscn" id="7_fl6i5"]
+[ext_resource type="PackedScene" uid="uid://cfnq8512lyjei" path="res://presets/parallax/parallax.tscn" id="7_t3ftt"]
 
 [node name="level_04" type="Node2D"]
 
@@ -89,8 +89,4 @@ scale = Vector2(17.595, 3.193)
 position = Vector2(1994, 672)
 scale = Vector2(10, 17)
 
-[node name="tuna" parent="." instance=ExtResource("7_fl6i5")]
-position = Vector2(521, 898)
-
-[node name="tuna2" parent="." instance=ExtResource("7_fl6i5")]
-position = Vector2(799, 907)
+[node name="Parallax" parent="." instance=ExtResource("7_t3ftt")]
