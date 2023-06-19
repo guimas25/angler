@@ -63,6 +63,4 @@ func _on_timer_timeout():
 
 
 func _on_animation_player_animation_finished(anim_name):
-	pass
-	print("BOAS PESSOALE")
 	get_tree().change_scene_to_file("res://levels/level_02/level_02.tscn")

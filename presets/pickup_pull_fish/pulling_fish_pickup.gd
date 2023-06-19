@@ -13,8 +13,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if follow_player:
-		var target = Vector2(player.position.x, player.position.y - 12)
-		self.position = position.slerp(target, 0.1)
+		var check = weakref(player)
+		if check.get_ref():
+			var target = Vector2(player.position.x, player.position.y - 12)
+			self.position = position.slerp(target, 0.1)
 
 func _on_area_2d_body_entered(body):
 	$AudioStreamPlayer.play()
