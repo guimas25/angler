@@ -278,7 +278,7 @@ libraries = {
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
 sprite_frames = SubResource("SpriteFrames_6tsjj")
-animation = &"pulled_by_fish"
+animation = &"jump"
 
 [node name="rope_start_fishing" type="CharacterBody2D" parent="Sprite2D"]
 position = Vector2(20, -12)
@@ -289,7 +289,7 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_m6nk0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(2, 2)
 script = ExtResource("3_t1j6b")
 
 [node name="HitBox_Attack" type="Area2D" parent="."]

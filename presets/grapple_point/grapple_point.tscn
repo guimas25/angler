@@ -1,3 +1,17 @@
-[gd_scene format=3 uid="uid://dqs2rbq3032lu"]
+[gd_scene load_steps=3 format=3 uid="uid://dqs2rbq3032lu"]
+
+[ext_resource type="Texture2D" uid="uid://dw2oj5ehdqlue" path="res://assets/sprites/grapple_point/Sprite-0008.png" id="1_4q604"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8y7ux"]
+size = Vector2(10, 5)
 
 [node name="grapple_point" type="StaticBody2D"]
+collision_layer = 128
+collision_mask = 128
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4q604")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_8y7ux")

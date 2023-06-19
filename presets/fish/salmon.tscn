@@ -41,6 +41,8 @@ radius = 151.03
 size = Vector2(63.306, 19.0476)
 
 [node name="salmon" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 20
 script = ExtResource("1_vtlp8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

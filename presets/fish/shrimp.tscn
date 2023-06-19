@@ -40,6 +40,8 @@ radius = 151.03
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tir1q"]
 
 [node name="shrimp" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 20
 script = ExtResource("1_200wq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
