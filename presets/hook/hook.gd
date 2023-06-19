@@ -82,12 +82,12 @@ func hook_done(result):
 	var check_bait = weakref(fish_caught)         # Try to get reference to the fish 
 	if check_bait.get_ref() and result:                      # If it was able to, object still on the loose!
 		if fish_follow:
-			if (fish_caught is Fish_simple):
-				fish_caught.queue_free()
-			elif (fish_caught is Fish_pulling):
+			if (fish_caught is Fish_pulling):
 				fish_caught.initiate_pull(player_ref.position)
 				fish_follow = false
 				player_ref.initiate_pulling(fish_caught)
+			else:
+				fish_caught.queue_free()
 	player_ref.hook_on_scene = false
 	self.queue_free()
 

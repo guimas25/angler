@@ -163,6 +163,7 @@ func _physics_process(delta):
 		JUMP_VELOCITY = -575.0
 	
 	if pulled_by_fish:
+		$Sprite2D/AnimatedSprite2D.flip_h = false
 		queue_redraw()
 		$Sprite2D/rope_start_fishing.position = velocity.normalized() * 42
 		$Sprite2D/AnimatedSprite2D.play("pulled_by_fish")
@@ -185,7 +186,7 @@ func _physics_process(delta):
 	else:
 		$Sprite2D/AnimatedSprite2D.play("water_walk")
 		_on_water(delta)
-	if Input.is_action_just_pressed("melee_action") and not attack_cooldown and not hook_on_scene and not pulled_by_fish:
+	if Input.is_action_just_pressed("melee_action") and not attack_cooldown and not hook_on_scene and not pulled_by_fish and not on_water:
 		$Sprite2D/AnimatedSprite2D.play("attack")
 		on_attack = true
 		$HitBox_Attack.visible = true
@@ -209,6 +210,19 @@ func _physics_process(delta):
 					fishing_minigame_1(check_bait)
 				elif hook_reference.fish_caught is Fish_pulling:
 					fishing_minigame_2(check_bait)
+				elif hook_reference.fish_caught is LemonFish:
+					fishing_minigame_1(check_bait)
+				elif hook_reference.fish_caught is Jellyfish:
+					fishing_minigame_1(check_bait)
+				elif hook_reference.fish_caught is Salmon:
+					fishing_minigame_2(check_bait)
+				elif hook_reference.fish_caught is Shrimp:
+					fishing_minigame_1(check_bait)
+				elif hook_reference.fish_caught is Tuna:
+					fishing_minigame_2(check_bait)
+				elif hook_reference.fish_caught is SilverFish:
+					fishing_minigame_2(check_bait)
+				
 	
 func _on_water(delta):
 	if hooked:
@@ -229,6 +243,9 @@ func _on_water(delta):
 	
 	velocity.x = move_toward(velocity.x, direction_h * SPEED_WATER, 30)
 	velocity.y = move_toward(velocity.y, direction_v * SPEED_WATER, 30)
+	
+	if velocity.y > 100:
+		velocity.y = 100
 	
 	move_and_slide()
 	
@@ -650,17 +667,23 @@ func show_FishOpedia():
 		$Fish_Opedia/ColorRect/Fish_texture2.texture = preload("res://assets/UI/inventory_icon/small_Wacky Carp.png")
 		$Fish_Opedia/ColorRect/Fish_texture2/Label.text = "Wacky Carp"
 	if SaveState.seen_fish[2]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture3.texture = preload("res://assets/UI/inventory_icon/inspector_Shy Jellyfish.png")
+		$Fish_Opedia/ColorRect/Fish_texture3/Label.text = "Shy Jellyfish"
 	if SaveState.seen_fish[3]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture4.texture = preload("res://assets/UI/inventory_icon/inspector_Lemon Sardine.png")
+		$Fish_Opedia/ColorRect/Fish_texture4/Label.text = "Lemon Sardine"
 	if SaveState.seen_fish[4]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Red Salmon.png")
+		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Red Salmon"
 	if SaveState.seen_fish[5]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture6.texture = preload("res://assets/UI/inventory_icon/inspector_Shrimp.png")
+		$Fish_Opedia/ColorRect/Fish_texture6/Label.text = "Shrimp"
 	if SaveState.seen_fish[6]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture7.texture = preload("res://assets/UI/inventory_icon/inspector_Silver Fish.png")
+		$Fish_Opedia/ColorRect/Fish_texture7/Label.text = "Silver Fish"
 	if SaveState.seen_fish[7]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture7.texture = preload("res://assets/UI/inventory_icon/inspector_Yellowfin Tuna.png")
+		$Fish_Opedia/ColorRect/Fish_texture7/Label.text = "Yellowfin Tuna"
 
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
@@ -757,12 +780,13 @@ func fishing_minigame_2(check_bait):
 	var center_hit_low = $fish_meter/fish_hit_marker.position.x - 5 *  $fish_meter/fish_hit_marker.scale.x
 	var center_hit_high = $fish_meter/fish_hit_marker.position.x + 5  *  $fish_meter/fish_hit_marker.scale.x
 	
-	if minigame_2_round_counter == minigame_2_required - 1:
-		if check_bait.get_ref():
-			hook_reference.fish_caught.trigger_anim()
-	else:
-		if check_bait.get_ref():
-			hook_reference.fish_caught.normal_anim()
+	if (hook_reference.fish_caught is Fish_pulling):
+		if minigame_2_round_counter == minigame_2_required - 1:
+			if check_bait.get_ref():
+				hook_reference.fish_caught.trigger_anim()
+		else:
+			if check_bait.get_ref():
+				hook_reference.fish_caught.normal_anim()
 			
 	# If pointer in yellow area, add one round, make round ball green, proceed
 	if ($fish_meter/pointer.position.x >= left_hit_low and $fish_meter/pointer.position.x < left_hit_high) or \

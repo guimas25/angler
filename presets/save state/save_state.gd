@@ -25,3 +25,15 @@ func check_fihsopedia(name):
 			seen_fish[0] = true
 		"Wacky Carp":
 			seen_fish[1] = true
+		"Shy Jellyfish":
+			seen_fish[2] = true
+		"Lemon Sardine":
+			seen_fish[3] = true
+		"Red Salmon":
+			seen_fish[4] = true
+		"Shrimp":
+			seen_fish[5] = true
+		"Silver Fish":
+			seen_fish[6] = true
+		"Yellowfin Tuna":
+			seen_fish[7] = true
