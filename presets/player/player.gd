@@ -676,14 +676,14 @@ func show_FishOpedia():
 		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Red Salmon.png")
 		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Red Salmon"
 	if SaveState.seen_fish[5]:
-		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Shrimp.png")
-		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Shrimp"
+		$Fish_Opedia/ColorRect/Fish_texture6.texture = preload("res://assets/UI/inventory_icon/inspector_Shrimp.png")
+		$Fish_Opedia/ColorRect/Fish_texture6/Label.text = "Shrimp"
 	if SaveState.seen_fish[6]:
-		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Silver Fish.png")
-		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Silver Fish"
+		$Fish_Opedia/ColorRect/Fish_texture7.texture = preload("res://assets/UI/inventory_icon/inspector_Silver Fish.png")
+		$Fish_Opedia/ColorRect/Fish_texture7/Label.text = "Silver Fish"
 	if SaveState.seen_fish[7]:
-		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Yellowfin Tuna.png")
-		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Yellowfin Tuna"
+		$Fish_Opedia/ColorRect/Fish_texture7.texture = preload("res://assets/UI/inventory_icon/inspector_Yellowfin Tuna.png")
+		$Fish_Opedia/ColorRect/Fish_texture7/Label.text = "Yellowfin Tuna"
 
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
