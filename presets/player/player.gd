@@ -185,7 +185,7 @@ func _physics_process(delta):
 	else:
 		$Sprite2D/AnimatedSprite2D.play("water_walk")
 		_on_water(delta)
-	if Input.is_action_just_pressed("melee_action") and not attack_cooldown and not hook_on_scene and not pulled_by_fish:
+	if Input.is_action_just_pressed("melee_action") and not attack_cooldown and not hook_on_scene and not pulled_by_fish and not on_water:
 		$Sprite2D/AnimatedSprite2D.play("attack")
 		on_attack = true
 		$HitBox_Attack.visible = true

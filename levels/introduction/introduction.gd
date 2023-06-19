@@ -1,6 +1,6 @@
 extends Node2D
 
-
+var click = false
 var dark_1 = false
 var dark_2 = false
 
@@ -13,10 +13,22 @@ func _ready():
 	$StaticBody2D/AnimationPlayer.play("float")
 	$Sprite2D/AnimationPlayer.play("move_right")
 	$Sprite2D2/AnimationPlayer.play("move_right")
+	$CanvasLayer/TextureRect/AnimationPlayer.play("fade_in")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$AnimatedSprite2D.position.y = $StaticBody2D.position.y
-	if $fishes.get_child_count() == 5:
-		pass
+	if not click and Input.is_action_just_pressed("hook_action"):
+		$CanvasLayer/TextureRect/AnimationPlayer.play("fade_out")
+		click = true
+		
+	if $fishes.get_child_count() == 5 and not dark_1:
+		dark_1 = true
+		$ColorRect/AnimationPlayer.play("grey_1")
+		$StaticBody2D/AnimationPlayer.play("float_2")
+
+	if $fishes.get_child_count() == 5 and not dark_2:
+		dark_2 = true
+		$ColorRect/AnimationPlayer.play("grey_2")
+		$StaticBody2D/AnimationPlayer.play("float_3")
