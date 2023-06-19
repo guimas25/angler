@@ -45,7 +45,7 @@ texture = ExtResource("3_snajj")
 polygon = PackedVector2Array(20, -2, 19, -3, 13, -3, 11, -6, -890.5, -6, -890.5, 6, 11, 6, 13, 3, 19, 3, 20, 2)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.2
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
