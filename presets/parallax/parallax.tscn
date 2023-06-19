@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfnq8512lyjei"]
+
+[ext_resource type="Texture2D" uid="uid://1it2o44dxv1r" path="res://assets/sprites/environment/background1.png" id="1_xy10l"]
+[ext_resource type="Texture2D" uid="uid://bh68ukvlmtqr7" path="res://assets/sprites/environment/background2.png" id="2_rttsb"]
+[ext_resource type="Texture2D" uid="uid://c14beepetxqia" path="res://assets/sprites/environment/background3.png" id="3_5r2g1"]
+[ext_resource type="Texture2D" uid="uid://dnu2fs1ln5xty" path="res://assets/sprites/environment/background4.png" id="4_yw8p8"]
+
+[node name="Parallax" type="CanvasLayer"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(960, 540)
+scale = Vector2(5, 5)
+texture = ExtResource("1_xy10l")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(960, 540)
+scale = Vector2(5, 5)
+texture = ExtResource("2_rttsb")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(960, 540)
+scale = Vector2(5, 5)
+texture = ExtResource("3_5r2g1")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2(960, 540)
+scale = Vector2(5, 5)
+texture = ExtResource("4_yw8p8")
