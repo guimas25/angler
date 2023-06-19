@@ -17,6 +17,9 @@ func _ready():
 	$StaticBody2D/AnimationPlayer.play("float")
 	$Sprite2D/AnimationPlayer.play("move_right")
 	$Sprite2D2/AnimationPlayer.play("move_right")
+	$StaticBody2D/Laura.play("default")
+	$StaticBody2D/Miguel.play("default")
+	$StaticBody2D/Sofia.play("default")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
