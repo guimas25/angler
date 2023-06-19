@@ -316,6 +316,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Timer_attack_cooldown" type="Timer" parent="Timers"]
+wait_time = 0.6
 
 [node name="fish_meter" type="ColorRect" parent="."]
 visible = false

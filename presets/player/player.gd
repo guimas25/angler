@@ -81,8 +81,7 @@ func _process(delta):
 	if hp == 0:
 		print("YOU DIED")
 		hp = 3
-		position.x = -1150
-		position.y = -45
+		get_tree().reload_current_scene()
 
 	if Input.is_action_just_pressed("left_click") and $Inventory.visible:
 		if on_item_1:
