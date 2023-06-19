@@ -6,6 +6,16 @@ extends Node
 # 2-7: to define AHAHAHHA
 var seen_fish = [false,false,false,false,false,false,false,false,] 
 
+var start_timer = false
+
+var current_time = 0
+
+var minigame_success = 0
+
+var minigame_failure = 0
+
+var n_deaths = 0
+
 # Inventory save
 var inventory = []
 
@@ -16,7 +26,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if start_timer:
+		current_time = current_time + delta
 
 # Check if fish already on fishopedia
 func check_fihsopedia(name):
@@ -37,3 +48,9 @@ func check_fihsopedia(name):
 			seen_fish[6] = true
 		"Yellowfin Tuna":
 			seen_fish[7] = true
+
+func start_the_timer():
+	start_timer = true
+	
+func stop_the_timer():
+	start_timer = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b575mco327sv5"]
+[gd_scene load_steps=10 format=3 uid="uid://d4j0xm0ms0ith"]
 
 [ext_resource type="Texture2D" uid="uid://7v2e3hig8deq" path="res://assets/sprites/fish/silver_fish1.png" id="1_fydlm"]
 [ext_resource type="Script" path="res://presets/fish/silver_fish.gd" id="1_xqktd"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://biqm1h5blbrhw" path="res://assets/sprites/fish/silver_fish4.png" id="4_v754x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwjo2"]
-size = Vector2(62, 43)
+size = Vector2(43, 13)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_exu20"]
 animations = [{
@@ -46,7 +46,7 @@ collision_mask = 20
 script = ExtResource("1_xqktd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.999999, -7.5)
+position = Vector2(-8.5, 0.5)
 shape = SubResource("RectangleShape2D_pwjo2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

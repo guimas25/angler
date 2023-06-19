@@ -23,6 +23,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("melee_action") and not fade_out_done:
 		$CanvasLayer/ColorRect/AnimationPlayer.play("fade_out")
 		fade_out_done = true
+		SaveState.start_the_timer()
 	
 	if not $CanvasLayer/ColorRect.modulate == Color(255,255,255,0) and not text_done:
 		$CanvasLayer/TextureRect/AnimationPlayer.play("fade_in")
@@ -59,4 +60,4 @@ func _on_timer_timeout():
 func _on_animation_player_animation_finished(anim_name):
 	pass
 	print("BOAS PESSOALE")
-	#get_tree().change_scene_to("level_01")
+	get_tree().change_scene_to_file("res://levels/level_02/level_02.tscn")
