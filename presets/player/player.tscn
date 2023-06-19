@@ -278,7 +278,7 @@ libraries = {
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
 sprite_frames = SubResource("SpriteFrames_6tsjj")
-animation = &"jump"
+animation = &"pulled_by_fish"
 
 [node name="rope_start_fishing" type="CharacterBody2D" parent="Sprite2D"]
 position = Vector2(20, -12)
