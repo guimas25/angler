@@ -1,0 +1,283 @@
+[gd_scene load_steps=23 format=3 uid="uid://8xgn7jesfrcf"]
+
+[ext_resource type="PackedScene" uid="uid://cak20tkrlh6dg" path="res://presets/player/player.tscn" id="1_eb075"]
+[ext_resource type="Script" path="res://levels/introduction/introduction.gd" id="1_vwg66"]
+[ext_resource type="Texture2D" uid="uid://bqiotbiw87sur" path="res://assets/sprites/boat/sail_1.png" id="4_n2lwb"]
+[ext_resource type="Texture2D" uid="uid://do7cn2ji5vcm4" path="res://assets/sprites/boat/sail_2.png" id="5_82spm"]
+[ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="5_pd3k4"]
+[ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="6_dmc2s"]
+[ext_resource type="Texture2D" uid="uid://8e8x0pls54ma" path="res://assets/sprites/boat/boat_1.png" id="6_xtylr"]
+[ext_resource type="Texture2D" uid="uid://q1uxja0o8wln" path="res://assets/UI/logo.png" id="7_lijui"]
+[ext_resource type="Texture2D" uid="uid://brwmh12r6lr3l" path="res://assets/sprites/environment/cloud.png" id="8_tfa0o"]
+[ext_resource type="FontFile" uid="uid://drnd7vxhi7vpk" path="res://assets/text_fonts/press-start/prstart.ttf" id="10_4dwnm"]
+
+[sub_resource type="Animation" id="Animation_v2l6t"]
+resource_name = "move_right"
+length = 15.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(796, 250), Vector2(-1000, 250)]
+}
+
+[sub_resource type="Animation" id="Animation_a1umv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1036, 200)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dc01q"]
+_data = {
+"RESET": SubResource("Animation_a1umv"),
+"move_right": SubResource("Animation_v2l6t")
+}
+
+[sub_resource type="Animation" id="Animation_5qd3b"]
+resource_name = "move_right"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-588, 132), Vector2(376, 132)]
+}
+
+[sub_resource type="Animation" id="Animation_qymex"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-588, 132)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r833h"]
+_data = {
+"RESET": SubResource("Animation_qymex"),
+"move_right": SubResource("Animation_5qd3b")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_07isr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_n2lwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_82spm")
+}],
+"loop": true,
+"name": &"fast_wind",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_n2lwb")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_n2lwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_82spm")
+}],
+"loop": true,
+"name": &"wind",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t0l13"]
+size = Vector2(236, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcsyx"]
+size = Vector2(28, 368)
+
+[sub_resource type="Animation" id="Animation_erwre"]
+resource_name = "float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 256), Vector2(0, 264)]
+}
+
+[sub_resource type="Animation" id="Animation_35n36"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 256)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tujr3"]
+_data = {
+"RESET": SubResource("Animation_35n36"),
+"float": SubResource("Animation_erwre")
+}
+
+[node name="Introduction" type="Node2D"]
+script = ExtResource("1_vwg66")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -808.0
+offset_top = -792.0
+offset_right = 876.0
+offset_bottom = 804.0
+color = Color(0.231373, 0.713726, 0.941176, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1036, 200)
+texture = ExtResource("8_tfa0o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_dc01q")
+}
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-588, 132)
+texture = ExtResource("8_tfa0o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D2"]
+libraries = {
+"": SubResource("AnimationLibrary_r833h")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4, 263.387)
+scale = Vector2(1.679, 1.679)
+sprite_frames = SubResource("SpriteFrames_07isr")
+animation = &"fast_wind"
+frame_progress = 0.607297
+
+[node name="Player" parent="." instance=ExtResource("1_eb075")]
+position = Vector2(28, 264)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 256)
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-6, 58)
+shape = SubResource("RectangleShape2D_t0l13")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(126, -144)
+shape = SubResource("RectangleShape2D_xcsyx")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-140, -152)
+shape = SubResource("RectangleShape2D_xcsyx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody2D"]
+libraries = {
+"": SubResource("AnimationLibrary_tujr3")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(1.679, 1.679)
+texture = ExtResource("6_xtylr")
+
+[node name="water_body" parent="." instance=ExtResource("5_pd3k4")]
+position = Vector2(0, 408)
+scale = Vector2(22.8566, -5.5954)
+
+[node name="fishes" type="Node" parent="."]
+
+[node name="fish_entity" parent="fishes" instance=ExtResource("6_dmc2s")]
+position = Vector2(212, 412)
+
+[node name="fish_entity2" parent="fishes" instance=ExtResource("6_dmc2s")]
+position = Vector2(44, 440)
+
+[node name="fish_entity3" parent="fishes" instance=ExtResource("6_dmc2s")]
+position = Vector2(-196, 404)
+
+[node name="fish_entity4" parent="fishes" instance=ExtResource("6_dmc2s")]
+position = Vector2(-300, 504)
+
+[node name="fish_entity5" parent="fishes" instance=ExtResource("6_dmc2s")]
+position = Vector2(-316, 372)
+
+[node name="fish_entity6" parent="fishes" instance=ExtResource("6_dmc2s")]
+position = Vector2(-44, 484)
+
+[node name="fish_entity7" parent="fishes" instance=ExtResource("6_dmc2s")]
+position = Vector2(296, 460)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-12, 236)
+zoom = Vector2(3, 3)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -447.5
+offset_top = 28.0
+offset_right = 447.5
+offset_bottom = 461.0
+grow_horizontal = 2
+texture = ExtResource("7_lijui")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 820.0
+offset_top = 480.0
+offset_right = 1220.0
+offset_bottom = 503.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("10_4dwnm")
+text = "[ RIGHT CLICK ]   TO FISH"
