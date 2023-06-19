@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cc7cirpqmwa7b"]
+[gd_scene load_steps=10 format=3 uid="uid://cc7cirpqmwa7b"]
 
 [ext_resource type="Script" path="res://presets/fish/fish_entity.gd" id="1_2jg2f"]
 [ext_resource type="Texture2D" uid="uid://cbnx6aru8ifeg" path="res://assets/sprites/fish/fish1.png" id="2_jpq73"]
 [ext_resource type="Texture2D" uid="uid://ph7bicy6dj6o" path="res://assets/sprites/fish/fish2.png" id="3_deilo"]
+[ext_resource type="Texture2D" uid="uid://bjo4bawfj84u5" path="res://assets/sprites/fish/fish3.png" id="4_iy6fw"]
+[ext_resource type="Texture2D" uid="uid://dn5wnf02iapsb" path="res://assets/sprites/fish/fish4.png" id="5_dvcla"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5h2db"]
 size = Vector2(16.3075, 16.3075)
@@ -12,6 +14,9 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_jpq73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_deilo")
 }],
 "loop": true,
 "name": &"default",
@@ -19,7 +24,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_deilo")
+"texture": ExtResource("4_iy6fw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dvcla")
 }],
 "loop": true,
 "name": &"o-o",
@@ -32,7 +40,6 @@ radius = 151.03
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_psjbf"]
 
 [node name="fish_entity" type="CharacterBody2D"]
-scale = Vector2(1.717, 1.717)
 collision_layer = 0
 collision_mask = 20
 script = ExtResource("1_2jg2f")
