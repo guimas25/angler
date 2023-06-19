@@ -666,17 +666,23 @@ func show_FishOpedia():
 		$Fish_Opedia/ColorRect/Fish_texture2.texture = preload("res://assets/UI/inventory_icon/small_Wacky Carp.png")
 		$Fish_Opedia/ColorRect/Fish_texture2/Label.text = "Wacky Carp"
 	if SaveState.seen_fish[2]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture3.texture = preload("res://assets/UI/inventory_icon/inspector_Shy Jellyfish.png")
+		$Fish_Opedia/ColorRect/Fish_texture3/Label.text = "Shy Jellyfish"
 	if SaveState.seen_fish[3]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture4.texture = preload("res://assets/UI/inventory_icon/inspector_Lemon Sardine.png")
+		$Fish_Opedia/ColorRect/Fish_texture4/Label.text = "Lemon Sardine"
 	if SaveState.seen_fish[4]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Red Salmon.png")
+		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Red Salmon"
 	if SaveState.seen_fish[5]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Shrimp.png")
+		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Shrimp"
 	if SaveState.seen_fish[6]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Silver Fish.png")
+		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Silver Fish"
 	if SaveState.seen_fish[7]:
-		pass
+		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Yellowfin Tuna.png")
+		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Yellowfin Tuna"
 
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
