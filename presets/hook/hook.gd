@@ -26,7 +26,9 @@ func _ready():
 
 func _physics_process(delta):
 	look_at(Vector2(position.x + velocity.x, position.y + velocity.y))
-	origin = player_ref.position
+	var check_player = weakref(player_ref)
+	if check_player.get_ref():
+		origin = player_ref.position
 	if !on_water and !reeling:
 		if velocity.y <= MAX_VELOCITY_Y:
 			velocity.y += (gravity/2) * delta
@@ -72,7 +74,9 @@ func _on_area_2d_fishing_area_entered(body):
 	if(velocity == Vector2(0,0) and body.get_parent().get_bait):
 		fish_caught = body.get_parent()
 		fish_caught.hooked()
-		player_ref.start_fishing()
+		var check_player = weakref(player_ref)
+		if check_player.get_ref():
+			player_ref.start_fishing()
 	else:
 		$Timer_on_off.start()
 		$Area2D_fishing.set_collision_layer_value(5, false)
@@ -83,12 +87,16 @@ func hook_done(result):
 	if check_bait.get_ref() and result:                      # If it was able to, object still on the loose!
 		if fish_follow:
 			if (fish_caught is Fish_pulling):
-				fish_caught.initiate_pull(player_ref.position)
-				fish_follow = false
-				player_ref.initiate_pulling(fish_caught)
+				var check_player = weakref(player_ref)
+				if check_player.get_ref():
+					fish_caught.initiate_pull(player_ref.position)
+					fish_follow = false
+					player_ref.initiate_pulling(fish_caught)
 			else:
 				fish_caught.queue_free()
-	player_ref.hook_on_scene = false
+	var check_player = weakref(player_ref)
+	if check_player.get_ref():
+		player_ref.hook_on_scene = false
 	self.queue_free()
 
 func _on_timer_on_off_timeout():
