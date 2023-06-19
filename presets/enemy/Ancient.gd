@@ -3,7 +3,7 @@ extends CharacterBody2D
 const SPEED = 3000.0
 const JUMP_VELOCITY = -400.0
 
-var hp = 3
+var hp = 10
 
 var is_moving_left = true
 
