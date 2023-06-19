@@ -197,7 +197,7 @@ position = Vector2(-4, 263.387)
 scale = Vector2(1.679, 1.679)
 sprite_frames = SubResource("SpriteFrames_07isr")
 animation = &"fast_wind"
-frame_progress = 0.216109
+frame_progress = 0.607297
 
 [node name="Player" parent="." instance=ExtResource("1_eb075")]
 position = Vector2(28, 264)

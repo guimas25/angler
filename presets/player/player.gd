@@ -1,10 +1,10 @@
 extends CharacterBody2D
 class_name Player
 
-@export var SPEED_PUSH = 250
-@export var SPEED = 350.0
+@export var SPEED_PUSH = 100
+@export var SPEED = 200.0
 @export var SPEED_WATER = 150.0
-@export var JUMP_VELOCITY = -800.0
+@export var JUMP_VELOCITY = -575.0
 @export var SPEED_HOOK = 400
 @export var MAX_ROPE_LENGHT = 350
 
@@ -159,8 +159,8 @@ func _physics_process(delta):
 		if hook_distance.length() >= hook_max_distance:  # If player goes beyond max distance, reel back
 			stop_immediate_fishing()
 	else:
-		SPEED = 350
-		JUMP_VELOCITY = -800.0
+		SPEED = 200
+		JUMP_VELOCITY = -575.0
 	
 	if pulled_by_fish:
 		queue_redraw()

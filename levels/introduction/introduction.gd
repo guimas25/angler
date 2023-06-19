@@ -19,4 +19,4 @@ func _ready():
 func _process(delta):
 	$AnimatedSprite2D.position.y = $StaticBody2D.position.y
 	if $fishes.get_child_count() == 5:
-		
+		pass
