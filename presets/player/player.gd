@@ -163,6 +163,7 @@ func _physics_process(delta):
 		JUMP_VELOCITY = -575.0
 	
 	if pulled_by_fish:
+		$Sprite2D/AnimatedSprite2D.flip_h = false
 		queue_redraw()
 		$Sprite2D/rope_start_fishing.position = velocity.normalized() * 42
 		$Sprite2D/AnimatedSprite2D.play("pulled_by_fish")
@@ -779,12 +780,13 @@ func fishing_minigame_2(check_bait):
 	var center_hit_low = $fish_meter/fish_hit_marker.position.x - 5 *  $fish_meter/fish_hit_marker.scale.x
 	var center_hit_high = $fish_meter/fish_hit_marker.position.x + 5  *  $fish_meter/fish_hit_marker.scale.x
 	
-	if minigame_2_round_counter == minigame_2_required - 1:
-		if check_bait.get_ref():
-			hook_reference.fish_caught.trigger_anim()
-	else:
-		if check_bait.get_ref():
-			hook_reference.fish_caught.normal_anim()
+	if (hook_reference.fish_caught is Fish_pulling):
+		if minigame_2_round_counter == minigame_2_required - 1:
+			if check_bait.get_ref():
+				hook_reference.fish_caught.trigger_anim()
+		else:
+			if check_bait.get_ref():
+				hook_reference.fish_caught.normal_anim()
 			
 	# If pointer in yellow area, add one round, make round ball green, proceed
 	if ($fish_meter/pointer.position.x >= left_hit_low and $fish_meter/pointer.position.x < left_hit_high) or \
