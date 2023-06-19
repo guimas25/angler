@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cak20tkrlh6dg"]
+[gd_scene load_steps=53 format=3 uid="uid://cak20tkrlh6dg"]
 
 [ext_resource type="Script" path="res://presets/player/player.gd" id="1_73ldj"]
 [ext_resource type="Texture2D" uid="uid://bcdtvu42amt6a" path="res://assets/sprites/player/player_final/attack1.png" id="2_eqqgn"]
@@ -40,6 +40,8 @@
 [ext_resource type="Texture2D" uid="uid://c2wafhy3bx7ln" path="res://assets/sprites/player/player_final/walk_2.png" id="21_63mmf"]
 [ext_resource type="Texture2D" uid="uid://dnbdy0cvekxnn" path="res://assets/sprites/player/player_final/water_walk_1.png" id="22_fx04i"]
 [ext_resource type="Texture2D" uid="uid://cxrqqx24g11pv" path="res://assets/sprites/player/player_final/water_walk_2.png" id="23_m76k6"]
+[ext_resource type="Texture2D" uid="uid://q1uxja0o8wln" path="res://assets/UI/logo.png" id="41_22sfq"]
+[ext_resource type="Script" path="res://presets/player/ColorRect.gd" id="41_o8u5s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu7fa"]
 size = Vector2(1.9, 3.2)
@@ -278,7 +280,7 @@ libraries = {
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
 sprite_frames = SubResource("SpriteFrames_6tsjj")
-animation = &"pulled_by_fish"
+animation = &"idle"
 
 [node name="rope_start_fishing" type="CharacterBody2D" parent="Sprite2D"]
 position = Vector2(20, -12)
@@ -816,6 +818,65 @@ offset_bottom = 438.0
 theme_override_fonts/font = ExtResource("7_ev1ag")
 text = "Completion Percentage"
 horizontal_alignment = 1
+
+[node name="Stats" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Stats"]
+visible = false
+offset_right = 1944.0
+offset_bottom = 1115.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("41_o8u5s")
+
+[node name="time" type="Label" parent="Stats/ColorRect"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 472.0
+offset_right = 436.0
+offset_bottom = 544.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+theme_override_font_sizes/font_size = 36
+text = "timer"
+
+[node name="minigame" type="Label" parent="Stats/ColorRect"]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 584.0
+offset_right = 636.0
+offset_bottom = 656.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+theme_override_font_sizes/font_size = 36
+text = "minigame"
+
+[node name="n_deaths" type="Label" parent="Stats/ColorRect"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 708.0
+offset_right = 640.0
+offset_bottom = 780.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+theme_override_font_sizes/font_size = 36
+text = "n_deaths"
+
+[node name="fishopedia" type="Label" parent="Stats/ColorRect"]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 844.0
+offset_right = 772.0
+offset_bottom = 916.0
+theme_override_fonts/font = ExtResource("7_ev1ag")
+theme_override_font_sizes/font_size = 36
+text = "fishopedia
+"
+
+[node name="TextureRect" type="TextureRect" parent="Stats/ColorRect"]
+layout_mode = 0
+offset_left = 1108.0
+offset_top = 12.0
+offset_right = 2003.0
+offset_bottom = 445.0
+scale = Vector2(0.871957, 0.923047)
+texture = ExtResource("41_22sfq")
 
 [connection signal="timeout" from="Timers/Timer_fishing" to="." method="_on_timer_fishing_timeout"]
 [connection signal="timeout" from="Timers/Timer_attack_duration" to="." method="_on_timer_attack_duration_timeout"]

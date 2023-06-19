@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dw5jmmmad15gb"]
+[gd_scene load_steps=16 format=3 uid="uid://dw5jmmmad15gb"]
 
 [ext_resource type="Script" path="res://levels/level_05/level_05.gd" id="1_f5fxo"]
 [ext_resource type="PackedScene" uid="uid://bdgvdpjs25nc0" path="res://presets/tilemap/cave_tilemap.tscn" id="1_mran0"]
@@ -28,6 +28,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be16u"]
+size = Vector2(198, 51)
+
 [node name="level_05" type="Node2D"]
 script = ExtResource("1_f5fxo")
 
@@ -47,6 +50,50 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("11_ita5n")
 text = "Thanks for playing!"
+
+[node name="time" type="Label" parent="AnimatedSprite2D"]
+offset_left = -278.0
+offset_top = -112.0
+offset_right = 26.0
+offset_bottom = -89.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("11_ita5n")
+text = "time"
+horizontal_alignment = 1
+
+[node name="minigame" type="Label" parent="AnimatedSprite2D"]
+offset_left = 45.0
+offset_top = -32.0
+offset_right = 349.0
+offset_bottom = -9.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("11_ita5n")
+text = "minigame %"
+horizontal_alignment = 1
+
+[node name="n_deaths" type="Label" parent="AnimatedSprite2D"]
+offset_left = 49.0
+offset_top = -117.0
+offset_right = 353.0
+offset_bottom = -94.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("11_ita5n")
+text = "n deaths"
+horizontal_alignment = 1
+
+[node name="fishopedia" type="Label" parent="AnimatedSprite2D"]
+offset_left = -319.0
+offset_top = -33.0
+offset_right = -15.0
+offset_bottom = -10.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("11_ita5n")
+text = "Fishopedia %"
+horizontal_alignment = 1
 
 [node name="Player" parent="." instance=ExtResource("2_1m6dm")]
 position = Vector2(72, 92)
@@ -247,3 +294,12 @@ position = Vector2(773, -454)
 position = Vector2(862, -521)
 
 [node name="Parallax" parent="." instance=ExtResource("13_r7sd2")]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-255, 141)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(680, -1456.5)
+shape = SubResource("RectangleShape2D_be16u")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

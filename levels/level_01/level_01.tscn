@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cmh2hupddw05t"]
+[gd_scene load_steps=24 format=3 uid="uid://8t2s0fjb3vqv"]
 
 [ext_resource type="Script" path="res://levels/level_01/level_01.gd" id="1_3p5pk"]
 [ext_resource type="Texture2D" uid="uid://bf2nohl6pln6c" path="res://assets/sprites/environment/plant3.png" id="2_4i1np"]
@@ -8,12 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://df1aerbnl6351" path="res://assets/sprites/environment/plant1.png" id="3_iaofj"]
 [ext_resource type="Texture2D" uid="uid://18n2jlxm3sqk" path="res://assets/sprites/environment/coral.png" id="3_j1hdx"]
 [ext_resource type="PackedScene" uid="uid://cpgtb75vj1p6m" path="res://presets/water body/water_body.tscn" id="4_nfhtf"]
-[ext_resource type="PackedScene" uid="uid://cxlahl0yrqar3" path="res://presets/fish/jellyfish.tscn" id="8_356c2"]
-[ext_resource type="PackedScene" uid="uid://dlw0kekh4k3nc" path="res://presets/fish/lemon_sardine.tscn" id="8_cr6an"]
-[ext_resource type="PackedScene" uid="uid://csiy4kcstqrw2" path="res://presets/fish/tuna.tscn" id="8_qjqdo"]
-[ext_resource type="PackedScene" uid="uid://b575mco327sv5" path="res://presets/fish/silver_fish.tscn" id="8_rs1ow"]
-[ext_resource type="PackedScene" uid="uid://b32qv7myqu6ou" path="res://presets/fish/salmon.tscn" id="9_0arbb"]
-[ext_resource type="PackedScene" uid="uid://xhsyqmy218tp" path="res://presets/fish/shrimp.tscn" id="9_mmpe6"]
+[ext_resource type="PackedScene" path="res://presets/fish/jellyfish.tscn" id="8_356c2"]
+[ext_resource type="PackedScene" path="res://presets/fish/lemon_sardine.tscn" id="8_cr6an"]
+[ext_resource type="PackedScene" path="res://presets/fish/tuna.tscn" id="8_qjqdo"]
+[ext_resource type="PackedScene" uid="uid://d4j0xm0ms0ith" path="res://presets/fish/silver_fish.tscn" id="8_rs1ow"]
+[ext_resource type="PackedScene" path="res://presets/fish/salmon.tscn" id="9_0arbb"]
+[ext_resource type="PackedScene" path="res://presets/fish/shrimp.tscn" id="9_mmpe6"]
 [ext_resource type="PackedScene" uid="uid://cmrt562ex6vm7" path="res://presets/pulling_fish/pulling_fish.tscn" id="9_x85ys"]
 [ext_resource type="PackedScene" uid="uid://cc7cirpqmwa7b" path="res://presets/fish/fish_entity.tscn" id="10_n1qeg"]
 [ext_resource type="PackedScene" uid="uid://cpldldpn0o02" path="res://presets/enemy/Ancient.tscn" id="14_cvqs5"]
@@ -243,4 +243,5 @@ shape = SubResource("RectangleShape2D_amaaj")
 
 [node name="Parallax" parent="." instance=ExtResource("15_5pkrj")]
 
+[connection signal="body_entered" from="Portal" to="." method="_on_portal_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
