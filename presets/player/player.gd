@@ -81,8 +81,8 @@ func _process(delta):
 	if hp == 0:
 		print("YOU DIED")
 		hp = 3
-		position.x = -1150
-		position.y = -45
+		SaveState.n_deaths = SaveState.n_deaths + 1 
+		get_tree().reload_current_scene()
 
 	if Input.is_action_just_pressed("left_click") and $Inventory.visible:
 		if on_item_1:
@@ -682,8 +682,8 @@ func show_FishOpedia():
 		$Fish_Opedia/ColorRect/Fish_texture7.texture = preload("res://assets/UI/inventory_icon/inspector_Silver Fish.png")
 		$Fish_Opedia/ColorRect/Fish_texture7/Label.text = "Silver Fish"
 	if SaveState.seen_fish[7]:
-		$Fish_Opedia/ColorRect/Fish_texture7.texture = preload("res://assets/UI/inventory_icon/inspector_Yellowfin Tuna.png")
-		$Fish_Opedia/ColorRect/Fish_texture7/Label.text = "Yellowfin Tuna"
+		$Fish_Opedia/ColorRect/Fish_texture8.texture = preload("res://assets/UI/inventory_icon/inspector_Yellowfin Tuna.png")
+		$Fish_Opedia/ColorRect/Fish_texture8/Label.text = "Yellowfin Tuna"
 
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
@@ -726,6 +726,7 @@ func fishing_minigame_1(check_bait):
 			if Input.is_action_just_pressed("hook_action"):
 				$fish_meter/fish_label.visible = true
 				$fish_meter/fish_label.text = "OK!"
+				SaveState.minigame_success = SaveState.minigame_success + 1
 				if check_bait.get_ref():                      # If it was able to, object still on the loose!
 					if hook_reference is Hook_Simple:
 						hook_reference.fish_follow = true
@@ -741,6 +742,7 @@ func fishing_minigame_1(check_bait):
 		if Input.is_action_just_pressed("hook_action"):
 			$fish_meter/fish_label.visible = true
 			$fish_meter/fish_label.text = "NICE CATCH!"
+			SaveState.minigame_success = SaveState.minigame_success + 1
 			if check_bait.get_ref():                      # If it was able to, object still on the loose!
 				if hook_reference is Hook_Simple:
 					hook_reference.fish_follow = true
@@ -755,6 +757,7 @@ func fishing_minigame_1(check_bait):
 	or Input.is_action_just_pressed("hook_action") and $fish_meter/pointer.position.x > 10:
 		$fish_meter/fish_label.visible = true
 		$fish_meter/fish_label.text = "YIKES"
+		SaveState.minigame_failure = SaveState.minigame_failure + 1
 		if check_bait.get_ref():                      # If it was able to, object still on the loose!
 			hook_reference.being_targeted = false
 			hook_reference.hook_reel(false)
@@ -846,6 +849,7 @@ func fishing_minigame_2(check_bait):
 					$fish_meter/round5.play("green")
 			
 			if minigame_2_round_counter >= minigame_2_required:
+				SaveState.minigame_success = SaveState.minigame_success + 1
 				if check_bait.get_ref():                      # If it was able to, object still on the loose!
 					if hook_reference is Hook_Simple:
 						hook_reference.fish_follow = true
@@ -864,6 +868,7 @@ func fishing_minigame_2(check_bait):
 		$fish_meter/fish_label.visible = true
 		minigame_2_combo = 0
 		$fish_meter/fish_label.text = "YIKES"
+		SaveState.minigame_failure = SaveState.minigame_failure + 1
 		minigame_2_round_counter += 1
 		match minigame_2_round_counter:
 			1:
