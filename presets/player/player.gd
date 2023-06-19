@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-@export var SPEED_PUSH = 100
+@export var SPEED_PUSH = 200
 @export var SPEED = 200.0
 @export var SPEED_WATER = 150.0
 @export var JUMP_VELOCITY = -575.0
@@ -339,7 +339,7 @@ func _on_land(delta):
 			if collider is Box2D:
 				pushing_box = true
 				collider.player_pushing = true
-				collider.slide(-collision.get_normal() * (SPEED_PUSH/2))
+				collider.slide(-collision.get_normal() * (SPEED_PUSH))
 	move_and_slide()	
 	
 func get_on_water():
