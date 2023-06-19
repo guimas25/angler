@@ -8,32 +8,37 @@
 [node name="Parallax" type="CanvasLayer"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-scroll_ignore_camera_zoom = true
+offset = Vector2(960, 540)
+transform = Transform2D(1, 0, 0, 1, 960, 540)
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1024, 512)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(960, 540)
-scale = Vector2(5, 5)
+scale = Vector2(2, 2)
 texture = ExtResource("1_xy10l")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0)
+motion_mirroring = Vector2(1024, 512)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2(960, 540)
-scale = Vector2(5, 5)
+scale = Vector2(2, 2)
 texture = ExtResource("2_rttsb")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0)
+motion_mirroring = Vector2(1024, 512)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-position = Vector2(960, 540)
-scale = Vector2(5, 5)
+scale = Vector2(2, 2)
 texture = ExtResource("3_5r2g1")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(1024, 512)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2(960, 540)
-scale = Vector2(5, 5)
+scale = Vector2(2, 2)
 texture = ExtResource("4_yw8p8")
