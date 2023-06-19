@@ -230,6 +230,9 @@ func _on_water(delta):
 	velocity.x = move_toward(velocity.x, direction_h * SPEED_WATER, 30)
 	velocity.y = move_toward(velocity.y, direction_v * SPEED_WATER, 30)
 	
+	if velocity.y > 100:
+		velocity.y = 100
+	
 	move_and_slide()
 	
 func _on_land(delta):
