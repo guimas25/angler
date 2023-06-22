@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcr25j3ng2goc"
-path="res://.godot/imported/small_Cool sardine.png-1a3fe1afb9b9c11a7f8c2de558181670.ctex"
+path="res://.godot/imported/small_Cool Sardine.png-27fb66ad152546714206ee9962e89539.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/inventory_icon/small_Cool sardine.png"
-dest_files=["res://.godot/imported/small_Cool sardine.png-1a3fe1afb9b9c11a7f8c2de558181670.ctex"]
+source_file="res://assets/UI/inventory_icon/small_Cool Sardine.png"
+dest_files=["res://.godot/imported/small_Cool Sardine.png-27fb66ad152546714206ee9962e89539.ctex"]
 
 [params]
 
