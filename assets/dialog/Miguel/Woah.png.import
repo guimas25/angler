@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7p1dushkjrk1"
-path="res://.godot/imported/inspector_Cool Sardine.png-372e7ed0a44679365814fc444f2d478f.ctex"
+uid="uid://ct7gmgdt3i5u1"
+path="res://.godot/imported/Woah.png-256a841875c08c1f782dad8b793e6bda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/inventory_icon/inspector_Cool Sardine.png"
-dest_files=["res://.godot/imported/inspector_Cool Sardine.png-372e7ed0a44679365814fc444f2d478f.ctex"]
+source_file="res://assets/dialog/Miguel/Woah.png"
+dest_files=["res://.godot/imported/Woah.png-256a841875c08c1f782dad8b793e6bda.ctex"]
 
 [params]
 

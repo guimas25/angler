@@ -662,28 +662,28 @@ func show_FishOpedia():
 	$Fish_Opedia/ColorRect/Label.text = str(int((j/8.0) * 100.0)) + "%"
 	if SaveState.seen_fish[0]:
 		$Fish_Opedia/ColorRect/Fish_texture.texture = preload("res://assets/UI/inventory_icon/inspector_Cool sardine.png")
-		$Fish_Opedia/ColorRect/Fish_texture/Label.text = "Cool Sardine"
+		$Fish_Opedia/ColorRect/Fish_texture/Label.text = "Cool\nSardine"
 	if SaveState.seen_fish[1]:
 		$Fish_Opedia/ColorRect/Fish_texture2.texture = preload("res://assets/UI/inventory_icon/small_Wacky Carp.png")
-		$Fish_Opedia/ColorRect/Fish_texture2/Label.text = "Wacky Carp"
+		$Fish_Opedia/ColorRect/Fish_texture2/Label.text = "Wacky\nCarp"
 	if SaveState.seen_fish[2]:
 		$Fish_Opedia/ColorRect/Fish_texture3.texture = preload("res://assets/UI/inventory_icon/inspector_Shy Jellyfish.png")
-		$Fish_Opedia/ColorRect/Fish_texture3/Label.text = "Shy Jellyfish"
+		$Fish_Opedia/ColorRect/Fish_texture3/Label.text = "Shy\nJellyfish"
 	if SaveState.seen_fish[3]:
 		$Fish_Opedia/ColorRect/Fish_texture4.texture = preload("res://assets/UI/inventory_icon/inspector_Lemon Sardine.png")
-		$Fish_Opedia/ColorRect/Fish_texture4/Label.text = "Lemon Sardine"
+		$Fish_Opedia/ColorRect/Fish_texture4/Label.text = "Lemon\nSardine"
 	if SaveState.seen_fish[4]:
 		$Fish_Opedia/ColorRect/Fish_texture5.texture = preload("res://assets/UI/inventory_icon/inspector_Red Salmon.png")
-		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Red Salmon"
+		$Fish_Opedia/ColorRect/Fish_texture5/Label.text = "Red\nSalmon"
 	if SaveState.seen_fish[5]:
 		$Fish_Opedia/ColorRect/Fish_texture6.texture = preload("res://assets/UI/inventory_icon/inspector_Shrimp.png")
 		$Fish_Opedia/ColorRect/Fish_texture6/Label.text = "Shrimp"
 	if SaveState.seen_fish[6]:
 		$Fish_Opedia/ColorRect/Fish_texture7.texture = preload("res://assets/UI/inventory_icon/inspector_Silver Fish.png")
-		$Fish_Opedia/ColorRect/Fish_texture7/Label.text = "Silver Fish"
+		$Fish_Opedia/ColorRect/Fish_texture7/Label.text = "Silver\nFish"
 	if SaveState.seen_fish[7]:
 		$Fish_Opedia/ColorRect/Fish_texture8.texture = preload("res://assets/UI/inventory_icon/inspector_Yellowfin Tuna.png")
-		$Fish_Opedia/ColorRect/Fish_texture8/Label.text = "Yellowfin Tuna"
+		$Fish_Opedia/ColorRect/Fish_texture8/Label.text = "Yellowfin\nTuna"
 
 func initiate_pulling(x):
 	set_collision_layer_value(1, false)
